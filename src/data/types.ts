@@ -77,7 +77,9 @@ export type Block =
   | { type: 'link'; label: string; url: string; purpose?: string; fallbackPath?: string }
   | { type: 'product'; product: Product }
   /** Stock planner for the NovaStep products; generates a Sidekick prompt to set On hand. */
-  | { type: 'inventory' };
+  | { type: 'inventory' }
+  /** Per-product photo upload guide (main + variant images) with ZIP downloads. */
+  | { type: 'upload-images' };
 
 export interface Topic {
   id: string;

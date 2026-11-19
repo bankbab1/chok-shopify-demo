@@ -238,6 +238,38 @@ We continuously improve based on feedback from real users.`,
   },
 ];
 
+// Sidekick can fetch public image links and add them to a product (confirmed in a live Sidekick chat);
+// the manual steps stay as the fallback.
+const UPLOAD_IMAGES_TOPIC: Topic = {
+  id: 'upload-images',
+  title: 'Upload Images',
+  summary: 'Add each product’s photos and link the color photos to their variants.',
+  outcome: ['Each product shows its main image first', 'Choosing a color on the product page switches to that color’s photo'],
+  blocks: [
+    {
+      type: 'steps',
+      items: [
+        'Download the product’s photos with the ZIP button below and unzip them',
+        'Go to “Products” and open the product',
+        'In “Media”, click “Upload new” (or drag the files in) — put the “Main image” first',
+        'Under “Variants”, click the image icon next to a color variant and pick the matching color photo',
+        'Repeat for every color, then click “Save”',
+      ],
+    },
+    {
+      type: 'note',
+      text: 'Do the first product by hand with the steps above, then use “Bulk upload with Sidekick” below for the rest — Sidekick fetches the photos from their links and prepares them for you to review and save. Variant images must already be in the product’s Media.',
+    },
+    { type: 'upload-images' },
+    {
+      type: 'link',
+      label: 'Shopify Help: Add images to variants',
+      url: 'https://help.shopify.com/en/manual/products/product-media/add-images-variants',
+      purpose: 'Official guide for assigning images to variants.',
+    },
+  ],
+};
+
 const productTopics: Topic[] = PRODUCTS.map((p) => ({
   id: p.title.toLowerCase().replace(/^novastep\s+/, '').replace(/\s+/g, '-'),
   title: p.title.replace(/^NovaStep\s+/, ''),
@@ -577,7 +609,7 @@ export const SECTIONS: Section[] = [
     title: 'Products',
     icon: Package,
     summary: 'Four NovaStep demo products with variants and metafields.',
-    topics: productTopics,
+    topics: [...productTopics, UPLOAD_IMAGES_TOPIC],
   },
   {
     id: 'theme',

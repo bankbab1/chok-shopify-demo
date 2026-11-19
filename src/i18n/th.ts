@@ -396,6 +396,13 @@ export const TH: Record<string, string> = {
   'Most stores — fast to launch': 'ร้านค้าทั่วไป — เปิดร้านได้เร็ว',
   'Brands needing a unique, custom experience': 'แบรนด์ที่ต้องการประสบการณ์เฉพาะตัว',
 
+  /* ---------------------------------------------------------------- App links */
+  'Open in Shopify App Store': 'เปิดใน Shopify App Store',
+  'App listing for Wishlist by Square — click “Install” and choose your store.': 'หน้าแอป Wishlist by Square — คลิก “Install” แล้วเลือกร้านของคุณ',
+  'App listing for Shopify Inbox — click “Install” and choose your store.': 'หน้าแอป Shopify Inbox — คลิก “Install” แล้วเลือกร้านของคุณ',
+  'Let shoppers save products and buy them later.': 'ให้ลูกค้าบันทึกสินค้าที่ชอบไว้ แล้วกลับมาซื้อภายหลัง',
+  'Chat with customers from your online store.': 'แชตกับลูกค้าได้โดยตรงจากหน้าร้านออนไลน์',
+
   /* ---------------------------------------------------------------- Block titles */
   'Product metafield keys': 'Key ของ Metafields สินค้า',
   'Page text metafields': 'Metafields เพจ (ข้อความ)',

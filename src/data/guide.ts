@@ -751,7 +751,15 @@ export const SECTIONS: Section[] = [
       {
         id: 'wishlist',
         title: 'Wishlist by Square',
+        summary: 'Let shoppers save products and buy them later.',
         blocks: [
+          {
+            type: 'link',
+            label: 'Open in Shopify App Store',
+            url: 'https://apps.shopify.com/wishlist-by-square',
+            purpose: 'App listing for Wishlist by Square — click “Install” and choose your store.',
+            fallbackPath: 'Admin → Apps → Shopify App Store → search “Wishlist by Square”',
+          },
           {
             type: 'steps',
             items: [
@@ -771,7 +779,15 @@ export const SECTIONS: Section[] = [
       {
         id: 'shopify-inbox',
         title: 'Shopify Inbox',
+        summary: 'Chat with customers from your online store.',
         blocks: [
+          {
+            type: 'link',
+            label: 'Open in Shopify App Store',
+            url: 'https://apps.shopify.com/inbox',
+            purpose: 'App listing for Shopify Inbox — click “Install” and choose your store.',
+            fallbackPath: 'Admin → Apps → Shopify App Store → search “Shopify Inbox”',
+          },
           { type: 'steps', items: ['Search for “Shopify Inbox” and click “Install”', 'Add “Shopify Inbox” to the theme'] },
           { type: 'images', images: [img('p092_0'), img('p092_1'), img('p093_0', 'Inbox in theme')] },
         ],

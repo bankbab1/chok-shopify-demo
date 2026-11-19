@@ -14,12 +14,16 @@ import {
   Moon,
   PanelLeftClose,
   PanelLeftOpen,
+  Presentation,
+  Store,
   RotateCcw,
   Search,
   Sun,
   X,
 } from 'lucide-react';
 import { FLAT_TOPICS, SECTIONS } from '../data/guide';
+import { SLIDES } from '../data/slides';
+const SLIDE_COUNT = SLIDES.length;
 import type { Section } from '../data/types';
 import { useTheme } from '../hooks/useTheme';
 import { ProgressProvider, useProgress } from '../hooks/useProgress';
@@ -37,7 +41,9 @@ const EXTRA_LINKS = [
   { to: '/resources', label: 'Resources', icon: FolderDown },
   { to: '/help', label: 'Help & FAQ', icon: CircleHelp },
 ];
-const PAGE_TITLES: Record<string, string> = { resources: 'Resources', help: 'Help & FAQ' };
+const PAGE_TITLES: Record<string, string> = { resources: 'Resources', help: 'Help & FAQ', present: 'Presentation', examples: 'Example Stores' };
+const EXAMPLES_LINK = { to: '/examples', label: 'Example Stores', icon: Store };
+const PRESENT_LINK = { to: '/present', label: 'Presentation', icon: Presentation };
 
 export default function Layout() {
   return (
@@ -310,6 +316,15 @@ function ExpandedNav() {
           <House size={17} className="shrink-0" />
           <span className="truncate">{t('Overview')}</span>
         </NavLink>
+        <NavLink to={PRESENT_LINK.to} className={({ isActive }) => clsx(ROW, 'mt-0.5 h-9', FOCUS, isActive ? ROW_ACTIVE : ROW_IDLE)}>
+          <PRESENT_LINK.icon size={17} className="shrink-0" />
+          <span className="min-w-0 flex-1 truncate">{t(PRESENT_LINK.label)}</span>
+          <span className="rounded-full bg-indigo-100 px-1.5 py-px text-[10px] font-semibold tabular-nums text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200">{SLIDE_COUNT}</span>
+        </NavLink>
+        <NavLink to={EXAMPLES_LINK.to} className={({ isActive }) => clsx(ROW, 'mt-0.5 h-9', FOCUS, isActive ? ROW_ACTIVE : ROW_IDLE)}>
+          <EXAMPLES_LINK.icon size={17} className="shrink-0" />
+          <span className="truncate">{t(EXAMPLES_LINK.label)}</span>
+        </NavLink>
 
         <div className="mb-1 mt-4 px-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">{t('Modules')}</div>
 
@@ -415,6 +430,12 @@ function CollapsedNav() {
     <nav className="flex min-h-0 flex-1 flex-col items-center gap-1.5 overflow-y-auto px-3 py-3">
       <NavLink to="/" end title={t('Overview')} className={({ isActive }) => tile(isActive)}>
         <House size={18} />
+      </NavLink>
+      <NavLink to={PRESENT_LINK.to} title={t(PRESENT_LINK.label)} className={({ isActive }) => tile(isActive)}>
+        <PRESENT_LINK.icon size={18} />
+      </NavLink>
+      <NavLink to={EXAMPLES_LINK.to} title={t(EXAMPLES_LINK.label)} className={({ isActive }) => tile(isActive)}>
+        <EXAMPLES_LINK.icon size={18} />
       </NavLink>
       <div className="my-1 w-8 border-t border-slate-100 dark:border-white/10" />
       {SECTIONS.map((s) => {

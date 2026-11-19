@@ -13,7 +13,9 @@ Brand-neutral UI with a purple accent (one token block in `src/index.css` re-bra
 - Theme text specs that show each heading's style, colour swatch and size
 - Interactive product cards: clicking a colour swaps the photo; metafield values are in tabs, each with a copy button
 - **Mark as complete**, Prev/Next, Continue workshop, and per-module progress, saved in this browser's `localStorage`
-- **Resources** page with logo, product and page images to download · **Help & FAQ** page
+- **Presentation**: 20 speaker slides with notes (TH/EN), a timer, a next-slide preview, fullscreen (F), blank screen (B), clicker/keyboard control, and links from each module slide to its hands-on section
+- **Example Stores**: Cher Skincare (Headless / Hydrogen) and Tada Parfumeur (pre-launch, with a copy-password button), plus a Theme vs Headless comparison
+- **Resources** page: per-file download, or ZIP downloads (all, per section, per product) organised in folders · **Help & FAQ** page
 - Workshop/Test labels on test-only steps (test payments, test orders)
 - Responsive layout with a mobile drawer, dark mode, keyboard focus rings and reduced-motion support
 
@@ -36,6 +38,8 @@ All content is data. You don't need to change any components.
 | `src/data/products.ts` | The four NovaStep products and their metafield values |
 | `src/data/resources.ts` | Downloadable assets on the Resources page |
 | `src/data/help.ts` | FAQ entries |
+| `src/data/slides.ts` | Presentation slide titles, speaker notes and hands-on links (`public/slides/*.webp`) |
+| `src/data/examples.ts` | Example stores shown on the Example Stores page |
 | `src/i18n/th.ts` | Thai translations, keyed by the English source text (dev: `window.__missingTh` lists gaps) |
 | `src/data/snippets/*` | Long code snippets, imported with `?raw` |
 | `public/guide/*.webp` | Screenshots taken from `Instructions.pdf` (`pPPP_N` = page, image index) |

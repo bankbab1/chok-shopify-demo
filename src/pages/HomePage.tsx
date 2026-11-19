@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CircleHelp, FlaskConical, FolderDown, Play, RotateCcw } from 'lucide-react';
+import { ArrowRight, CircleHelp, FlaskConical, FolderDown, Play, Presentation, RotateCcw } from 'lucide-react';
 import { FLAT_TOPICS, SECTIONS } from '../data/guide';
 import { useProgress } from '../hooks/useProgress';
 import { useT } from '../i18n';
@@ -108,7 +108,8 @@ export default function HomePage() {
         })}
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <QuickLink to="/present" icon={Presentation} title={t('Presentation')} text={t('Speaker slides with notes, timer and fullscreen mode.')} />
         <QuickLink to="/resources" icon={FolderDown} title={t('Resources')} text={t('Logo, product photos and page images to upload into Shopify.')} />
         <QuickLink to="/help" icon={CircleHelp} title={t('Help & troubleshooting')} text={t('Common problems: login, menus that differ, Sidekick, test payments.')} />
       </div>

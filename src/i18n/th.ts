@@ -466,6 +466,15 @@ export const TH: Record<string, string> = {
   'Open in Theme Store': 'เปิดใน Theme Store',
   'Logo settings': 'การตั้งค่าโลโก้',
   'Header settings': 'การตั้งค่า Header',
+  'Typography settings': 'การตั้งค่าตัวอักษร (Typography)',
+  'Headings 1–3': 'หัวข้อ Heading 1–3',
+  'Headings 4–6': 'หัวข้อ Heading 4–6',
+  'Sidekick prompt – Typography': 'Prompt สำหรับ Sidekick – ตัวอักษร (Typography)',
+  'Paste this into Shopify Sidekick. It sets the fonts, paragraph and Heading 1–6 styles from the workshop. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งค่าฟอนต์ ย่อหน้า และสไตล์ Heading 1–6 ตามเวิร์กช็อป ตรวจตัวอย่างแล้วกด Save',
+  'Text color': 'สีข้อความ',
+  Fonts: 'ฟอนต์',
+  Paragraph: 'ย่อหน้า',
   'Sidekick prompt – Header': 'Prompt สำหรับ Sidekick – Header',
   'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home, Product and Collection pages (6 toggles On) — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะเปิด Header แบบโปร่งใสพร้อม Inverse logo ในหน้า Home, Product และ Collection (เปิดครบ 6 สวิตช์) — ซึ่งทำให้ Inverse logo จากขั้นตอน Logo แสดงขึ้นมา ตรวจตัวอย่างแล้วกด Save',

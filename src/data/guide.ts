@@ -185,6 +185,40 @@ Leave "Transparent header text" on its default for all three pages. All 6 toggle
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
+// Values from the Typography screenshots in the workshop PDF (pages 52–53).
+const SIDEKICK_TYPOGRAPHY_PROMPT = `Please update the **Typography** theme settings of my published theme (Horizon).
+
+**Where:** Online Store → Themes → Customize → Theme settings → Typography
+
+**Colors**
+- Text: Palette color (black)
+
+**Fonts**
+- Body: Inter
+- Subheading: Inter
+- Heading: Inter
+- Accent: Inter
+
+**Paragraph**
+- Size: 14px
+- Line height: Loose
+
+**Headings** (Font · Size · Line height · Letter spacing · Case)
+- Heading 1: Heading · 56px · Tight · Normal · Default
+- Heading 2: Heading · 40px · Normal · Normal · Default
+- Heading 3: Heading · 32px · Normal · Normal · Default
+- Heading 4: Heading · 24px · Tight · Normal · Default
+- Heading 5: Subheading · 14px · Loose · Normal · Default
+- Heading 6: Subheading · 12px · Loose · Normal · Default
+
+**Requirements:**
+- Change only the Typography settings listed above. Do not change the logo, header, color schemes, sections or any other setting, and do not publish a different theme.
+- If a setting is already at the value listed, leave it as is.
+- If a setting has a different name in this theme version, use the closest match and tell me which one you used.
+- If you cannot edit theme settings directly, tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
 }
@@ -837,7 +871,27 @@ export const SECTIONS: Section[] = [
         title: 'Theme Setting – Colors',
         summary: 'Typography and color schemes.',
         blocks: [
-          { type: 'images', images: [img('p052_0', 'Typography'), img('p052_1', 'Color schemes'), img('p053_0', 'Color scheme detail')] },
+          {
+            type: 'kv',
+            title: 'Typography settings',
+            prompt: {
+              title: 'Sidekick prompt – Typography',
+              text: SIDEKICK_TYPOGRAPHY_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It sets the fonts, paragraph and Heading 1–6 styles from the workshop. Review the preview, then click Save.',
+            },
+            rows: [
+              { label: 'Text color', value: 'Palette color (black)' },
+              { label: 'Fonts', value: 'Inter (Body · Subheading · Heading · Accent)' },
+              { label: 'Paragraph', value: '14px · Loose' },
+              { label: 'Heading 1', value: 'Heading · 56px · Tight' },
+              { label: 'Heading 2', value: 'Heading · 40px · Normal' },
+              { label: 'Heading 3', value: 'Heading · 32px · Normal' },
+              { label: 'Heading 4', value: 'Heading · 24px · Tight' },
+              { label: 'Heading 5', value: 'Subheading · 14px · Loose' },
+              { label: 'Heading 6', value: 'Subheading · 12px · Loose' },
+            ],
+          },
+          { type: 'images', images: [img('p052_0', 'Typography'), img('p052_1', 'Headings 1–3'), img('p053_0', 'Headings 4–6')] },
         ],
       },
       {

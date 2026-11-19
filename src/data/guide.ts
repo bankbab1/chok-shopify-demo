@@ -148,10 +148,10 @@ const SIDEKICK_HEADER_PROMPT = `Please update the **Header** section of my publi
 **Where:** Online Store → Themes → Customize → Header
 
 **Logo**
-- Position: Left
+- Position: Center
 
 **Menu**
-- Position: Center
+- Position: Left
 - Row: Top
 
 **Search**
@@ -167,19 +167,22 @@ const SIDEKICK_HEADER_PROMPT = `Please update the **Header** section of my publi
 **Home page**
 - Transparent background: On
 - Inverse logo: On
+- Transparent header text: Palette color #FFFFFF (white)
 
 **Product page**
 - Transparent background: On
 - Inverse logo: On
+- Transparent header text: Palette color #FFFFFF (white)
 
 **Collection page**
 - Transparent background: On
 - Inverse logo: On
+- Transparent header text: Palette color #FFFFFF (white)
 
-Leave "Transparent header text" on its default for all three pages. All 6 toggles above (3 × Transparent background, 3 × Inverse logo) must be On.
+All 6 toggles above (3 × Transparent background, 3 × Inverse logo) must be On, and "Transparent header text" must be the palette color #FFFFFF on all three pages (pick white from the color palette, or enter FFFFFF).
 
 **Requirements:**
-- Change only the Header settings listed above. Do not change the logo images, colors, fonts or any other section, and do not publish a different theme.
+- Change only the Header settings listed above. Do not change the logo images, the theme's color schemes, fonts or any other section, and do not publish a different theme.
 - If a setting has a different name in this theme version, use the closest match and tell me which one you used.
 - If you cannot edit theme settings directly, tell me exactly which steps I need to do in the theme editor.
 
@@ -845,13 +848,13 @@ export const SECTIONS: Section[] = [
               tip: 'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home, Product and Collection pages (6 toggles On) — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.',
             },
             rows: [
-              { label: 'Logo position', value: 'Left' },
-              { label: 'Menu position', value: 'Center · Row: Top' },
+              { label: 'Logo position', value: 'Center' },
+              { label: 'Menu position', value: 'Left · Row: Top' },
               { label: 'Search icon', value: 'On · Right · Top' },
               { label: 'Localization', value: 'Country/Region On · Flag Off · Language selector On' },
-              { label: 'Home page', value: 'Transparent background On · Inverse logo On' },
-              { label: 'Product page', value: 'Transparent background On · Inverse logo On' },
-              { label: 'Collection page', value: 'Transparent background On · Inverse logo On' },
+              { label: 'Home page', value: 'Transparent background On · Inverse logo On · Header text #FFFFFF' },
+              { label: 'Product page', value: 'Transparent background On · Inverse logo On · Header text #FFFFFF' },
+              { label: 'Collection page', value: 'Transparent background On · Inverse logo On · Header text #FFFFFF' },
             ],
           },
           {

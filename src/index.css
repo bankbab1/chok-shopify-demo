@@ -70,6 +70,11 @@ html {
   }
 }
 
+@keyframes tipIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @keyframes slideInLeft {
   from { transform: translateX(-110%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
@@ -96,4 +101,12 @@ html {
   select {
     font-size: 16px !important;
   }
+}
+
+/* Scroll without a visible scrollbar (collapsed sidebar). Unlayered so it beats the global `*` rule. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

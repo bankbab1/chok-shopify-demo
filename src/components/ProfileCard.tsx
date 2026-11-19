@@ -120,6 +120,7 @@ export function ProfileButton() {
         type="button"
         onClick={() => setOpen(true)}
         title={`${t('Presenter')}: ${PROFILE.name}`}
+        data-tip-side="right"
         aria-label={`${t('Presenter')}: ${PROFILE.name}`}
         className={clsx(
           'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-bold tracking-wide transition duration-200 active:scale-95',

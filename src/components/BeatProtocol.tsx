@@ -24,8 +24,9 @@ export function BeatProtocolLink({ compact }: { compact?: boolean }) {
         target="_blank"
         rel="noopener noreferrer"
         title={`${t('Powered by')} Beat Protocol`}
+        data-tip-side="right"
         aria-label={`${t('Powered by')} Beat Protocol — ${t('Company profile')}`}
-        className="flex h-10 w-10 items-center justify-center rounded-lg transition hover:bg-orange-50 dark:hover:bg-white/10"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition hover:bg-orange-50 dark:hover:bg-white/10"
       >
         <BeatProtocolMark size={26} />
       </a>

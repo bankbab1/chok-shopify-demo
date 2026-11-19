@@ -92,7 +92,11 @@ function Shell() {
             onClick={() => setCollapsed(!collapsed)}
             aria-label={t(collapsed ? 'Expand sidebar' : 'Collapse sidebar')}
             title={t(collapsed ? 'Expand sidebar' : 'Collapse sidebar')}
-            className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-white/10 dark:hover:text-white"
+            data-tip-side="right"
+            className={clsx(
+              'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-white/10 dark:hover:text-white',
+              !collapsed && 'ml-auto',
+            )}
           >
             {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
           </button>
@@ -366,14 +370,21 @@ function ExpandedNav() {
                         return (
                           <li key={topic.id}>
                             {showGroup && (
-                              <div className="pb-0.5 pl-4 pt-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">{t(topic.group!)}</div>
+                              <div className="mb-0.5 ml-2 mt-2.5 flex items-center gap-2 rounded-md bg-slate-100 px-2 py-1 text-[10.5px] font-semibold uppercase tracking-wider text-slate-600 dark:bg-white/[0.06] dark:text-slate-300">
+                                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
+                                <span className="min-w-0 flex-1 truncate">{t(topic.group!)}</span>
+                                <span className="shrink-0 tabular-nums font-medium normal-case tracking-normal text-slate-400">
+                                  {section.topics.filter((x) => x.group === topic.group).length}
+                                </span>
+                              </div>
                             )}
                             <NavLink
                               to={path}
                               tabIndex={isOpen ? 0 : -1}
                               className={({ isActive: a }) =>
                                 clsx(
-                                  'relative -ml-px flex min-h-8 items-center gap-2 border-l-2 py-1.5 pl-3.5 pr-2 text-[13px] transition-colors',
+                                  'relative -ml-px flex min-h-8 items-center gap-2 border-l-2 py-1.5 pr-2 text-[13px] transition-colors',
+                                  topic.group ? 'pl-6' : 'pl-3.5',
                                   FOCUS,
                                   a
                                     ? 'border-indigo-600 font-semibold text-indigo-700 dark:border-indigo-400 dark:text-indigo-200'
@@ -415,33 +426,71 @@ function CollapsedNav() {
   const location = useLocation();
   const { done } = useProgress();
   const activeSection = location.pathname.split('/')[1];
+  // Square 40px tiles that never shrink; soft tint for the active item; tooltips open to the right.
   const tile = (active: boolean) =>
-    clsx('relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors', FOCUS, active ? 'bg-indigo-600 text-white dark:bg-indigo-500' : ROW_IDLE);
+    clsx(
+      'relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors',
+      FOCUS,
+      active
+        ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200'
+        : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white',
+    );
+  const Indicator = ({ on }: { on: boolean }) =>
+    on ? <span className="absolute -left-3 top-2 bottom-2 w-1 rounded-r-full bg-indigo-600 dark:bg-indigo-400" /> : null;
+  const Divider = () => <div className="my-1.5 h-px w-6 shrink-0 bg-slate-200 dark:bg-white/10" />;
   return (
-    <nav className="flex min-h-0 flex-1 flex-col items-center gap-1.5 overflow-y-auto px-3 py-3">
-      <NavLink to="/" end title={t('Overview')} className={({ isActive }) => tile(isActive)}>
-        <House size={18} />
+    <nav className="flex min-h-0 flex-1 flex-col items-center gap-1 overflow-y-auto overflow-x-hidden px-3 py-3 no-scrollbar">
+      <NavLink to="/" end title={t('Overview')} data-tip-side="right" className={({ isActive }) => tile(isActive)}>
+        {({ isActive }) => (
+          <>
+            <Indicator on={isActive} />
+            <House size={18} />
+          </>
+        )}
       </NavLink>
-      <NavLink to={PRESENT_LINK.to} title={t(PRESENT_LINK.label)} className={({ isActive }) => tile(isActive)}>
-        <PRESENT_LINK.icon size={18} />
+      <NavLink to={PRESENT_LINK.to} title={t(PRESENT_LINK.label)} data-tip-side="right" className={({ isActive }) => tile(isActive)}>
+        {({ isActive }) => (
+          <>
+            <Indicator on={isActive} />
+            <PRESENT_LINK.icon size={18} />
+          </>
+        )}
       </NavLink>
-      <NavLink to={EXAMPLES_LINK.to} title={t(EXAMPLES_LINK.label)} className={({ isActive }) => tile(isActive)}>
-        <EXAMPLES_LINK.icon size={18} />
+      <NavLink to={EXAMPLES_LINK.to} title={t(EXAMPLES_LINK.label)} data-tip-side="right" className={({ isActive }) => tile(isActive)}>
+        {({ isActive }) => (
+          <>
+            <Indicator on={isActive} />
+            <EXAMPLES_LINK.icon size={18} />
+          </>
+        )}
       </NavLink>
-      <div className="my-1 w-8 border-t border-slate-100 dark:border-white/10" />
-      {SECTIONS.map((s) => {
+      <Divider />
+      {SECTIONS.map((s, i) => {
         const complete = sectionDone(s, done) === s.topics.length;
+        const active = activeSection === s.id;
         return (
-          <Link key={s.id} to={`/${s.id}`} title={t(s.title)} className={tile(activeSection === s.id)}>
+          <Link
+            key={s.id}
+            to={`/${s.id}`}
+            title={`${String(i + 1).padStart(2, '0')} · ${t(s.title)}`}
+            data-tip-side="right"
+            className={tile(active)}
+          >
+            <Indicator on={active} />
             <s.icon size={18} />
-            {complete && <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-indigo-500 ring-2 ring-white dark:ring-slate-900" />}
+            {complete && <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500" />}
           </Link>
         );
       })}
-      <div className="my-1 w-8 border-t border-slate-100 dark:border-white/10" />
+      <Divider />
       {EXTRA_LINKS.map((l) => (
-        <NavLink key={l.to} to={l.to} title={t(l.label)} className={({ isActive }) => tile(isActive)}>
-          <l.icon size={18} />
+        <NavLink key={l.to} to={l.to} title={t(l.label)} data-tip-side="right" className={({ isActive }) => tile(isActive)}>
+          {({ isActive }) => (
+            <>
+              <Indicator on={isActive} />
+              <l.icon size={18} />
+            </>
+          )}
         </NavLink>
       ))}
     </nav>
@@ -454,12 +503,40 @@ function SidebarFooter({ collapsed, theme, onToggleTheme }: { collapsed: boolean
   const count = FLAT_TOPICS.filter((tp) => done[tp.path]).length;
   const pct = Math.round((count / FLAT_TOPICS.length) * 100);
   if (collapsed) {
+    const r = 15;
+    const c = 2 * Math.PI * r;
     return (
       <div className="flex shrink-0 flex-col items-center gap-2 border-t border-slate-100 py-3 dark:border-white/10">
-        <button onClick={onToggleTheme} title={t('Toggle dark mode')} aria-label={t('Toggle dark mode')} className={clsx('flex h-10 w-10 items-center justify-center rounded-lg', ROW_IDLE)}>
+        <div
+          title={`${t('Demo progress')} ${count}/${FLAT_TOPICS.length} · ${pct}%`}
+          data-tip-side="right"
+          className="relative flex h-10 w-10 items-center justify-center"
+        >
+          <svg width="36" height="36" viewBox="0 0 36 36" className="-rotate-90" aria-hidden="true">
+            <circle cx="18" cy="18" r={r} fill="none" strokeWidth="3" className="stroke-slate-200 dark:stroke-white/10" />
+            <circle
+              cx="18"
+              cy="18"
+              r={r}
+              fill="none"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={c}
+              strokeDashoffset={c * (1 - pct / 100)}
+              className="stroke-indigo-600 transition-[stroke-dashoffset] duration-300 dark:stroke-indigo-400"
+            />
+          </svg>
+          <span className="absolute text-[9px] font-semibold tabular-nums text-slate-500 dark:text-slate-400">{pct}%</span>
+        </div>
+        <button
+          onClick={onToggleTheme}
+          title={t('Toggle dark mode')}
+          data-tip-side="right"
+          aria-label={t('Toggle dark mode')}
+          className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
+        >
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
-        <span className="text-[10px] tabular-nums text-slate-400">{pct}%</span>
         <ProfileButton />
         <BeatProtocolLink compact />
       </div>

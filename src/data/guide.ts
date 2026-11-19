@@ -132,12 +132,53 @@ const SIDEKICK_LOGO_PROMPT = `Please update the logo in my published theme (Hori
 3. **Desktop logo height:** 36 px
 4. **Mobile logo height:** 28 px
 
+**Note:** the inverse logo only appears where the header is transparent. That is switched on in the Header section (Home page → Transparent background + Inverse logo), which I will set separately — do not change the Header here.
+
 **Requirements:**
 - Fetch each link and upload the image to Files first if needed, then select it in the theme setting.
 - Change only these logo settings. Do not change colors, fonts, sections or any other theme setting, and do not publish a different theme.
 - If you cannot edit theme settings directly, still upload both images to Files and tell me exactly which steps I need to do in the theme editor.
 
 Then show me a summary of what you changed or prepared so I can review it.`;
+
+// Values from the Header settings screenshots in the workshop PDF (pages 50–51).
+const SIDEKICK_HEADER_PROMPT = `Please update the **Header** section of my published theme (Horizon).
+
+**Where:** Online Store → Themes → Customize → Header
+
+**Logo**
+- Position: Center
+
+**Menu**
+- Position: Left
+- Row: Top
+
+**Search**
+- Search icon: On
+- Position: Right
+- Row: Top
+
+**Localization**
+- Country/Region: On
+- Flag: Off
+- Language selector: On
+
+**Home page**
+- Transparent background: On
+- Inverse logo: On (shows the inverse logo over the hero image)
+
+**Product page**
+- Transparent background: Off
+
+**Collection page**
+- Transparent background: Off
+
+**Requirements:**
+- Change only the Header settings listed above. Do not change the logo images, colors, fonts or any other section, and do not publish a different theme.
+- If a setting has a different name in this theme version, use the closest match and tell me which one you used.
+- If you cannot edit theme settings directly, tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
 
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
@@ -738,7 +779,7 @@ export const SECTIONS: Section[] = [
             prompt: {
               title: 'Sidekick prompt – Theme logo',
               text: SIDEKICK_LOGO_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It fetches both logo files from their links. If it can’t change theme settings, it uploads the logos to Files — then pick them in Theme settings → Logo and favicon. Check the header afterwards.',
+              tip: 'Paste this into Shopify Sidekick. It fetches both logo files from their links. If it can’t change theme settings, it uploads the logos to Files — then pick them in Theme settings → Logo and favicon. The inverse logo only shows once the Header step turns on the transparent header.',
             },
             rows: [
               { label: 'Default logo', value: 'NovaStep logo (dark)' },
@@ -758,11 +799,19 @@ export const SECTIONS: Section[] = [
         blocks: [
           {
             type: 'kv',
+            title: 'Header settings',
+            prompt: {
+              title: 'Sidekick prompt – Header',
+              text: SIDEKICK_HEADER_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home page — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.',
+            },
             rows: [
               { label: 'Logo position', value: 'Center' },
               { label: 'Menu position', value: 'Left · Row: Top' },
               { label: 'Search icon', value: 'On · Right · Top' },
+              { label: 'Localization', value: 'Country/Region On · Flag Off · Language selector On' },
               { label: 'Home page', value: 'Transparent background + Inverse logo' },
+              { label: 'Product & collection pages', value: 'Transparent background Off' },
             ],
           },
           {

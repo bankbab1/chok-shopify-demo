@@ -18,16 +18,27 @@ const isLocal = () => /^(localhost|127\.|\[::1\])/.test(window.location.hostname
 
 const LOCAL_TIP = 'These links point to localhost, which Sidekick cannot reach — open this page on the live site to get working links.';
 
-/** Numbered image list for one product: main image first, then each colour → its variants. */
+/**
+ * Numbered image list for one product. In Shopify the FIRST media item is the featured image (★),
+ * so the main image is spelled out as "Media position 1 — FEATURED" and colours as later positions.
+ */
 function imageLines(set: ResourceSet): string {
   const [main, ...colors] = set.items;
   return [
-    `1. Main image — make it the first (featured) image:\n   ${publicUrl(main)}`,
+    `Media position 1 — FEATURED image (★, shown first on the store). Use this image and no other:\n   ${publicUrl(main)}`,
     ...colors.map(
-      (c, i) => `${i + 2}. ${c.title} — add to the media, then set it as the image for every variant where Color = ${c.title} (all sizes):\n   ${publicUrl(c)}`,
+      (c, i) =>
+        `Media position ${i + 2} — ${c.title}: add to the media, then set it as the variant image for every variant where Color = ${c.title} (all sizes). Not the featured image.\n   ${publicUrl(c)}`,
     ),
   ].join('\n');
 }
+
+const MEDIA_RULES = `- Add the images one at a time, in exactly the order listed, so the Media order matches the positions.
+- The featured image (★, Media position 1) must be the "Media position 1" image. A color image must never become the featured image.
+- When all images are added, check the Media order. If the position 1 image is not first, reorder the media so it is. Setting variant images must not change the featured image.
+- Assign each color image to all variants of that color, across every size.
+- If an image from these links is already in the product's Media, reuse it instead of adding a duplicate. Keep any other existing images.
+- Do not change prices, titles, options or any other product data.`;
 
 /** Copy-ready Sidekick request for one product. */
 export function imagesPrompt(set: ResourceSet): string {
@@ -36,29 +47,25 @@ export function imagesPrompt(set: ResourceSet): string {
 ${imageLines(set)}
 
 **Requirements:**
-- Fetch each link and add it to this product's Media in the order above (main image first).
-- Assign each color image to all variants of that color, across every size.
-- Keep any existing product images. Do not change prices, titles, options or other product data.
-- If you cannot assign variant images, add the media anyway and tell me which steps need manual action.
+${MEDIA_RULES}
+- If you cannot assign variant images or reorder the media, add the media anyway and tell me which steps need manual action.
 
-Then show me a summary of the changes so I can review and save.`;
+Then show me the final Media order (position → image) and which variants got which image, so I can review and save.`;
 }
 
 /** Copy-ready Sidekick request for several products at once. */
 export function bulkImagesPrompt(sets: ResourceSet[]): string {
   const sections = sets.map((s, i) => `## ${i + 1}. ${s.title}\n${imageLines(s)}`).join('\n\n');
   const images = sets.reduce((n, s) => n + s.items.length, 0);
-  return `Please add product images to the ${sets.length} products below (${images} images in total) from the public image links. Work through one product at a time.
+  return `Please add product images to the ${sets.length} products below (${images} images in total) from the public image links. Finish one product completely before starting the next.
 
 ${sections}
 
-**Requirements:**
-- For each product, fetch each link and add it to that product's Media in the order listed (main image first).
-- Assign each color image to all variants of that color, across every size.
-- Keep any existing product images. Do not change prices, titles, options or other product data.
-- If you cannot finish a product or assign its variant images, continue with the others and tell me which steps need manual action.
+**Requirements (apply to each product):**
+${MEDIA_RULES}
+- If you cannot finish a product, assign its variant images or reorder its media, continue with the others and tell me which steps need manual action.
 
-Then show me a summary per product so I can review and save.`;
+Then show me, per product, the final Media order (position → image) and which variants got which image, so I can review and save.`;
 }
 
 /** Small yellow dot that reveals a hidden shortcut (manual-first exercises). */

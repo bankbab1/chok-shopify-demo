@@ -488,6 +488,7 @@ export const TH: Record<string, string> = {
   'Download the product’s photos with the ZIP button below and unzip them': 'ดาวน์โหลดรูปของสินค้าด้วยปุ่ม ZIP ด้านล่าง แล้วแตกไฟล์',
   'Go to “Products” and open the product': 'ไปที่ “Products” แล้วเปิดสินค้า',
   'In “Media”, click “Upload new” (or drag the files in) — put the “Main image” first': 'ในส่วน “Media” คลิก “Upload new” (หรือลากไฟล์มาวาง) — ให้ “Main image” เป็นรูปแรก',
+  'Check the ★ (featured image) is on the “Main image” — if not, drag the Main image to the first position': 'ตรวจว่า ★ (รูปหลักของสินค้า) อยู่ที่ “Main image” — ถ้าไม่ใช่ ให้ลาก Main image ไปไว้ตำแหน่งแรก',
   'Under “Variants”, click the image icon next to a color variant and pick the matching color photo': 'ในส่วน “Variants” คลิกไอคอนรูปข้างตัวเลือกสี แล้วเลือกรูปสีที่ตรงกัน',
   'Repeat for every color, then click “Save”': 'ทำซ้ำให้ครบทุกสี แล้วคลิก “Save”',
   'Do the first product by hand with the steps above, then use “Bulk upload with Sidekick” below for the rest — Sidekick fetches the photos from their links and prepares them for you to review and save. Variant images must already be in the product’s Media.':

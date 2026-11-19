@@ -252,6 +252,7 @@ const UPLOAD_IMAGES_TOPIC: Topic = {
         'Download the product’s photos with the ZIP button below and unzip them',
         'Go to “Products” and open the product',
         'In “Media”, click “Upload new” (or drag the files in) — put the “Main image” first',
+        'Check the ★ (featured image) is on the “Main image” — if not, drag the Main image to the first position',
         'Under “Variants”, click the image icon next to a color variant and pick the matching color photo',
         'Repeat for every color, then click “Save”',
       ],

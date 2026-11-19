@@ -55,6 +55,7 @@ The site is deployed as a **Cloudflare Worker with static assets** (`wrangler.to
    - Build command: `npm run build`
    - Deploy command: `npx wrangler deploy`
    - Root directory: `/`
+   - Node.js 22 is pinned via `.node-version` (wrangler 4 needs Node >= 22.12)
 3. Worker → Settings → Domains & Routes → enable the **workers.dev** URL (or add a custom domain).
 4. Every push to `main` builds and deploys.
 

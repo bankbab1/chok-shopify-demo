@@ -400,6 +400,7 @@ export const TH: Record<string, string> = {
   Presenter: 'ผู้บรรยาย',
   Call: 'โทร',
   Email: 'อีเมล',
+  'Nompong LINE Stickers': 'สติกเกอร์ LINE Nompong',
   'Company profile': 'ข้อมูลบริษัท',
   'Your element class': 'Class ของปุ่ม/Element ในร้านของคุณ',
   'Copy example': 'คัดลอกตัวอย่าง',

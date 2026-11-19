@@ -70,6 +70,13 @@ html {
   }
 }
 
+/* Profile avatar: photo → Nompong → photo, a gentle cross-fade with a tiny pop. */
+@keyframes avatarSwap {
+  0%, 38% { opacity: 0; transform: scale(0.94); }
+  48%, 88% { opacity: 1; transform: scale(1); }
+  98%, 100% { opacity: 0; transform: scale(0.94); }
+}
+
 @keyframes tipIn {
   from { opacity: 0; }
   to { opacity: 1; }

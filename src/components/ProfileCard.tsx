@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { Check, Copy, Mail, Phone, X } from 'lucide-react';
+import { Check, Copy, ExternalLink, Mail, Phone, X } from 'lucide-react';
 import { copyText } from './ui';
 import { useT } from '../i18n';
 
@@ -14,6 +14,9 @@ const PROFILE = {
   tel: '+66859941717',
   email: 'ct_chok@hotmail.com',
   photo: '/profile/chokchai.webp',
+  /** Nompong — the presenter's LINE sticker character. */
+  mascot: '/profile/nompong.webp',
+  lineStore: 'https://store.line.me/stickershop/author/6750228/th',
 };
 
 /** One contact line: icon, tappable value (tel:/mailto:), copy button. */
@@ -48,6 +51,7 @@ function ContactRow({ icon, value, href }: { icon: ReactNode; value: string; hre
 
 function Card({ onClose }: { onClose: () => void }) {
   const t = useT();
+  const [showLine, setShowLine] = useState(false);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -74,13 +78,40 @@ function Card({ onClose }: { onClose: () => void }) {
           <X size={16} />
         </button>
         <div className="-mt-10 px-5 pb-5">
-          <img
-            src={PROFILE.photo}
-            alt={PROFILE.name}
-            width={80}
-            height={80}
-            className="h-20 w-20 rounded-full border-4 border-white object-cover shadow-md dark:border-slate-900"
-          />
+          {/* Avatar cross-fades between the photo and Nompong; click it to reveal the LINE sticker store link. */}
+          <div className="flex items-end gap-3">
+            <button
+              type="button"
+              onClick={() => setShowLine((v) => !v)}
+              title={t('Nompong LINE Stickers')}
+              aria-expanded={showLine}
+              aria-label={t('Nompong LINE Stickers')}
+              className="group relative h-20 w-20 shrink-0 rounded-full border-4 border-white bg-[#fdf6ec] shadow-md transition hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 active:scale-95 dark:border-slate-900"
+            >
+              <img src={PROFILE.photo} alt={PROFILE.name} width={72} height={72} className="absolute inset-0 h-full w-full rounded-full object-cover" />
+              <img
+                src={PROFILE.mascot}
+                alt="Nompong"
+                width={72}
+                height={72}
+                className="absolute inset-0 h-full w-full rounded-full object-cover opacity-0 motion-safe:animate-[avatarSwap_7s_ease-in-out_infinite]"
+              />
+              <span className="absolute -bottom-0.5 -right-0.5 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-[#06C755] text-[8px] font-extrabold tracking-tight text-white dark:border-slate-900">
+                LINE
+              </span>
+            </button>
+            {showLine && (
+              <a
+                href={PROFILE.lineStore}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mb-1 inline-flex min-w-0 items-center gap-1.5 rounded-full bg-[#06C755] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#05b34c] motion-safe:animate-[fadeIn_.2s_ease-out]"
+              >
+                <span className="truncate">{t('Nompong LINE Stickers')}</span>
+                <ExternalLink size={12} className="shrink-0" />
+              </a>
+            )}
+          </div>
           <div className="mt-3 text-lg font-semibold leading-tight">{PROFILE.name}</div>
           <div className="mt-0.5 text-sm text-indigo-700 dark:text-indigo-300">{PROFILE.position}</div>
 

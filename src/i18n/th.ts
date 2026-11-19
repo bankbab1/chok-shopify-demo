@@ -466,6 +466,9 @@ export const TH: Record<string, string> = {
   'Logo settings': 'การตั้งค่าโลโก้',
   'Header settings': 'การตั้งค่า Header',
   'Sidekick prompt – Hero': 'Prompt สำหรับ Sidekick – Hero',
+  'Sidekick prompt – Footer': 'Prompt สำหรับ Sidekick – Footer',
+  'Paste this into Shopify Sidekick. It sets “JOIN US” and the sign-up text in #DFDFDF on a black footer, keeping the email field. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งข้อความ “JOIN US” และข้อความชวนสมัครเป็นสี #DFDFDF บนพื้นหลังสีดำของ Footer โดยยังคงช่องกรอกอีเมลไว้ ตรวจตัวอย่างแล้วกด Save',
   'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูป Hero จากลิงก์ และตั้งค่าข้อความทั้ง 3 ส่วนพร้อมสไตล์และสี ตรวจตัวอย่างแล้วกด Save',
   'Sidekick prompt – Featured collection': 'Prompt สำหรับ Sidekick – Featured collection',

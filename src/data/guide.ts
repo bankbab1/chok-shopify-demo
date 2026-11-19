@@ -260,6 +260,27 @@ const SIDEKICK_FEATURED_COLLECTION_PROMPT = `Please set up the **Featured collec
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
+// Footer email sign-up, from the workshop PDF (page 60).
+const SIDEKICK_FOOTER_PROMPT = `Please update the **email sign-up area in the Footer** of my published theme (Horizon).
+
+**Where:** Online Store → Themes → Customize → Footer (the section with the email sign-up, currently "Join our email list")
+
+**Text, centered, in this order:**
+1. Heading — "JOIN US" — style Heading 2 — color #DFDFDF
+2. Text — "Get exclusive deals and early access to new products." — custom size 16px — color #DFDFDF
+3. Email signup — keep the email field with the arrow button, centered below the text
+
+**Background:** black (#000000) for this footer email sign-up area.
+
+**Requirements:**
+- Replace the default heading and text with the text above, exactly as written (including capital letters).
+- Keep the email signup form working — do not remove it.
+- Apply the black background to this footer area only. If that needs a color scheme that would also change other sections, tell me instead of changing it.
+- Do not change the footer menus, the header, other sections or theme settings, and do not publish a different theme.
+- If you cannot edit the section directly, tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
 }
@@ -1096,6 +1117,11 @@ export const SECTIONS: Section[] = [
           {
             type: 'specs',
             title: 'Footer text',
+            prompt: {
+              title: 'Sidekick prompt – Footer',
+              text: SIDEKICK_FOOTER_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It sets “JOIN US” and the sign-up text in #DFDFDF on a black footer, keeping the email field. Review the preview, then click Save.',
+            },
             rows: [
               { text: 'JOIN US', style: 'Heading 2', color: '#DFDFDF' },
               { text: 'Get exclusive deals and early access to new products.', style: 'Custom', color: '#DFDFDF', size: '16px' },

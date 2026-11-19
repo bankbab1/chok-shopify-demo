@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import { AlertTriangle, Check, ChevronDown, Code2, Download, ExternalLink, Info, ListChecks, Sparkles } from 'lucide-react';
-import type { Block, Product, PromptSpec, SpecRow } from '../data/types';
+import type { Block, Product, PromptSpec, SelectorSpec, SpecRow } from '../data/types';
+import { usePersistedState } from '../hooks/usePersistedState';
 import { Card, CardHeader, CopyButton, ImageGrid, Modal, RichLine } from './ui';
 import { useT } from '../i18n';
 
@@ -14,7 +15,7 @@ export function BlockView({ block }: { block: Block }) {
     case 'specs':
       return <Specs title={block.title} rows={block.rows} />;
     case 'code':
-      return <CodeBlock title={block.title} lang={block.lang} code={block.code} />;
+      return <CodeBlock title={block.title} lang={block.lang} code={block.code} selector={block.selector} />;
     case 'copylist':
       return <CopyList title={block.title} meta={block.meta} items={block.items} prompt={block.prompt} />;
     case 'kv':
@@ -170,8 +171,30 @@ function Specs({ title, rows }: { title: string; rows: SpecRow[] }) {
 
 /* ---------------------------------------------------------------- Code */
 
-function CodeBlock({ title, lang, code }: { title: string; lang: string; code: string }) {
+/**
+ * Turns whatever the user pasted into a CSS selector:
+ * "button-custom--x", ".button-custom--x", "#id", 'class="button button-custom--x"', or a whole HTML tag.
+ */
+export function toSelector(raw: string, prefer?: string): string {
+  let v = raw.trim();
+  if (!v) return '';
+  const classAttr = v.match(/class\s*=\s*["']([^"']+)["']/i);
+  const idAttr = v.match(/(?:^|[\s<])id\s*=\s*["']([^"']+)["']/i);
+  if (classAttr) v = classAttr[1];
+  else if (idAttr && !/^[.#]/.test(v)) return `#${idAttr[1].trim()}`;
+  if (/^[.#]/.test(v) && !/\s/.test(v)) return v;
+  const tokens = v.split(/[\s,]+/).map((x) => x.replace(/^\./, '')).filter(Boolean);
+  if (!tokens.length) return '';
+  const pick = (prefer && tokens.find((x) => x.startsWith(prefer))) || tokens.find((x) => x.includes('--')) || tokens[tokens.length - 1];
+  return pick.startsWith('#') ? pick : `.${pick}`;
+}
+
+function CodeBlock({ title, lang, code: template, selector }: { title: string; lang: string; code: string; selector?: SelectorSpec }) {
   const t = useT();
+  const [raw, setRaw] = usePersistedState(`sdp-selector:${title}`, '');
+  const parsed = selector ? toSelector(raw, selector.prefer) : '';
+  const usingExample = !!selector && !parsed;
+  const code = selector ? template.split('{{selector}}').join(parsed || selector.example) : template;
   const lines = code.split('\n').length;
   const long = lines > 24;
   const [expanded, setExpanded] = useState(!long);
@@ -184,12 +207,52 @@ function CodeBlock({ title, lang, code }: { title: string; lang: string; code: s
           </span>
         }
         meta={`${lang.toUpperCase()} · ${t('{n} lines', { n: lines })}`}
-        action={<CopyButton text={code} label="Copy code" />}
+        action={<CopyButton text={code} label={usingExample ? 'Copy example' : 'Copy code'} primary={!!selector && !usingExample} />}
       />
+
+      {selector && (
+        <div className="space-y-2 border-b border-slate-100 bg-indigo-50/40 px-4 py-3 dark:border-white/10 dark:bg-indigo-500/5">
+          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-200" htmlFor={`sel-${title}`}>
+            {t('Your element class')}
+          </label>
+          <div className="flex gap-2">
+            <input
+              id={`sel-${title}`}
+              value={raw}
+              onChange={(e) => setRaw(e.target.value)}
+              placeholder={selector.example}
+              spellCheck={false}
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="h-10 min-w-0 flex-1 rounded-lg border border-slate-200 bg-white px-3 font-mono text-[13px] outline-none transition placeholder:text-slate-300 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/15 dark:border-white/10 dark:bg-slate-950 dark:placeholder:text-slate-600"
+            />
+            {raw && (
+              <button
+                onClick={() => setRaw('')}
+                className="h-10 shrink-0 rounded-lg border border-slate-200 px-3 text-xs text-slate-500 hover:bg-white dark:border-white/10 dark:hover:bg-white/10"
+              >
+                {t('Clear')}
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-2 text-[11px]">
+            {usingExample ? (
+              <span className="rounded-full bg-amber-100 px-2 py-0.5 font-semibold text-amber-800 dark:bg-amber-500/15 dark:text-amber-200">{t('Showing example — paste your class')}</span>
+            ) : (
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 font-semibold text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-200">
+                <Check size={11} /> {t('Using')} <code className="font-mono">{parsed}</code>
+              </span>
+            )}
+          </div>
+          {selector.hint && <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{t(selector.hint)}</p>}
+        </div>
+      )}
+
       <div className="relative">
         <pre
           className={clsx(
             'overflow-x-auto bg-[#131922] p-4 font-mono text-[12px] leading-relaxed text-slate-200 dark:bg-black/40',
+            selector && 'whitespace-pre-wrap break-all',
             !expanded && 'max-h-80 overflow-y-hidden',
           )}
         >

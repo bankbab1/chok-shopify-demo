@@ -91,10 +91,11 @@ ${PAGE_IMAGE_METAFIELDS.map((n, i) => `${i + 1}. \`${n}\``).join('\n')}
 
 After completion, confirm which definitions were successfully created and list each final namespace and key.`;
 
-const IMAGE_WITH_TEXT_CSS = `.button-custom--Aakg1TzlHWGNWeXFLb__button_eygrzd {
+// `{{selector}}` is replaced with the participant's own button class (see SelectorSpec).
+const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
 }
-.button-custom--Aakg1TzlHWGNWeXFLb__button_eygrzd:hover {
+{{selector}}:hover {
   color: #ffffff !important;
 }`;
 
@@ -587,7 +588,17 @@ export const SECTIONS: Section[] = [
               { text: 'DISCOVER NOVA GOAL', style: 'Button · BG / Border', color: '#BEA77E' },
             ],
           },
-          { type: 'code', title: 'Custom CSS – Image with Text', lang: 'css', code: IMAGE_WITH_TEXT_CSS },
+          {
+            type: 'code',
+            title: 'Custom CSS – Image with Text',
+            lang: 'css',
+            code: IMAGE_WITH_TEXT_CSS,
+            selector: {
+              example: '.button-custom--Aakg1TzlHWGNWeXFLb__button_eygrzd',
+              prefer: 'button-custom--',
+              hint: 'Each store gets its own button class. In the theme editor preview, right-click the button → Inspect, then copy the class that starts with button-custom-- (pasting the whole class="…" or HTML tag also works).',
+            },
+          },
           { type: 'images', images: [img('p057_0', 'Image with text'), img('p058_0', 'Custom CSS')] },
         ],
       },

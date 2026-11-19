@@ -4,7 +4,10 @@
  * `links` jump from a slide to the matching hands-on workshop module.
  */
 export interface Slide {
+  /** Position in the deck (1-based), computed from the list order. */
   n: number;
+  /** Image file number: /public/slides/slide-NN.webp (from the original PDF page). */
+  file: number;
   title: string;
   notes: { th: string[]; en: string[] };
   links?: { label: string; to: string }[];
@@ -13,14 +16,15 @@ export interface Slide {
 }
 
 const s = (
-  n: number,
+  file: number,
   title: string,
   th: string[],
   en: string[],
   extra: Partial<Pick<Slide, 'links' | 'minutes'>> = {},
-): Slide => ({ n, title, notes: { th, en }, ...extra });
+): Omit<Slide, 'n'> => ({ file, title, notes: { th, en }, ...extra });
 
-export const SLIDES: Slide[] = [
+// Original PDF page 8 (Customer Journey) was removed from the deck.
+const DECK: Omit<Slide, 'n'>[] = [
   s(
     1,
     'Shopify Business Builder',
@@ -127,21 +131,6 @@ export const SLIDES: Slide[] = [
       'Good to know: Markets and the App Store',
       'For specific businesses: POS and B2B (some depend on the plan)',
       'Today’s focus: building the store and starting to sell',
-    ],
-    { minutes: 2 },
-  ),
-  s(
-    8,
-    'One Online Store — What’s Inside?',
-    [
-      'เล่าเส้นทางของลูกค้า (Customer Journey): Storefront → Product Catalog → Cart → Checkout → Payment → Shipping',
-      'หลังบ้าน: Order Management → Analytics → Customer Retention',
-      'ทุกขั้นตอนเชื่อมต่อกันในระบบเดียว — ลูกค้าพึงพอใจและกลับมาซื้อซ้ำ',
-    ],
-    [
-      'Walk the customer journey: Storefront → Product Catalog → Cart → Checkout → Payment → Shipping',
-      'Behind the scenes: Order Management → Analytics → Customer Retention',
-      'Everything is connected in one system — happy, returning customers',
     ],
     { minutes: 2 },
   ),
@@ -340,3 +329,5 @@ export const SLIDES: Slide[] = [
     { minutes: 2 },
   ),
 ];
+
+export const SLIDES: Slide[] = DECK.map((slide, i) => ({ ...slide, n: i + 1 }));

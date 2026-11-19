@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import {
-  Activity,
   Check,
   ChevronDown,
   ChevronRight,
@@ -30,6 +29,8 @@ import { ProgressProvider, useProgress } from '../hooks/useProgress';
 import { usePersistedState } from '../hooks/usePersistedState';
 import { useI18n, useT, type Lang } from '../i18n';
 import { BeatProtocolLink } from './BeatProtocol';
+import { AppLogo } from './AppLogo';
+import { ShareSiteButton } from './ShareSite';
 
 const FOCUS =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-400 dark:focus-visible:ring-indigo-300';
@@ -51,18 +52,6 @@ export default function Layout() {
     <ProgressProvider>
       <Shell />
     </ProgressProvider>
-  );
-}
-
-/** App mark: pulse line on a purple rounded square (also used as the favicon). */
-export function AppLogo({ size = 32 }: { size?: number }) {
-  return (
-    <span
-      className="flex shrink-0 items-center justify-center rounded-[9px] bg-gradient-to-br from-indigo-500 to-indigo-700 text-white shadow-sm shadow-indigo-900/20"
-      style={{ width: size, height: size }}
-    >
-      <Activity size={Math.round(size * 0.56)} strokeWidth={2.4} />
-    </span>
   );
 }
 
@@ -170,6 +159,7 @@ function Shell() {
           </nav>
           <div className="ml-auto flex shrink-0 items-center gap-2">
             <HeaderProgress />
+            <ShareSiteButton />
             <LangToggle />
             <button
               onClick={toggleTheme}

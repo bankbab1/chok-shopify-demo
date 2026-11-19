@@ -32,6 +32,19 @@ export interface Product {
   images: GuideImage[];
 }
 
+/**
+ * Lets the participant paste their own element class/ID; every `{{selector}}` in the code is
+ * replaced with it (e.g. Shopify's per-store `button-custom--…` block class).
+ */
+export interface SelectorSpec {
+  /** Example selector shown until the user types their own. */
+  example: string;
+  /** Prefer the class that starts with this when a whole class list / HTML tag is pasted. */
+  prefer?: string;
+  /** Short how-to-find-it hint. */
+  hint?: string;
+}
+
 /** A copy-ready prompt opened from a button in a modal (e.g. a Shopify Sidekick request). */
 export interface PromptSpec {
   title: string;
@@ -43,7 +56,7 @@ export type Block =
   | { type: 'steps'; title?: string; items: string[] }
   | { type: 'images'; images: GuideImage[] }
   | { type: 'specs'; title: string; rows: SpecRow[] }
-  | { type: 'code'; title: string; lang: string; code: string }
+  | { type: 'code'; title: string; lang: string; code: string; selector?: SelectorSpec }
   | { type: 'copylist'; title: string; meta?: string; items: string[]; prompt?: PromptSpec }
   | { type: 'kv'; title?: string; rows: { label: string; value: string }[] }
   | { type: 'richtext'; title: string; body: string }

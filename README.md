@@ -13,8 +13,10 @@ Brand-neutral UI with a purple accent (one token block in `src/index.css` re-bra
 - Theme text specs that show each heading's style, colour swatch and size
 - Interactive product cards: clicking a colour swaps the photo; metafield values are in tabs, each with a copy button
 - **Mark as complete**, Prev/Next, Continue workshop, and per-module progress, saved in this browser's `localStorage`
-- **Presentation**: 20 speaker slides with notes (TH/EN), a timer, a next-slide preview, fullscreen (F), blank screen (B), clicker/keyboard control, and links from each module slide to its hands-on section
+- **Presentation**: 19 speaker slides with notes (TH/EN), a timer, a next-slide preview, fullscreen (F), blank screen (B), clicker/keyboard control, and links from each module slide to its hands-on section
 - **Example Stores**: Cher Skincare (Headless / Hydrogen) and Tada Parfumeur (pre-launch, with a copy-password button), plus a Theme vs Headless comparison
+- **Share this site**: header button → QR code (home or current page), native Share, Copy link, and a full-screen QR for the projector
+- **Custom CSS helper**: paste your store's element class (or the whole `class="…"` / HTML tag) and the CSS is rewritten for it before copying
 - **Resources** page: per-file download, or ZIP downloads (all, per section, per product) organised in folders · **Help & FAQ** page
 - Workshop/Test labels on test-only steps (test payments, test orders)
 - Responsive layout with a mobile drawer, dark mode, keyboard focus rings and reduced-motion support

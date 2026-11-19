@@ -18,7 +18,8 @@ import { SLIDES } from '../data/slides';
 import { useI18n } from '../i18n';
 import { usePersistedState } from '../hooks/usePersistedState';
 
-const src = (n: number) => `/slides/slide-${String(n).padStart(2, '0')}.webp`;
+const src = (file: number) => `/slides/slide-${String(file).padStart(2, '0')}.webp`;
+const srcAt = (n: number) => src(SLIDES[n - 1].file);
 
 function formatTime(sec: number) {
   const m = Math.floor(sec / 60);
@@ -92,7 +93,7 @@ function Presenter({ n }: { n: number }) {
   useEffect(() => {
     [n + 1, n + 2, n - 1].filter((x) => x >= 1 && x <= SLIDES.length).forEach((x) => {
       const im = new Image();
-      im.src = src(x);
+      im.src = srcAt(x);
     });
   }, [n]);
 
@@ -114,7 +115,7 @@ function Presenter({ n }: { n: number }) {
           >
             <img
               key={n}
-              src={src(n)}
+              src={srcAt(n)}
               alt={`${n}. ${slide.title}`}
               draggable={false}
               className={clsx('h-full w-full select-none object-contain motion-safe:animate-[fadeIn_.2s_ease-out]', blank && 'invisible')}
@@ -227,7 +228,7 @@ function Presenter({ n }: { n: number }) {
                 <div className="flex items-center justify-between px-4 py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                   {t('Up next')} <span className="tabular-nums">{next.n}</span>
                 </div>
-                <img src={src(next.n)} alt="" loading="lazy" className="aspect-video w-full bg-black object-contain" />
+                <img src={src(next.file)} alt="" loading="lazy" className="aspect-video w-full bg-black object-contain" />
                 <div className="truncate px-4 py-2 text-xs font-medium">{next.title}</div>
               </button>
             )}
@@ -248,7 +249,7 @@ function Presenter({ n }: { n: number }) {
               sl.n === n ? 'border-indigo-600 shadow-md dark:border-indigo-400' : 'border-transparent opacity-70 hover:opacity-100',
             )}
           >
-            <img src={src(sl.n)} alt="" loading="lazy" className="aspect-video w-full bg-black object-cover" />
+            <img src={src(sl.file)} alt="" loading="lazy" className="aspect-video w-full bg-black object-cover" />
             <span className="absolute left-1 top-1 rounded bg-black/60 px-1.5 text-[10px] font-semibold tabular-nums text-white">{sl.n}</span>
           </button>
         ))}

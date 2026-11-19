@@ -398,6 +398,23 @@ export const TH: Record<string, string> = {
 
   'Powered by': 'สนับสนุนโดย',
   'Company profile': 'ข้อมูลบริษัท',
+  'Your element class': 'Class ของปุ่ม/Element ในร้านของคุณ',
+  'Copy example': 'คัดลอกตัวอย่าง',
+  Clear: 'ล้าง',
+  'Showing example — paste your class': 'กำลังแสดงตัวอย่าง — วาง Class ของคุณ',
+  Using: 'ใช้',
+  'Each store gets its own button class. In the theme editor preview, right-click the button → Inspect, then copy the class that starts with button-custom-- (pasting the whole class="…" or HTML tag also works).':
+    'แต่ละร้านจะได้ Class ของปุ่มไม่เหมือนกัน ในหน้าพรีวิวของ Theme editor ให้คลิกขวาที่ปุ่ม → Inspect (ตรวจสอบ) แล้วคัดลอก Class ที่ขึ้นต้นด้วย button-custom-- มาวาง (วางทั้ง class="…" หรือทั้งแท็ก HTML ก็ได้ ระบบจะเลือก Class ให้อัตโนมัติ)',
+  'Share this site': 'แชร์เว็บไซต์นี้',
+  Share: 'แชร์',
+  'Copy link': 'คัดลอกลิงก์',
+  'Open the Shopify workshop guide': 'เปิดคู่มือเวิร์กช็อป Shopify',
+  'Scan with your phone camera to open the guide.': 'สแกนด้วยกล้องมือถือเพื่อเปิดคู่มือ',
+  'Link to': 'ลิงก์ไปที่',
+  'Home page': 'หน้าแรก',
+  'This page': 'หน้านี้',
+  'Show on projector (full screen)': 'แสดงบนโปรเจกเตอร์ (เต็มจอ)',
+  'Scan to open the workshop guide': 'สแกนเพื่อเปิดคู่มือเวิร์กช็อป',
   /* ---------------------------------------------------------------- App links */
   'Open in Shopify App Store': 'เปิดใน Shopify App Store',
   'App listing for Wishlist by Square — click “Install” and choose your store.': 'หน้าแอป Wishlist by Square — คลิก “Install” แล้วเลือกร้านของคุณ',

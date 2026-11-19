@@ -260,68 +260,6 @@ const SIDEKICK_FEATURED_COLLECTION_PROMPT = `Please set up the **Featured collec
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
-// Footer email sign-up, from the workshop PDF (page 60).
-const SIDEKICK_FOOTER_PROMPT = `Please rebuild the **email sign-up area at the top of the Footer** in my published theme (Horizon).
-
-**Where:** Online Store → Themes → Customize → Footer section (above the Utilities row with the copyright, policies and social icons)
-
-**The exact structure — who contains what:**
-
-Footer (section)
-└─ OUTER Group                      ← directly inside the Footer section
-    ├─ 1. INNER Group               ← child 1 of the OUTER Group
-    │   ├─ Text "JOIN US"           ← child 1 of the INNER Group
-    │   └─ Text "Get exclusive deals and early access to new products."   ← child 2 of the INNER Group
-    ├─ 2. Spacer                    ← child 2 of the OUTER Group
-    └─ 3. Email signup              ← child 3 of the OUTER Group
-
-**Containment rules (most important):**
-- The OUTER Group has exactly 3 direct children, in this order: INNER Group, Spacer, Email signup.
-- The INNER Group has exactly 2 direct children: the two Text blocks — nothing else.
-- The Spacer and the Email signup are inside the OUTER Group, as siblings of the INNER Group. They must NOT be inside the INNER Group, and NOT directly under the Footer section.
-- Both groups use Direction Vertical, so everything stacks top to bottom — never side by side.
-
-**OUTER Group settings:**
-- Layout: Direction Vertical · Alignment Center · Position Center · Gap 6px
-- Size: Width Fill · Mobile width Fill · Height Fit
-- Appearance: Background media None · Background color Default · Borders None · Corner radius 0
-
-**INNER Group settings:**
-- Layout: Direction Vertical · Alignment Center · Position Center · Gap 12px
-- Size: Width Fill · Mobile width Fill · Height Fit
-- Appearance: Background media None · Background color Default · Borders None · Corner radius 0
-
-**Text "JOIN US"** (child 1 of the INNER Group):
-- Text "JOIN US", formatted as **H2** with the paragraph-format dropdown in the text editor toolbar (not a text preset)
-- Text color: Palette color #DFDFDF · Background Off · Padding top 0px, bottom 0px
-
-**Text "Get exclusive deals and early access to new products."** (child 2 of the INNER Group):
-- Layout: Width Fill · Max width Normal · Alignment Center
-- Typography: Preset Custom · Font Body · Size 16px · Line height Normal · Letter spacing Normal · Case Default · Wrap Pretty
-- Text color: Palette color #DFDFDF · Background Off
-
-**Spacer** (child 2 of the OUTER Group): Unit Pixel · Size 32px · Custom mobile size Off
-
-**Email signup** (child 3 of the OUTER Group):
-- Width: Custom · Custom width 62%
-- Heading text: empty · Text preset Heading 3
-- Input: Border All · Style Default
-- Submit button: style Link (the arrow button)
-
-**Footer section background:** black (#000000) from the section's color scheme — the groups keep Background color Default.
-
-**Requirements:**
-- Remove any other default heading, text or extra blocks from this area so it matches the structure exactly.
-- Keep the email signup form working.
-- Do not change the Utilities row, the footer menus, the header or other sections, and do not publish a different theme.
-- If you cannot build this structure directly, tell me exactly which steps I need to do in the theme editor.
-
-**Before I save, check and report:**
-1. The final block tree, with each block's parent.
-2. OUTER Group children (count and order) — must be: INNER Group, Spacer, Email signup.
-3. INNER Group children (count) — must be exactly the 2 Text blocks.
-If any check fails, fix it first.`;
-
 // Image with Text and Featured Product, from the workshop PDF (pages 57–59).
 const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** section on the Home page of my published theme (Horizon), below the Featured collection.
 
@@ -1222,18 +1160,89 @@ export const SECTIONS: Section[] = [
         id: 'footer',
         group: 'Home',
         title: 'Footer',
+        summary: 'Build the black “JOIN US” email sign-up band by hand in the theme editor.',
+        outcome: [
+          'A full-width black band above the copyright row',
+          '“JOIN US” and the sign-up line centered, with the email field below',
+          'The left panel shows Group → Group (2 Texts), Spacer, Email signup',
+        ],
         blocks: [
+          {
+            type: 'steps',
+            title: 'Build it step by step',
+            items: [
+              'In the theme editor, scroll the left panel down to “Footer” and select the “Footer” section',
+              'Set the Footer section color scheme so its background is black (#000000)',
+              'Under the Footer section, click “Add block” → “Group” — this is the OUTER group',
+              'Set the OUTER group: Vertical · Center · Position Center · Gap 6px · Width Fill · Height Fit · Background Default',
+              'Inside the OUTER group, click “Add block” → “Group” — this is the INNER group',
+              'Set the INNER group: Vertical · Center · Position Center · Gap 12px · Width Fill · Height Fit · Background Default',
+              'Inside the INNER group, add a “Text” block, type “JOIN US”, format it as H2 in the editor toolbar and set the text color to #DFDFDF',
+              'Inside the INNER group, add a second “Text” block with “Get exclusive deals and early access to new products.” — Custom preset, 16px, centered, #DFDFDF',
+              'Back in the OUTER group (not the inner one), add a “Spacer” — Pixel, 32px',
+              'In the OUTER group, add “Email signup” below the Spacer — Width Custom 62%, Submit button style Link',
+              'Delete any leftover default blocks, check the structure below, then click “Save”',
+            ],
+          },
+          {
+            type: 'code',
+            title: 'Block structure (left panel)',
+            lang: 'text',
+            code: `Footer  (section · black background)
+└─ Group                      ← OUTER group
+    ├─ Group                  ← INNER group
+    │   ├─ Text  — JOIN US
+    │   └─ Text  — Get exclusive deals and early access to new products.
+    ├─ Spacer                 ← 32px
+    └─ Email signup           ← 62% width`,
+          },
+          {
+            type: 'note',
+            text: 'The Spacer and the Email signup sit inside the OUTER group, next to the INNER group — not inside the INNER group. Both groups are Vertical, so everything stacks top to bottom.',
+          },
+          {
+            type: 'kv',
+            title: 'OUTER group',
+            rows: [
+              { label: 'Layout', value: 'Direction Vertical · Alignment Center · Position Center · Gap 6px' },
+              { label: 'Size', value: 'Width Fill · Mobile width Fill · Height Fit' },
+              { label: 'Appearance', value: 'Background media None · Background color Default · Borders None · Corner radius 0' },
+            ],
+          },
+          {
+            type: 'kv',
+            title: 'INNER group',
+            rows: [
+              { label: 'Layout', value: 'Direction Vertical · Alignment Center · Position Center · Gap 12px' },
+              { label: 'Size', value: 'Width Fill · Mobile width Fill · Height Fit' },
+              { label: 'Appearance', value: 'Background media None · Background color Default · Borders None · Corner radius 0' },
+            ],
+          },
           {
             type: 'specs',
             title: 'Footer text',
-            prompt: {
-              title: 'Sidekick prompt – Footer',
-              text: SIDEKICK_FOOTER_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It builds Footer (black) → Group → inner Group with the two texts, a 32px Spacer and the Email signup (62%), all stacked vertically. Check the block tree in the editor matches, then click Save.',
-            },
             rows: [
               { text: 'JOIN US', style: 'Heading 2', color: '#DFDFDF' },
               { text: 'Get exclusive deals and early access to new products.', style: 'Custom', color: '#DFDFDF', size: '16px' },
+            ],
+          },
+          {
+            type: 'kv',
+            title: 'Text blocks',
+            rows: [
+              { label: 'JOIN US', value: 'H2 (editor toolbar) · Text color #DFDFDF · Background Off · Padding 0 / 0' },
+              {
+                label: 'Sign-up line',
+                value: 'Width Fill · Max width Normal · Align Center · Preset Custom · Body 16px · Line height Normal · Wrap Pretty · #DFDFDF',
+              },
+            ],
+          },
+          {
+            type: 'kv',
+            title: 'Spacer & Email signup',
+            rows: [
+              { label: 'Spacer', value: 'Unit Pixel · Size 32px · Custom mobile size Off' },
+              { label: 'Email signup', value: 'Width Custom 62% · Heading empty · Input border All, Default · Submit button Link' },
             ],
           },
           { type: 'images', images: [img('p060_0', 'Footer')] },

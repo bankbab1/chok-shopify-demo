@@ -331,9 +331,17 @@ const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** s
 3. Text — "At NovaStep, our goal is simple: create footwear that empowers people to move forward with confidence." — custom size 16px — color #545454
 4. Button — label "DISCOVER NOVA GOAL" — background #BEA77E, border #BEA77E, white text
 
-**Button style:** square corners, and the text stays white on hover. Add this to the section's Custom CSS, using this button's class:
-- border-radius: 0
-- on hover: color #ffffff !important
+**Button style — square corners (no border radius) and white text on hover.**
+Paste this CSS exactly into THIS section's **Custom CSS** field (Image with text → Custom CSS at the bottom of the section settings):
+
+.button {
+  border-radius: 0;
+}
+.button:hover {
+  color: #ffffff !important;
+}
+
+Section Custom CSS only applies to this section, so ".button" changes just the DISCOVER NOVA GOAL button.
 
 **Requirements:**
 - Fetch the image link and upload it to Files first if needed, then select it.
@@ -341,6 +349,7 @@ const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** s
 - If the button needs a link, use the About us page if it exists; otherwise leave the link empty.
 - Remove any other default text or button blocks inside this section.
 - Change only this section. Do not change the header, the Hero, other sections or theme settings, and do not publish a different theme.
+- Put the CSS in this section's Custom CSS only — do not change the global button settings in Theme settings, and do not edit theme code files.
 - If you cannot edit the section or its Custom CSS directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
 
 Then show me a summary of what you changed so I can review and click Save.`;
@@ -1158,7 +1167,7 @@ export const SECTIONS: Section[] = [
             prompt: {
               title: 'Sidekick prompt – Image with text',
               text: SIDEKICK_IMAGE_WITH_TEXT_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It fetches the image by link, sets the headings, text and gold button, and asks for the square-corner button CSS. If Sidekick can’t add Custom CSS, use the CSS helper below. Review the preview, then click Save.',
+              tip: 'Paste this into Shopify Sidekick. It fetches the image by link, sets the headings, text and gold button, and pastes the square-corner + white-hover CSS into this section’s Custom CSS. If Sidekick can’t add Custom CSS, use the CSS helper below. Review the preview, then click Save.',
             },
             rows: [
               { text: 'BUILDING A BETTER TOMORROW', style: 'Heading 2', color: '#545454' },

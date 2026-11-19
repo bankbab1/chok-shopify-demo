@@ -466,6 +466,10 @@ export const TH: Record<string, string> = {
   'Logo settings': 'การตั้งค่าโลโก้',
   'Header settings': 'การตั้งค่า Header',
   'Sidekick prompt – Hero': 'Prompt สำหรับ Sidekick – Hero',
+  'On the Home page, click “Add section” → “Featured product” (below Image with text)': 'ในหน้า Home คลิก “Add section” → “Featured product” (ใต้ Image with text)',
+  'In the section settings, choose the product “NovaStep Cloud Slide”': 'ในการตั้งค่า Section เลือกสินค้า “NovaStep Cloud Slide”',
+  'Set the heading “NEW ARRIVAL” — Heading 2, color #545454': 'ตั้งหัวข้อ “NEW ARRIVAL” — Heading 2 สี #545454',
+  'Check the images, price, Color and Size options and buy button show, then click “Save”': 'ตรวจว่ารูป ราคา ตัวเลือกสีและไซซ์ และปุ่มซื้อแสดงครบ แล้วคลิก “Save”',
   'Build the black “JOIN US” email sign-up band by hand in the theme editor.': 'สร้างแถบสีดำ “JOIN US” พร้อมช่องสมัครอีเมลด้วยตนเองใน Theme editor',
   'A full-width black band above the copyright row': 'แถบสีดำเต็มความกว้างอยู่เหนือแถวลิขสิทธิ์ (Copyright)',
   '“JOIN US” and the sign-up line centered, with the email field below': '“JOIN US” และข้อความชวนสมัครอยู่กึ่งกลาง โดยมีช่องอีเมลด้านล่าง',
@@ -492,9 +496,6 @@ export const TH: Record<string, string> = {
   'Sidekick prompt – Image with text': 'Prompt สำหรับ Sidekick – Image with text',
   'Paste this into Shopify Sidekick. It fetches the image by link, sets the headings, text and gold button, and pastes the square-corner + white-hover CSS into this section’s Custom CSS. If Sidekick can’t add Custom CSS, use the CSS helper below. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูปจากลิงก์ ตั้งหัวข้อ ข้อความ และปุ่มสีทอง พร้อมวาง CSS ให้ปุ่มเป็นมุมเหลี่ยมและตัวอักษรสีขาวเมื่อชี้ ลงใน Custom CSS ของ Section นี้ หาก Sidekick เพิ่ม Custom CSS ไม่ได้ ให้ใช้ตัวช่วย CSS ด้านล่าง ตรวจตัวอย่างแล้วกด Save',
-  'Sidekick prompt – Featured product': 'Prompt สำหรับ Sidekick – Featured product',
-  'Paste this into Shopify Sidekick. It sets the “NEW ARRIVAL” heading and features NovaStep Cloud Slide. Review the preview, then click Save.':
-    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งหัวข้อ “NEW ARRIVAL” และแสดงสินค้า NovaStep Cloud Slide ตรวจตัวอย่างแล้วกด Save',
   'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูป Hero จากลิงก์ และตั้งค่าข้อความทั้ง 3 ส่วนพร้อมสไตล์และสี ตรวจตัวอย่างแล้วกด Save',
   'Sidekick prompt – Featured collection': 'Prompt สำหรับ Sidekick – Featured collection',

@@ -260,7 +260,7 @@ const SIDEKICK_FEATURED_COLLECTION_PROMPT = `Please set up the **Featured collec
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
-// Image with Text and Featured Product, from the workshop PDF (pages 57–59).
+// Image with Text, from the workshop PDF (pages 57–58).
 const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** section on the Home page of my published theme (Horizon), below the Featured collection.
 
 **Where:** Online Store → Themes → Customize → Home page → Image with text
@@ -294,23 +294,6 @@ Section Custom CSS only applies to this section, so ".button" changes just the D
 - Change only this section. Do not change the header, the Hero, other sections or theme settings, and do not publish a different theme.
 - Put the CSS in this section's Custom CSS only — do not change the global button settings in Theme settings, and do not edit theme code files.
 - If you cannot edit the section or its Custom CSS directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
-
-Then show me a summary of what you changed so I can review and click Save.`;
-
-const SIDEKICK_FEATURED_PRODUCT_PROMPT = `Please set up the **Featured product** section on the Home page of my published theme (Horizon), below the Image with text section.
-
-**Where:** Online Store → Themes → Customize → Home page → Featured product
-
-**Heading:** "NEW ARRIVAL" — style Heading 2 — color #545454
-**Product:** NovaStep Cloud Slide
-
-**Show:** product images, title, price, the Color and Size options, quantity and the buy button.
-
-**Requirements:**
-- Use the heading text exactly as written. If this section has no heading block, add a heading above it in the same section.
-- Do not change the product itself (title, price, variants, images or inventory).
-- Change only this section. Do not change the header, other sections or theme settings, and do not publish a different theme.
-- If you cannot edit the section directly, tell me exactly which steps I need to do in the theme editor.
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
@@ -1144,15 +1127,15 @@ export const SECTIONS: Section[] = [
         title: 'Featured Product',
         blocks: [
           {
-            type: 'specs',
-            title: 'Heading',
-            prompt: {
-              title: 'Sidekick prompt – Featured product',
-              text: SIDEKICK_FEATURED_PRODUCT_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It sets the “NEW ARRIVAL” heading and features NovaStep Cloud Slide. Review the preview, then click Save.',
-            },
-            rows: [{ text: 'NEW ARRIVAL', style: 'Heading 2', color: '#545454' }],
+            type: 'steps',
+            items: [
+              'On the Home page, click “Add section” → “Featured product” (below Image with text)',
+              'In the section settings, choose the product “NovaStep Cloud Slide”',
+              'Set the heading “NEW ARRIVAL” — Heading 2, color #545454',
+              'Check the images, price, Color and Size options and buy button show, then click “Save”',
+            ],
           },
+          { type: 'specs', title: 'Heading', rows: [{ text: 'NEW ARRIVAL', style: 'Heading 2', color: '#545454' }] },
           { type: 'images', images: [img('p059_0', 'Featured product')] },
         ],
       },

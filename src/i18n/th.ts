@@ -467,6 +467,12 @@ export const TH: Record<string, string> = {
   'Header settings': 'การตั้งค่า Header',
   'Sidekick prompt – Hero': 'Prompt สำหรับ Sidekick – Hero',
   'Sidekick prompt – Footer': 'Prompt สำหรับ Sidekick – Footer',
+  'Sidekick prompt – Image with text': 'Prompt สำหรับ Sidekick – Image with text',
+  'Paste this into Shopify Sidekick. It fetches the image by link, sets the headings, text and gold button, and asks for the square-corner button CSS. If Sidekick can’t add Custom CSS, use the CSS helper below. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูปจากลิงก์ ตั้งหัวข้อ ข้อความ และปุ่มสีทอง พร้อมขอ CSS ให้ปุ่มเป็นมุมเหลี่ยม หาก Sidekick เพิ่ม Custom CSS ไม่ได้ ให้ใช้ตัวช่วย CSS ด้านล่าง ตรวจตัวอย่างแล้วกด Save',
+  'Sidekick prompt – Featured product': 'Prompt สำหรับ Sidekick – Featured product',
+  'Paste this into Shopify Sidekick. It sets the “NEW ARRIVAL” heading and features NovaStep Cloud Slide. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งหัวข้อ “NEW ARRIVAL” และแสดงสินค้า NovaStep Cloud Slide ตรวจตัวอย่างแล้วกด Save',
   'Paste this into Shopify Sidekick. It sets “JOIN US” and the sign-up text in #DFDFDF on a black footer, keeping the email field. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งข้อความ “JOIN US” และข้อความชวนสมัครเป็นสี #DFDFDF บนพื้นหลังสีดำของ Footer โดยยังคงช่องกรอกอีเมลไว้ ตรวจตัวอย่างแล้วกด Save',
   'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':

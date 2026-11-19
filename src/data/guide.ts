@@ -281,6 +281,51 @@ const SIDEKICK_FOOTER_PROMPT = `Please update the **email sign-up area in the Fo
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
+// Image with Text and Featured Product, from the workshop PDF (pages 57–59).
+const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** section on the Home page of my published theme (Horizon), below the Featured collection.
+
+**Where:** Online Store → Themes → Customize → Home page → Image with text
+
+**Image** — fetch this image and use it, on the LEFT side:
+{{origin}}/resources/home/home-alt-img.jpg
+
+**Text on the RIGHT, in this order:**
+1. Heading — "BUILDING A BETTER TOMORROW" — style Heading 2 — color #545454
+2. Heading — "ONE STEP AT A TIME" — style Heading 3 — color #BEA77E
+3. Text — "At NovaStep, our goal is simple: create footwear that empowers people to move forward with confidence." — custom size 16px — color #545454
+4. Button — label "DISCOVER NOVA GOAL" — background #BEA77E, border #BEA77E, white text
+
+**Button style:** square corners, and the text stays white on hover. Add this to the section's Custom CSS, using this button's class:
+- border-radius: 0
+- on hover: color #ffffff !important
+
+**Requirements:**
+- Fetch the image link and upload it to Files first if needed, then select it.
+- Use the text exactly as written, including capital letters.
+- If the button needs a link, use the About us page if it exists; otherwise leave the link empty.
+- Remove any other default text or button blocks inside this section.
+- Change only this section. Do not change the header, the Hero, other sections or theme settings, and do not publish a different theme.
+- If you cannot edit the section or its Custom CSS directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
+const SIDEKICK_FEATURED_PRODUCT_PROMPT = `Please set up the **Featured product** section on the Home page of my published theme (Horizon), below the Image with text section.
+
+**Where:** Online Store → Themes → Customize → Home page → Featured product
+
+**Heading:** "NEW ARRIVAL" — style Heading 2 — color #545454
+**Product:** NovaStep Cloud Slide
+
+**Show:** product images, title, price, the Color and Size options, quantity and the buy button.
+
+**Requirements:**
+- Use the heading text exactly as written. If this section has no heading block, add a heading above it in the same section.
+- Do not change the product itself (title, price, variants, images or inventory).
+- Change only this section. Do not change the header, other sections or theme settings, and do not publish a different theme.
+- If you cannot edit the section directly, tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
 }
@@ -1074,6 +1119,11 @@ export const SECTIONS: Section[] = [
           {
             type: 'specs',
             title: 'Text',
+            prompt: {
+              title: 'Sidekick prompt – Image with text',
+              text: SIDEKICK_IMAGE_WITH_TEXT_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It fetches the image by link, sets the headings, text and gold button, and asks for the square-corner button CSS. If Sidekick can’t add Custom CSS, use the CSS helper below. Review the preview, then click Save.',
+            },
             rows: [
               { text: 'BUILDING A BETTER TOMORROW', style: 'Heading 2', color: '#545454' },
               { text: 'ONE STEP AT A TIME', style: 'Heading 3', color: '#BEA77E' },
@@ -1105,7 +1155,16 @@ export const SECTIONS: Section[] = [
         group: 'Home',
         title: 'Featured Product',
         blocks: [
-          { type: 'specs', title: 'Heading', rows: [{ text: 'NEW ARRIVAL', style: 'Heading 2', color: '#545454' }] },
+          {
+            type: 'specs',
+            title: 'Heading',
+            prompt: {
+              title: 'Sidekick prompt – Featured product',
+              text: SIDEKICK_FEATURED_PRODUCT_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It sets the “NEW ARRIVAL” heading and features NovaStep Cloud Slide. Review the preview, then click Save.',
+            },
+            rows: [{ text: 'NEW ARRIVAL', style: 'Heading 2', color: '#545454' }],
+          },
           { type: 'images', images: [img('p059_0', 'Featured product')] },
         ],
       },

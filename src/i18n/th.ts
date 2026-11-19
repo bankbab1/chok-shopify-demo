@@ -467,9 +467,10 @@ export const TH: Record<string, string> = {
   'Logo settings': 'การตั้งค่าโลโก้',
   'Header settings': 'การตั้งค่า Header',
   'Sidekick prompt – Header': 'Prompt สำหรับ Sidekick – Header',
-  'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home page — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.':
-    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะเปิด Header แบบโปร่งใสพร้อม Inverse logo ในหน้า Home — ซึ่งทำให้ Inverse logo จากขั้นตอน Logo แสดงขึ้นมา ตรวจตัวอย่างแล้วกด Save',
-  'Product & collection pages': 'หน้า Product และ Collection',
+  'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home, Product and Collection pages (6 toggles On) — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะเปิด Header แบบโปร่งใสพร้อม Inverse logo ในหน้า Home, Product และ Collection (เปิดครบ 6 สวิตช์) — ซึ่งทำให้ Inverse logo จากขั้นตอน Logo แสดงขึ้นมา ตรวจตัวอย่างแล้วกด Save',
+  'Product page': 'หน้า Product',
+  'Collection page': 'หน้า Collection',
   'Sidekick prompt – Theme logo': 'Prompt สำหรับ Sidekick – โลโก้ธีม',
   'Paste this into Shopify Sidekick. It fetches both logo files from their links. If it can’t change theme settings, it uploads the logos to Files — then pick them in Theme settings → Logo and favicon. The inverse logo only shows once the Header step turns on the transparent header.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงไฟล์โลโก้ทั้งสองจากลิงก์ หากแก้การตั้งค่าธีมไม่ได้ จะอัปโหลดโลโก้ไว้ใน Files — จากนั้นให้เลือกเองใน Theme settings → Logo and favicon ทั้งนี้ Inverse logo จะแสดงก็ต่อเมื่อเปิด Header แบบโปร่งใสในขั้นตอน Header',

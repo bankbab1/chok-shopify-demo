@@ -491,6 +491,47 @@ function tabText(p: Product, tab: ProductTab): string {
   }
 }
 
+/** Copy-ready Shopify Sidekick request that creates one product with variants and metafields. */
+export function productPrompt(p: Product): string {
+  const list = (xs: string[]) => xs.map((x) => `  - ${x}`).join('\n');
+  const price = p.price.replace(/,/g, '');
+  return `Please create a new product in Shopify with the details below.
+
+**Title:** ${p.title}
+**Description:** ${p.description}
+**Price:** ${price} THB (same price for every variant)
+**Status:** Active, available on the Online Store sales channel
+**Track inventory:** Yes (I will set stock levels later)
+
+**Options and variants:**
+- Option 1 "Color": ${p.colors.join(', ')}
+- Option 2 "Size": ${p.sizes.join(', ')}
+- Create every combination (${p.colors.length} × ${p.sizes.length} = ${p.colors.length * p.sizes.length} variants).
+
+**Product metafields (namespace \`custom\`):**
+- \`custom.gender\`: ${p.gender}
+- \`custom.weight\`: ${p.weight}
+- \`custom.full_product_description\`: ${p.full_product_description}
+- \`custom.features\` (bulleted list):
+${list(p.features)}
+- \`custom.materials\` (bulleted list):
+${list(p.materials)}
+- \`custom.care_instructions\` (bulleted list):
+${list(p.care_instructions)}
+- \`custom.story\` (heading, then paragraphs):
+  ${p.story.heading}
+
+  ${p.story.body.split('\n\n').join('\n\n  ')}
+
+**Requirements:**
+- Use all text exactly as provided.
+- Fill the metafields only if their definitions already exist under Settings → Metafields and metaobjects → Products. Do not create new metafield definitions or metaobjects.
+- Do not add images — I will upload the product photos myself.
+- If you cannot complete any part, tell me which steps need manual action.
+
+After completion, confirm the product, the number of variants created and which metafields were filled.`;
+}
+
 function ProductCard({ product: p }: { product: Product }) {
   const t = useT();
   const [pickedColor, setColor] = useState(p.colors[0]);
@@ -504,6 +545,25 @@ function ProductCard({ product: p }: { product: Product }) {
 
   return (
     <div className="space-y-5">
+      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-indigo-200 bg-indigo-50/60 px-4 py-3 dark:border-indigo-400/30 dark:bg-indigo-500/10">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200">
+          <Sparkles size={16} />
+        </span>
+        <div className="min-w-0 flex-1 basis-60">
+          <div className="text-sm font-semibold text-indigo-900 dark:text-indigo-100">{t('Create this product with Sidekick')}</div>
+          <div className="text-xs text-indigo-800/80 dark:text-indigo-200/80">
+            {t('Title, description, price, {v} variants and all product metafields in one prompt.', { v: variantCount })}
+          </div>
+        </div>
+        <PromptButton
+          prompt={{
+            title: `Sidekick prompt – ${p.title}`,
+            text: productPrompt(p),
+            tip: 'Paste this into Shopify Sidekick. Metafield values are filled only if the Product metafield definitions already exist (Metafields step). Upload the product photos yourself from Resources. Always check the product in Admin afterwards.',
+          }}
+        />
+      </div>
+
       <Card className="overflow-hidden">
         <div className="grid gap-0 md:grid-cols-[1fr_1.1fr]">
           <div className="flex flex-col justify-between gap-5 bg-[#2b2b2b] p-6 text-[#eeeeee]">

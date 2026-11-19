@@ -419,6 +419,10 @@ export const TH: Record<string, string> = {
   'Copy text': 'คัดลอกข้อความ',
   'Copy label': 'คัดลอกข้อความปุ่ม',
   'Copy color {c}': 'คัดลอกสี {c}',
+  'Create this product with Sidekick': 'สร้างสินค้านี้ด้วย Sidekick',
+  'Title, description, price, {v} variants and all product metafields in one prompt.': 'ชื่อ คำอธิบาย ราคา ตัวเลือกสินค้า {v} รายการ และ Metafields ทั้งหมด ใน Prompt เดียว',
+  'Paste this into Shopify Sidekick. Metafield values are filled only if the Product metafield definitions already exist (Metafields step). Upload the product photos yourself from Resources. Always check the product in Admin afterwards.':
+    'วาง Prompt นี้ใน Shopify Sidekick ค่า Metafields จะถูกกรอกก็ต่อเมื่อสร้าง Product metafield definitions ไว้แล้ว (ขั้นตอน Metafields) ส่วนรูปสินค้าให้อัปโหลดเองจากหน้าไฟล์ประกอบ และตรวจสอบสินค้าใน Admin ทุกครั้งหลังสร้าง',
   /* ---------------------------------------------------------------- App links */
   'Open in Shopify App Store': 'เปิดใน Shopify App Store',
   'App listing for Wishlist by Square — click “Install” and choose your store.': 'หน้าแอป Wishlist by Square — คลิก “Install” แล้วเลือกร้านของคุณ',

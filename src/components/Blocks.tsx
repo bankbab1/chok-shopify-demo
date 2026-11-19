@@ -714,8 +714,12 @@ export function productPrompt(p: Product): string {
 **Title:** ${p.title}
 **Description:** ${p.description}
 **Price:** ${price} THB (same price for every variant)
-**Status:** Active, available on the Online Store sales channel
+**Status:** Active
 **Track inventory:** Yes (I will set stock levels later)
+
+**Sales channels (Publishing):**
+- Online Store: ON — required, so customers can see and buy the product on the website
+- Point of Sale: ON
 
 **Options and variants:**
 - Option 1 "Color": ${p.colors.join(', ')}
@@ -741,9 +745,10 @@ ${list(p.care_instructions)}
 - Use all text exactly as provided.
 - Fill the metafields only if their definitions already exist under Settings → Metafields and metaobjects → Products. Do not create new metafield definitions or metaobjects.
 - Do not add images — I will upload the product photos myself.
+- Publish the product to BOTH the Online Store and Point of Sale sales channels. Do not remove it from any channel it is already on.
 - If you cannot complete any part, tell me which steps need manual action.
 
-After completion, confirm the product, the number of variants created and which metafields were filled.`;
+After completion, confirm the product, the number of variants created, which metafields were filled, and which sales channels it is published to.`;
 }
 
 function ProductCard({ product: p }: { product: Product }) {

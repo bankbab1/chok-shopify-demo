@@ -57,12 +57,25 @@ export type Block =
   | { type: 'images'; images: GuideImage[] }
   | { type: 'specs'; title: string; rows: SpecRow[] }
   | { type: 'code'; title: string; lang: string; code: string; selector?: SelectorSpec }
-  | { type: 'copylist'; title: string; meta?: string; items: string[]; prompt?: PromptSpec }
+  | {
+      type: 'copylist';
+      title: string;
+      meta?: string;
+      items: string[];
+      prompt?: PromptSpec;
+      /** Hide the prompt button behind a small dot next to the title (manual-first exercises). */
+      promptHidden?: boolean;
+      types?: string[];
+    }
+  /** Collapsible copy-ready prompt card (collapsed by default). */
+  | { type: 'prompt'; prompt: PromptSpec }
   | { type: 'kv'; title?: string; rows: { label: string; value: string }[] }
   | { type: 'richtext'; title: string; body: string }
   | { type: 'note'; tone?: 'info' | 'warn'; text: string }
   | { type: 'link'; label: string; url: string; purpose?: string; fallbackPath?: string }
-  | { type: 'product'; product: Product };
+  | { type: 'product'; product: Product }
+  /** Stock planner for the NovaStep products; generates a Sidekick prompt to set On hand. */
+  | { type: 'inventory' };
 
 export interface Topic {
   id: string;

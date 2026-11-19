@@ -81,3 +81,14 @@ html {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* iOS Safari zooms the page when a focused field's font-size is below 16px.
+   On touch devices, give every form field 16px text so tapping it never zooms
+   (pinch-zoom stays enabled — no maximum-scale in the viewport meta). */
+@media (hover: none) and (pointer: coarse) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import clsx from 'clsx';
-import { AlertTriangle, Check, ChevronDown, Code2, Copy, Download, ExternalLink, Info, ListChecks, Sparkles } from 'lucide-react';
+import { AlertTriangle, Boxes, Check, ChevronDown, Code2, Copy, MapPin, Download, ExternalLink, Info, ListChecks, Sparkles } from 'lucide-react';
 import type { Block, Product, PromptSpec, SelectorSpec, SpecRow } from '../data/types';
 import { usePersistedState } from '../hooks/usePersistedState';
+import { PRODUCTS } from '../data/products';
 import { Card, CardHeader, CopyButton, ImageGrid, Modal, RichLine, copyText } from './ui';
 import { useT } from '../i18n';
 
@@ -17,7 +18,11 @@ export function BlockView({ block }: { block: Block }) {
     case 'code':
       return <CodeBlock title={block.title} lang={block.lang} code={block.code} selector={block.selector} />;
     case 'copylist':
-      return <CopyList title={block.title} meta={block.meta} items={block.items} prompt={block.prompt} />;
+      return (
+        <CopyList title={block.title} meta={block.meta} items={block.items} prompt={block.prompt} promptHidden={block.promptHidden} types={block.types} />
+      );
+    case 'prompt':
+      return <PromptCard prompt={block.prompt} />;
     case 'kv':
       return <KeyValues title={block.title} rows={block.rows} />;
     case 'richtext':
@@ -28,6 +33,8 @@ export function BlockView({ block }: { block: Block }) {
       return <LinkCard label={block.label} url={block.url} purpose={block.purpose} fallbackPath={block.fallbackPath} />;
     case 'product':
       return <ProductCard product={block.product} />;
+    case 'inventory':
+      return <InventoryPlanner />;
   }
 }
 
@@ -343,18 +350,94 @@ function PromptButton({ prompt }: { prompt: PromptSpec }) {
   );
 }
 
+/** Inline prompt card: header with Copy is always visible; the prompt text expands on demand (collapsed by default). */
+function PromptCard({ prompt }: { prompt: PromptSpec }) {
+  const t = useT();
+  const [open, setOpen] = useState(false);
+  const lines = prompt.text.split('\n').length;
+  return (
+    <div className="overflow-hidden rounded-xl border border-indigo-200 bg-white dark:border-indigo-400/30 dark:bg-slate-900">
+      <div className="flex flex-wrap items-center gap-3 bg-indigo-50/60 px-4 py-3 dark:bg-indigo-500/10">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className="flex min-w-0 flex-1 basis-56 items-center gap-3 text-left"
+        >
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200">
+            <Sparkles size={16} />
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-sm font-semibold text-indigo-900 dark:text-indigo-100">{t(prompt.title)}</span>
+            <span className="block text-xs text-indigo-800/70 dark:text-indigo-200/70">
+              {open ? t('Click to hide the prompt') : t('Click to show the prompt ({n} lines)', { n: lines })}
+            </span>
+          </span>
+          <ChevronDown size={16} className={clsx('ml-auto shrink-0 text-indigo-500 transition-transform duration-200', open && 'rotate-180')} />
+        </button>
+        <CopyButton text={prompt.text} label="Copy prompt" primary />
+      </div>
+      <div className="grid transition-[grid-template-rows] duration-200 ease-out" style={{ gridTemplateRows: open ? '1fr' : '0fr' }}>
+        <div className="overflow-hidden">
+          {prompt.tip && (
+            <div className="mx-4 mt-3 flex items-start gap-2 rounded-lg bg-slate-50 px-3 py-2.5 text-xs leading-relaxed text-slate-600 dark:bg-white/5 dark:text-slate-300">
+              <Info size={14} className="mt-0.5 shrink-0" />
+              <span>{t(prompt.tip)}</span>
+            </div>
+          )}
+          <pre className="m-4 select-text whitespace-pre-wrap break-words rounded-xl bg-[#131922] p-4 font-mono text-[12.5px] leading-relaxed text-slate-200 dark:bg-black/40">
+            {prompt.text}
+          </pre>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------------------------------------------------------- Lists */
 
-function CopyList({ title, meta, items, prompt }: { title: string; meta?: string; items: string[]; prompt?: PromptSpec }) {
+function CopyList({
+  title,
+  meta,
+  items,
+  prompt,
+  promptHidden,
+  types,
+}: {
+  title: string;
+  meta?: string;
+  items: string[];
+  prompt?: PromptSpec;
+  promptHidden?: boolean;
+  types?: string[];
+}) {
   const t = useT();
+  // Manual-first: the prompt button stays hidden until the presenter clicks the small dot.
+  const [revealed, setRevealed] = useState(!promptHidden);
   return (
     <Card>
       <CardHeader
-        title={t(title)}
+        title={
+          <span className="inline-flex items-center gap-2">
+            {t(title)}
+            {prompt && promptHidden && (
+              <button
+                type="button"
+                onClick={() => setRevealed((v) => !v)}
+                aria-label={t('Show shortcut')}
+                aria-pressed={revealed}
+                className={clsx(
+                  'h-2.5 w-2.5 shrink-0 rounded-full transition hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2',
+                  revealed ? 'bg-amber-500' : 'bg-amber-300 hover:bg-amber-400',
+                )}
+              />
+            )}
+          </span>
+        }
         meta={meta}
         action={
           <div className="flex flex-wrap gap-2">
-            {prompt && <PromptButton prompt={prompt} />}
+            {prompt && revealed && <PromptButton prompt={prompt} />}
             <CopyButton text={items.join('\n')} label="Copy all" />
           </div>
         }
@@ -364,6 +447,9 @@ function CopyList({ title, meta, items, prompt }: { title: string; meta?: string
           <li key={it} className="flex items-center gap-3 px-4 py-2">
             <span className="w-5 text-right text-xs tabular-nums text-slate-400">{i + 1}</span>
             <code className="min-w-0 flex-1 truncate font-mono text-[13px]">{it}</code>
+            {types?.[i] && (
+              <span className="hidden shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600 sm:inline dark:bg-white/10 dark:text-slate-300">{types[i]}</span>
+            )}
             <CopyButton text={it} compact />
           </li>
         ))}
@@ -461,6 +547,146 @@ function Note({ tone = 'info', text }: { tone?: 'info' | 'warn'; text: string })
   );
 }
 
+/* ---------------------------------------------------------------- Inventory planner */
+
+interface StockPlan {
+  location: string;
+  qty: Record<string, number>;
+}
+
+const DEFAULT_QTY = 10;
+const variantsOf = (p: (typeof PRODUCTS)[number]) => p.colors.length * p.sizes.length;
+
+/** Copy-ready Sidekick request that sets On hand for every variant of every product. */
+export function inventoryPrompt(plan: StockPlan): string {
+  const lines = PRODUCTS.map((p, i) => {
+    const q = plan.qty[p.title] ?? DEFAULT_QTY;
+    return `${i + 1}. ${p.title} — all ${variantsOf(p)} variants (Color: ${p.colors.join(', ')} × Size: ${p.sizes.join(', ')}) → On hand = ${q} each`;
+  });
+  return `Please update inventory in Shopify.
+
+**Location:** ${plan.location.trim() || 'Shop location'}
+**Action:** SET the **On hand** quantity (replace the current value, do not add to it) for every variant of the products below.
+
+${lines.join('\n')}
+
+**Requirements:**
+- Make sure "Track quantity" is turned on for each of these variants.
+- Update the quantity at the location above only.
+- Do not change prices, titles, options or any other product data.
+- If you cannot update inventory directly, explain which steps require manual action.
+
+After completion, confirm for each product how many variants were updated and the new On hand quantity.`;
+}
+
+function InventoryPlanner() {
+  const t = useT();
+  const [plan, setPlan] = usePersistedState<StockPlan>('sdp-inventory-plan', { location: 'Shop location', qty: {} });
+  const qtyOf = (title: string) => plan.qty[title] ?? DEFAULT_QTY;
+  const setQty = (title: string, v: number) =>
+    setPlan((p) => ({ ...p, qty: { ...p.qty, [title]: Math.max(0, Math.min(99999, Math.round(v) || 0)) } }));
+  const setAll = (v: number) => setPlan((p) => ({ ...p, qty: Object.fromEntries(PRODUCTS.map((x) => [x.title, v])) }));
+  const totalVariants = PRODUCTS.reduce((n, p) => n + variantsOf(p), 0);
+  const totalUnits = PRODUCTS.reduce((n, p) => n + variantsOf(p) * qtyOf(p.title), 0);
+
+  return (
+    <Card>
+      <CardHeader
+        title={
+          <span className="flex items-center gap-2">
+            <Boxes size={16} className="text-indigo-500" /> {t('Stock planner')}
+          </span>
+        }
+        meta={t('Choose the On hand quantity per variant, then let Sidekick set it for every variant.')}
+        action={
+          <PromptButton
+            prompt={{
+              title: 'Sidekick prompt – Set inventory',
+              text: inventoryPrompt(plan),
+              tip: 'Paste this into Shopify Sidekick. It sets (replaces) On hand for every variant at the location you entered. Check a few variants in Inventory afterwards — or set them by hand with the steps above.',
+            }}
+          />
+        }
+      />
+      <div className="space-y-4 px-4 py-4">
+        <div className="flex flex-wrap items-end gap-3">
+          <label className="min-w-0 flex-1 basis-56">
+            <span className="mb-1 flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-300">
+              <MapPin size={12} /> {t('Location')}
+            </span>
+            <input
+              value={plan.location}
+              onChange={(e) => setPlan((p) => ({ ...p, location: e.target.value }))}
+              placeholder="Shop location"
+              className="h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/15 dark:border-white/10 dark:bg-slate-950"
+            />
+          </label>
+          <div>
+            <span className="mb-1 block text-xs font-semibold text-slate-600 dark:text-slate-300">{t('Set all to')}</span>
+            <div className="flex flex-wrap gap-1.5">
+              {[5, 10, 20, 50, 100].map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setAll(v)}
+                  className="h-10 min-w-10 rounded-lg border border-slate-200 px-2.5 text-sm tabular-nums transition hover:border-indigo-400 hover:bg-indigo-50 dark:border-white/10 dark:hover:bg-white/10"
+                >
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-white/10">
+          <table className="w-full text-sm">
+            <thead className="bg-slate-50 text-left text-xs text-slate-500 dark:bg-white/5 dark:text-slate-400">
+              <tr>
+                <th className="px-3 py-2 font-medium">{t('Product')}</th>
+                <th className="px-3 py-2 text-right font-medium">{t('Variants')}</th>
+                <th className="px-3 py-2 text-right font-medium">{t('On hand / variant')}</th>
+                <th className="hidden px-3 py-2 text-right font-medium sm:table-cell">{t('Total units')}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-white/5">
+              {PRODUCTS.map((p) => (
+                <tr key={p.title}>
+                  <td className="px-3 py-2">
+                    <div className="font-medium">{p.title}</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                      {p.colors.length} {t('colors')} × {p.sizes.length} {t('sizes')}
+                    </div>
+                  </td>
+                  <td className="px-3 py-2 text-right tabular-nums">{variantsOf(p)}</td>
+                  <td className="px-3 py-2 text-right">
+                    <input
+                      type="number"
+                      min={0}
+                      inputMode="numeric"
+                      value={qtyOf(p.title)}
+                      onChange={(e) => setQty(p.title, Number(e.target.value))}
+                      aria-label={`${t('On hand / variant')} — ${p.title}`}
+                      className="h-9 w-20 rounded-lg border border-slate-200 bg-white px-2 text-right text-sm tabular-nums outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/15 dark:border-white/10 dark:bg-slate-950"
+                    />
+                  </td>
+                  <td className="hidden px-3 py-2 text-right tabular-nums sm:table-cell">{(variantsOf(p) * qtyOf(p.title)).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot className="bg-slate-50 text-sm font-semibold dark:bg-white/5">
+              <tr>
+                <td className="px-3 py-2">{t('Total')}</td>
+                <td className="px-3 py-2 text-right tabular-nums">{totalVariants}</td>
+                <td className="px-3 py-2" />
+                <td className="hidden px-3 py-2 text-right tabular-nums sm:table-cell">{totalUnits.toLocaleString()}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
 /* ---------------------------------------------------------------- Product */
 
 const SWATCH: Record<string, string> = {
@@ -509,7 +735,7 @@ export function productPrompt(p: Product): string {
 - Create every combination (${p.colors.length} × ${p.sizes.length} = ${p.colors.length * p.sizes.length} variants).
 
 **Product metafields (namespace \`custom\`):**
-- \`custom.gender\`: ${p.gender}
+- \`custom.gender\` (list, one item): ${p.gender}
 - \`custom.weight\`: ${p.weight}
 - \`custom.full_product_description\`: ${p.full_product_description}
 - \`custom.features\` (bulleted list):

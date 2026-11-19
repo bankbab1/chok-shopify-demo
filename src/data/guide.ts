@@ -17,14 +17,15 @@ import storeLocatorLiquid from './snippets/store-locator.liquid?raw';
 
 const img = (id: string, caption?: string): GuideImage => ({ id, caption });
 
-const PRODUCT_METAFIELDS: { key: string; page: string }[] = [
-  { key: 'story', page: 'p014_1' },
-  { key: 'gender', page: 'p015_0' },
-  { key: 'care_instructions', page: 'p016_0' },
-  { key: 'weight', page: 'p017_0' },
-  { key: 'materials', page: 'p018_0' },
-  { key: 'features', page: 'p019_0' },
-  { key: 'full_product_description', page: 'p020_0' },
+// Types taken from the definition screenshots in the workshop PDF (pages 14–20).
+const PRODUCT_METAFIELDS: { key: string; page: string; type: string }[] = [
+  { key: 'story', page: 'p014_1', type: 'Rich text' },
+  { key: 'gender', page: 'p015_0', type: 'List · Single line text (Male / Female / Unisex)' },
+  { key: 'care_instructions', page: 'p016_0', type: 'Rich text' },
+  { key: 'weight', page: 'p017_0', type: 'Single line text' },
+  { key: 'materials', page: 'p018_0', type: 'Rich text' },
+  { key: 'features', page: 'p019_0', type: 'Rich text' },
+  { key: 'full_product_description', page: 'p020_0', type: 'Multi-line text' },
 ];
 
 const PAGE_TEXT_METAFIELDS = [
@@ -48,6 +49,32 @@ const PAGE_IMAGE_METAFIELDS = [
   'about_us_our_mission_img',
   'about_us_our_core_values_img',
 ];
+
+const SIDEKICK_PRODUCT_MF_PROMPT = `Please create the following 7 **Product Metafield Definitions** in Shopify.
+
+**Resource:** Products
+**Namespace:** custom
+
+Create each definition with the exact name, key and type below:
+
+1. \`story\` — key \`custom.story\` — **Rich text** (one value)
+2. \`gender\` — key \`custom.gender\` — **Single line text, list of values**, restricted to a choice list of exactly: Male, Female, Unisex
+3. \`care_instructions\` — key \`custom.care_instructions\` — **Rich text** (one value)
+4. \`weight\` — key \`custom.weight\` — **Single line text** (one value)
+5. \`materials\` — key \`custom.materials\` — **Rich text** (one value)
+6. \`features\` — key \`custom.features\` — **Rich text** (one value)
+7. \`full_product_description\` — key \`custom.full_product_description\` — **Multi-line text** (one value)
+
+**Requirements:**
+- Create all 7 definitions under Settings → Metafields and metaobjects → Products.
+- Use the names and keys exactly as provided (lowercase, namespace \`custom\`).
+- Turn on **Storefront API access** for every definition.
+- Pin each definition so it appears on the product page in Admin.
+- Do not create Page metafields, Variant metafields or Metaobjects.
+- Do not fill in any values yet.
+- If you cannot create these definitions directly, explain which steps require manual action.
+
+After completion, confirm which definitions were created and list each final namespace, key and type.`;
 
 const SIDEKICK_PROMPT = `Please create the following 8 **Page Metafield Definitions** in Shopify.
 
@@ -383,6 +410,13 @@ export const SECTIONS: Section[] = [
             title: 'Product metafield keys',
             meta: 'Resource: Products · Namespace: custom',
             items: PRODUCT_METAFIELDS.map((m) => m.key),
+            types: PRODUCT_METAFIELDS.map((m) => m.type),
+            promptHidden: true,
+            prompt: {
+              title: 'Sidekick prompt – Product metafields',
+              text: SIDEKICK_PRODUCT_MF_PROMPT,
+              tip: 'Paste this into Shopify Sidekick to create all 7 product definitions. If Sidekick can’t, use Add definition manually with the types listed above. Always verify in Admin.',
+            },
           },
           { type: 'images', images: [img('p013_0', 'Search metafields'), img('p013_1', 'Product metafield definitions'), img('p014_0', 'Add definition')] },
           { type: 'images', images: PRODUCT_METAFIELDS.map((m) => img(m.page, m.key)) },
@@ -814,8 +848,11 @@ export const SECTIONS: Section[] = [
       {
         id: 'manual-adjust',
         title: 'Manual Adjust',
+        summary: 'Set stock levels by hand, or let Sidekick do it for every variant.',
+        outcome: ['Every variant shows the planned On hand quantity at your location'],
         blocks: [
           { type: 'steps', items: ['Go to “Inventory”', 'Specify inventory balance “On hand”', 'Click “Save”'] },
+          { type: 'inventory' },
           { type: 'images', images: [img('p095_0'), img('p095_1'), img('p095_2')] },
         ],
       },

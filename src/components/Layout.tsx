@@ -28,6 +28,7 @@ import { ProgressProvider, useProgress } from '../hooks/useProgress';
 import { usePersistedState } from '../hooks/usePersistedState';
 import { useI18n, useT, type Lang } from '../i18n';
 import { BeatProtocolLink } from './BeatProtocol';
+import { ProfileButton } from './ProfileCard';
 import { AppLogo } from './AppLogo';
 import { ShareSiteButton } from './ShareSite';
 
@@ -459,6 +460,7 @@ function SidebarFooter({ collapsed, theme, onToggleTheme }: { collapsed: boolean
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
         <span className="text-[10px] tabular-nums text-slate-400">{pct}%</span>
+        <ProfileButton />
         <BeatProtocolLink compact />
       </div>
     );
@@ -466,14 +468,19 @@ function SidebarFooter({ collapsed, theme, onToggleTheme }: { collapsed: boolean
   return (
     <div className="shrink-0 border-t border-slate-100 px-4 py-3 dark:border-white/10">
       <BeatProtocolLink />
-      <div className="mb-1.5 flex items-center justify-between text-xs">
-        <span className="font-medium text-slate-600 dark:text-slate-300">{t('Demo progress')}</span>
-        <span className="tabular-nums text-slate-500 dark:text-slate-400">
-          {count}/{FLAT_TOPICS.length} · {pct}%
-        </span>
-      </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
-        <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-indigo-700 transition-[width] duration-300" style={{ width: `${pct}%` }} />
+      <div className="flex items-center gap-3">
+        <ProfileButton />
+        <div className="min-w-0 flex-1">
+          <div className="mb-1.5 flex items-center justify-between text-xs">
+            <span className="font-medium text-slate-600 dark:text-slate-300">{t('Demo progress')}</span>
+            <span className="tabular-nums text-slate-500 dark:text-slate-400">
+              {count}/{FLAT_TOPICS.length} · {pct}%
+            </span>
+          </div>
+          <div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
+            <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-indigo-700 transition-[width] duration-300" style={{ width: `${pct}%` }} />
+          </div>
+        </div>
       </div>
       {count > 0 && (
         <button onClick={reset} className="mt-2 flex items-center gap-1 text-[11px] text-slate-400 hover:text-slate-700 dark:hover:text-white">

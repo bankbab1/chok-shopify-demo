@@ -397,6 +397,9 @@ export const TH: Record<string, string> = {
   'Brands needing a unique, custom experience': 'แบรนด์ที่ต้องการประสบการณ์เฉพาะตัว',
 
   'Powered by': 'สนับสนุนโดย',
+  Presenter: 'ผู้บรรยาย',
+  Call: 'โทร',
+  Email: 'อีเมล',
   'Company profile': 'ข้อมูลบริษัท',
   'Your element class': 'Class ของปุ่ม/Element ในร้านของคุณ',
   'Copy example': 'คัดลอกตัวอย่าง',

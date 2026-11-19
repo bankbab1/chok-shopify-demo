@@ -44,27 +44,30 @@ All content is data. You don't need to change any components.
 Block types: `steps`, `images`, `specs`, `code`, `copylist`, `kv`, `richtext`, `note`, `link`, `product` (see `src/data/types.ts`).
 A topic can also have `group` (a sidebar sub-heading such as "Home"), `tag` (`workshop` | `production`), and `outcome` (a "You should now see…" checklist).
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare (Workers static assets)
 
-**Option A: Git integration (recommended)**
+The site is deployed as a **Cloudflare Worker with static assets** (`wrangler.toml` → `[assets]`). No Worker code is needed.
 
-1. Push this folder to a GitHub or GitLab repository.
-2. In Cloudflare, go to Workers & Pages → Create → Pages → Connect to Git, then pick the repository.
-3. Use these build settings:
-   - Framework preset: **Vite** (or None)
+**Option A: Git integration (Workers Builds, recommended)**
+
+1. Workers & Pages → Create → Import a repository → pick `bankbab1/chok-shopify-demo`.
+2. Build settings (Worker → Settings → Build):
    - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Environment variable: `NODE_VERSION = 20` or newer
-4. Every push to the main branch deploys. Other branches get preview URLs.
+   - Deploy command: `npx wrangler deploy`
+   - Root directory: `/`
+3. Worker → Settings → Domains & Routes → enable the **workers.dev** URL (or add a custom domain).
+4. Every push to `main` builds and deploys.
 
-**Option B: Direct upload with Wrangler**
+The Worker name in the dashboard must match `name` in `wrangler.toml` (`chok-shopify-demo`).
+
+**Option B: Deploy from your machine**
 
 ```bash
 npx wrangler login
-npm run deploy     # builds, then: wrangler pages deploy dist --project-name shopify-demo-portal
+npm run deploy     # build, then wrangler deploy
 ```
 
-`public/_redirects` (`/* /index.html 200`) makes deep links such as `/theme/hero` work when the page is refreshed.
+`not_found_handling = "single-page-application"` serves `index.html` for unknown paths, so deep links such as `/theme/hero` work when the page is refreshed.
 
 ## Notes
 

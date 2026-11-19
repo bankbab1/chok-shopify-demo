@@ -1,4 +1,10 @@
-# Cloudflare Pages project config — used by `npm run deploy` (wrangler pages deploy).
-name = "shopify-demo-portal"
-pages_build_output_dir = "dist"
+# Cloudflare Workers (static assets) config.
+# Workers Builds runs: build `npm run build`, then deploy `npx wrangler deploy`.
+# `name` must match the Worker name in the Cloudflare dashboard.
+name = "chok-shopify-demo"
 compatibility_date = "2026-11-01"
+
+[assets]
+directory = "./dist"
+# Serve index.html for unknown paths so deep links like /theme/hero work on refresh.
+not_found_handling = "single-page-application"

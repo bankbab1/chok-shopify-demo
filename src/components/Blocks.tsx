@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import { AlertTriangle, Boxes, Check, ChevronDown, Code2, Copy, MapPin, Download, ExternalLink, Info, ListChecks, Sparkles } from 'lucide-react';
-import type { Block, Product, PromptSpec, SelectorSpec, SpecRow } from '../data/types';
+import type { Block, KvRow, Product, PromptSpec, SelectorSpec, SpecRow } from '../data/types';
 import { usePersistedState } from '../hooks/usePersistedState';
 import { PRODUCTS } from '../data/products';
 import { UploadImagesGuide } from './UploadImagesGuide';
 import { InventoryTerms } from './InventoryTerms';
+import { StoreTypes } from './StoreTypes';
 import { Card, CardHeader, CopyButton, ImageGrid, RichLine, copyText } from './ui';
 import { PromptButton, PromptCard } from './PromptButton';
 import { useT } from '../i18n';
@@ -42,6 +43,8 @@ export function BlockView({ block }: { block: Block }) {
       return <UploadImagesGuide />;
     case 'inventory-terms':
       return <InventoryTerms />;
+    case 'store-types':
+      return <StoreTypes />;
   }
 }
 
@@ -64,7 +67,7 @@ function LinkCard({ label, url, purpose, fallbackPath }: { label: string; url: s
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-indigo-600 px-4 text-xs font-semibold text-white transition hover:bg-indigo-700 dark:bg-indigo-500 dark:text-white dark:hover:bg-indigo-400"
+        className="inline-flex min-h-9 max-w-full items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-left text-xs font-semibold leading-snug text-white transition hover:bg-indigo-700 dark:bg-indigo-500 dark:text-white dark:hover:bg-indigo-400"
       >
         {t(label)}
         <ExternalLink size={13} />
@@ -382,19 +385,47 @@ function CopyList({
   );
 }
 
-function KeyValues({ title, rows }: { title?: string; rows: { label: string; value: string }[] }) {
+function KeyValues({ title, rows }: { title?: string; rows: KvRow[] }) {
   const t = useT();
+  const [revealed, setRevealed] = useState<Record<string, boolean>>({});
   return (
     <Card>
       {title && <CardHeader title={t(title)} />}
       <dl className="divide-y divide-slate-100 dark:divide-white/5">
-        {rows.map((r) => (
-          <div key={r.label} className="flex items-center gap-3 px-4 py-2.5 text-sm">
-            <dt className="w-36 shrink-0 text-xs text-slate-500 dark:text-slate-400">{t(r.label)}</dt>
-            <dd className="min-w-0 flex-1 font-medium">{t(r.value)}</dd>
-            <CopyButton text={r.value} compact />
-          </div>
-        ))}
+        {rows.map((r) => {
+          const showLink = !!r.link && (!r.linkHidden || revealed[r.label]);
+          return (
+            <div key={r.label} className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 text-sm">
+              <dt className="w-36 shrink-0 text-xs text-slate-500 dark:text-slate-400">{t(r.label)}</dt>
+              <dd className="flex min-w-0 flex-1 items-center gap-2 font-medium">
+                {t(r.value)}
+                {r.link && r.linkHidden && (
+                  <button
+                    type="button"
+                    onClick={() => setRevealed((v) => ({ ...v, [r.label]: !v[r.label] }))}
+                    aria-label={t('Show shortcut')}
+                    aria-pressed={!!revealed[r.label]}
+                    className={clsx(
+                      'h-2.5 w-2.5 shrink-0 rounded-full transition hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2',
+                      revealed[r.label] ? 'bg-amber-500' : 'bg-amber-300 hover:bg-amber-400',
+                    )}
+                  />
+                )}
+              </dd>
+              {showLink && (
+                <a
+                  href={r.link!.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full bg-indigo-600 px-3 text-xs font-semibold text-white transition hover:bg-indigo-700 dark:bg-indigo-500"
+                >
+                  {t(r.link!.label)} <ExternalLink size={12} />
+                </a>
+              )}
+              <CopyButton text={r.value} compact />
+            </div>
+          );
+        })}
       </dl>
     </Card>
   );

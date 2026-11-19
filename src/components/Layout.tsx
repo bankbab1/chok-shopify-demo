@@ -3,7 +3,6 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import {
   Check,
-  ChevronDown,
   ChevronRight,
   CircleCheck,
   CircleHelp,
@@ -352,7 +351,7 @@ function ExpandedNav() {
                     {t(section.title)}
                   </span>
                   <ProgressRing n={n} total={section.topics.length} />
-                  <ChevronDown size={14} className={clsx('shrink-0 text-slate-400 transition-transform duration-200', isOpen && 'rotate-180')} />
+                  <ChevronRight size={14} className={clsx('shrink-0 text-slate-400 transition-transform duration-200', isOpen && 'rotate-90')} />
                 </button>
 
                 <div className="grid transition-[grid-template-rows] duration-200 ease-out" style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}>

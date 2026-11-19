@@ -327,6 +327,26 @@ export const SECTIONS: Section[] = [
     summary: 'Spin up a new development store from the Shopify Dev Dashboard.',
     topics: [
       {
+        id: 'store-types',
+        title: 'Store Types',
+        summary: 'Store vs Dev store vs Client transfer store — which one to use.',
+        blocks: [
+          { type: 'store-types' },
+          {
+            type: 'link',
+            label: 'Shopify Dev Docs: About stores',
+            url: 'https://shopify.dev/docs/apps/build/stores',
+            purpose: 'Official comparison of dev stores, client transfer stores and collaborations.',
+          },
+          {
+            type: 'link',
+            label: 'Shopify Dev Docs: Client transfer stores',
+            url: 'https://shopify.dev/docs/apps/build/stores/client-transfer-stores',
+            purpose: 'How to build a store for a client and transfer it.',
+          },
+        ],
+      },
+      {
         id: 'explore-plans',
         title: 'Explore Plans',
         summary: 'Compare Shopify plans before choosing one for a real store.',
@@ -613,6 +633,51 @@ export const SECTIONS: Section[] = [
     topics: [...productTopics, UPLOAD_IMAGES_TOPIC],
   },
   {
+    id: 'inventory',
+    title: 'Inventory',
+    icon: Boxes,
+    summary: 'Manual adjustment and CSV bulk import.',
+    topics: [
+      {
+        id: 'inventory-terms',
+        title: 'Inventory Terms',
+        summary: 'What On hand, Available, Committed, Unavailable and Incoming mean.',
+        blocks: [
+          { type: 'inventory-terms' },
+          {
+            type: 'link',
+            label: 'Shopify Help: Inventory states',
+            url: 'https://help.shopify.com/en/manual/products/inventory/fundamentals/inventory-states',
+            purpose: 'Official definitions of each inventory state.',
+          },
+        ],
+      },
+      {
+        id: 'manual-adjust',
+        title: 'Manual Adjust',
+        summary: 'Set stock levels by hand, or let Sidekick do it for every variant.',
+        outcome: ['Every variant shows the planned On hand quantity at your location'],
+        blocks: [
+          { type: 'steps', items: ['Go to “Inventory”', 'Specify inventory balance “On hand”', 'Click “Save”'] },
+          { type: 'inventory' },
+          { type: 'images', images: [img('p095_0'), img('p095_1'), img('p095_2')] },
+        ],
+      },
+      {
+        id: 'bulk-import',
+        title: 'Bulk Import',
+        blocks: [
+          { type: 'steps', title: 'Export current inventory template', items: ['Click “Export”', 'Click “Export Variants” to save “.csv”'] },
+          { type: 'images', images: [img('p096_0'), img('p096_1')] },
+          { type: 'steps', title: 'Maintain new inventory', items: ['Open the “.csv” with Excel', 'Enter stock balance into the column “On hand (New)”', 'Save the file'] },
+          { type: 'images', images: [img('p097_0'), img('p097_1')] },
+          { type: 'steps', title: 'Import inventory into Shopify', items: ['Click “Import”', 'Browse & choose file', 'Click “Upload file”', 'Click “Start Import”', 'Inventory updated'] },
+          { type: 'images', images: [img('p098_0'), img('p098_1'), img('p099_0'), img('p099_1', 'Inventory updated')] },
+        ],
+      },
+    ],
+  },
+  {
     id: 'theme',
     title: 'Theme',
     icon: Palette,
@@ -623,7 +688,17 @@ export const SECTIONS: Section[] = [
         title: 'Select Theme',
         summary: 'Use the Horizon theme.',
         blocks: [
-          { type: 'kv', rows: [{ label: 'Theme', value: 'Horizon' }] },
+          {
+            type: 'kv',
+            rows: [
+              {
+                label: 'Theme',
+                value: 'Horizon',
+                link: { label: 'Open in Theme Store', url: 'https://themes.shopify.com/themes?q=horizon' },
+                linkHidden: true,
+              },
+            ],
+          },
           {
             type: 'steps',
             title: 'Pages to build',
@@ -944,51 +1019,6 @@ export const SECTIONS: Section[] = [
           },
           { type: 'steps', items: ['Search for “Shopify Inbox” and click “Install”', 'Add “Shopify Inbox” to the theme'] },
           { type: 'images', images: [img('p092_0'), img('p092_1'), img('p093_0', 'Inbox in theme')] },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'inventory',
-    title: 'Inventory',
-    icon: Boxes,
-    summary: 'Manual adjustment and CSV bulk import.',
-    topics: [
-      {
-        id: 'inventory-terms',
-        title: 'Inventory Terms',
-        summary: 'What On hand, Available, Committed, Unavailable and Incoming mean.',
-        blocks: [
-          { type: 'inventory-terms' },
-          {
-            type: 'link',
-            label: 'Shopify Help: Inventory states',
-            url: 'https://help.shopify.com/en/manual/products/inventory/fundamentals/inventory-states',
-            purpose: 'Official definitions of each inventory state.',
-          },
-        ],
-      },
-      {
-        id: 'manual-adjust',
-        title: 'Manual Adjust',
-        summary: 'Set stock levels by hand, or let Sidekick do it for every variant.',
-        outcome: ['Every variant shows the planned On hand quantity at your location'],
-        blocks: [
-          { type: 'steps', items: ['Go to “Inventory”', 'Specify inventory balance “On hand”', 'Click “Save”'] },
-          { type: 'inventory' },
-          { type: 'images', images: [img('p095_0'), img('p095_1'), img('p095_2')] },
-        ],
-      },
-      {
-        id: 'bulk-import',
-        title: 'Bulk Import',
-        blocks: [
-          { type: 'steps', title: 'Export current inventory template', items: ['Click “Export”', 'Click “Export Variants” to save “.csv”'] },
-          { type: 'images', images: [img('p096_0'), img('p096_1')] },
-          { type: 'steps', title: 'Maintain new inventory', items: ['Open the “.csv” with Excel', 'Enter stock balance into the column “On hand (New)”', 'Save the file'] },
-          { type: 'images', images: [img('p097_0'), img('p097_1')] },
-          { type: 'steps', title: 'Import inventory into Shopify', items: ['Click “Import”', 'Browse & choose file', 'Click “Upload file”', 'Click “Start Import”', 'Inventory updated'] },
-          { type: 'images', images: [img('p098_0'), img('p098_1'), img('p099_0'), img('p099_1', 'Inventory updated')] },
         ],
       },
     ],

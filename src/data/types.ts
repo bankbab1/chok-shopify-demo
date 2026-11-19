@@ -47,6 +47,15 @@ export interface SelectorSpec {
   hint?: string;
 }
 
+export interface KvRow {
+  label: string;
+  value: string;
+  /** Optional external link for the value, e.g. the theme's Theme Store page. */
+  link?: { label: string; url: string };
+  /** Hide the link behind a small yellow dot (manual-first: let people find it themselves). */
+  linkHidden?: boolean;
+}
+
 /** A copy-ready prompt opened from a button in a modal (e.g. a Shopify Sidekick request). */
 export interface PromptSpec {
   title: string;
@@ -71,7 +80,7 @@ export type Block =
     }
   /** Collapsible copy-ready prompt card (collapsed by default). */
   | { type: 'prompt'; prompt: PromptSpec }
-  | { type: 'kv'; title?: string; rows: { label: string; value: string }[] }
+  | { type: 'kv'; title?: string; rows: KvRow[] }
   | { type: 'richtext'; title: string; body: string }
   | { type: 'note'; tone?: 'info' | 'warn'; text: string }
   | { type: 'link'; label: string; url: string; purpose?: string; fallbackPath?: string }
@@ -81,7 +90,9 @@ export type Block =
   /** Per-product photo upload guide (main + variant images) with ZIP downloads. */
   | { type: 'upload-images' }
   /** Inventory glossary + interactive On hand / Available calculator. */
-  | { type: 'inventory-terms' };
+  | { type: 'inventory-terms' }
+  /** Store vs Dev store vs Client transfer store comparison. */
+  | { type: 'store-types' };
 
 export interface Topic {
   id: string;

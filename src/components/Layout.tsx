@@ -29,6 +29,7 @@ import { useTheme } from '../hooks/useTheme';
 import { ProgressProvider, useProgress } from '../hooks/useProgress';
 import { usePersistedState } from '../hooks/usePersistedState';
 import { useI18n, useT, type Lang } from '../i18n';
+import { BeatProtocolLink } from './BeatProtocol';
 
 const FOCUS =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-400 dark:focus-visible:ring-indigo-300';
@@ -469,11 +470,13 @@ function SidebarFooter({ collapsed, theme, onToggleTheme }: { collapsed: boolean
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
         <span className="text-[10px] tabular-nums text-slate-400">{pct}%</span>
+        <BeatProtocolLink compact />
       </div>
     );
   }
   return (
     <div className="shrink-0 border-t border-slate-100 px-4 py-3 dark:border-white/10">
+      <BeatProtocolLink />
       <div className="mb-1.5 flex items-center justify-between text-xs">
         <span className="font-medium text-slate-600 dark:text-slate-300">{t('Demo progress')}</span>
         <span className="tabular-nums text-slate-500 dark:text-slate-400">

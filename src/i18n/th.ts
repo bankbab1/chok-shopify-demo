@@ -396,6 +396,8 @@ export const TH: Record<string, string> = {
   'Most stores — fast to launch': 'ร้านค้าทั่วไป — เปิดร้านได้เร็ว',
   'Brands needing a unique, custom experience': 'แบรนด์ที่ต้องการประสบการณ์เฉพาะตัว',
 
+  'Powered by': 'สนับสนุนโดย',
+  'Company profile': 'ข้อมูลบริษัท',
   /* ---------------------------------------------------------------- App links */
   'Open in Shopify App Store': 'เปิดใน Shopify App Store',
   'App listing for Wishlist by Square — click “Install” and choose your store.': 'หน้าแอป Wishlist by Square — คลิก “Install” แล้วเลือกร้านของคุณ',

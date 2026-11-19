@@ -265,57 +265,62 @@ const SIDEKICK_FOOTER_PROMPT = `Please rebuild the **email sign-up area at the t
 
 **Where:** Online Store → Themes → Customize → Footer section (above the Utilities row with the copyright, policies and social icons)
 
-**Build exactly this block structure inside the Footer section:**
+**The exact structure — who contains what:**
 
-Footer  (section — black background)
-└─ Group  ← OUTER group
-    ├─ Group  ← INNER group
-    │   ├─ Text — "JOIN US"
-    │   └─ Text — "Get exclusive deals and early access to new products." 
-    ├─ Spacer
-    └─ Email signup
+Footer (section)
+└─ OUTER Group                      ← directly inside the Footer section
+    ├─ 1. INNER Group               ← child 1 of the OUTER Group
+    │   ├─ Text "JOIN US"           ← child 1 of the INNER Group
+    │   └─ Text "Get exclusive deals and early access to new products."   ← child 2 of the INNER Group
+    ├─ 2. Spacer                    ← child 2 of the OUTER Group
+    └─ 3. Email signup              ← child 3 of the OUTER Group
 
-**Footer section:** background black (#000000), using the section's color scheme. The black comes from the section — NOT from the groups.
+**Containment rules (most important):**
+- The OUTER Group has exactly 3 direct children, in this order: INNER Group, Spacer, Email signup.
+- The INNER Group has exactly 2 direct children: the two Text blocks — nothing else.
+- The Spacer and the Email signup are inside the OUTER Group, as siblings of the INNER Group. They must NOT be inside the INNER Group, and NOT directly under the Footer section.
+- Both groups use Direction Vertical, so everything stacks top to bottom — never side by side.
 
-**OUTER group:**
+**OUTER Group settings:**
 - Layout: Direction Vertical · Alignment Center · Position Center · Gap 6px
 - Size: Width Fill · Mobile width Fill · Height Fit
-- Appearance: Background media None · Background color Default · no border · corner radius 0
+- Appearance: Background media None · Background color Default · Borders None · Corner radius 0
 
-**INNER group:**
+**INNER Group settings:**
 - Layout: Direction Vertical · Alignment Center · Position Center · Gap 12px
 - Size: Width Fill · Mobile width Fill · Height Fit
-- Appearance: Background media None · Background color Default · no border · corner radius 0
+- Appearance: Background media None · Background color Default · Borders None · Corner radius 0
 
-**Text "JOIN US":**
-- Text: "JOIN US", formatted as **H2** with the paragraph-format dropdown in the text editor toolbar (not a text preset)
-- Text color: Palette color #DFDFDF
-- Background: Off · Padding top 0px, bottom 0px
+**Text "JOIN US"** (child 1 of the INNER Group):
+- Text "JOIN US", formatted as **H2** with the paragraph-format dropdown in the text editor toolbar (not a text preset)
+- Text color: Palette color #DFDFDF · Background Off · Padding top 0px, bottom 0px
 
-**Text "Get exclusive deals and early access to new products.":**
+**Text "Get exclusive deals and early access to new products."** (child 2 of the INNER Group):
 - Layout: Width Fill · Max width Normal · Alignment Center
 - Typography: Preset Custom · Font Body · Size 16px · Line height Normal · Letter spacing Normal · Case Default · Wrap Pretty
-- Text color: Palette color #DFDFDF
-- Background: Off
+- Text color: Palette color #DFDFDF · Background Off
 
-**Spacer:** Unit Pixel · Size 32px · Custom mobile size Off
+**Spacer** (child 2 of the OUTER Group): Unit Pixel · Size 32px · Custom mobile size Off
 
-**Email signup:**
-- Width: Custom 62%
-- Heading text: empty (the "JOIN US" text above is the heading)
+**Email signup** (child 3 of the OUTER Group):
+- Width: Custom · Custom width 62%
+- Heading text: empty · Text preset Heading 3
 - Input: Border All · Style Default
 - Submit button: style Link (the arrow button)
 
+**Footer section background:** black (#000000) from the section's color scheme — the groups keep Background color Default.
+
 **Requirements:**
-- Both text lines are Text blocks inside the INNER group. "JOIN US" is H2-formatted text inside its Text block; the second line uses the Custom preset at 16px.
-- Stack everything vertically: inner group, then spacer, then email signup — never side by side.
-- Do not set a background color on either group; keep them Default so the black section background shows across the full width.
-- Remove any other default heading or text blocks from this area so it matches the structure above.
+- Remove any other default heading, text or extra blocks from this area so it matches the structure exactly.
 - Keep the email signup form working.
 - Do not change the Utilities row, the footer menus, the header or other sections, and do not publish a different theme.
 - If you cannot build this structure directly, tell me exactly which steps I need to do in the theme editor.
 
-Then show me the final block structure (as a tree) and what you changed, so I can review and click Save.`;
+**Before I save, check and report:**
+1. The final block tree, with each block's parent.
+2. OUTER Group children (count and order) — must be: INNER Group, Spacer, Email signup.
+3. INNER Group children (count) — must be exactly the 2 Text blocks.
+If any check fails, fix it first.`;
 
 // Image with Text and Featured Product, from the workshop PDF (pages 57–59).
 const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** section on the Home page of my published theme (Horizon), below the Featured collection.

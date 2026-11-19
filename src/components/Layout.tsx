@@ -491,6 +491,24 @@ function SidebarFooter({ collapsed, theme, onToggleTheme }: { collapsed: boolean
           <RotateCcw size={11} /> {t('Reset progress')}
         </button>
       )}
+      <BuildInfo />
     </div>
+  );
+}
+
+/** Which commit is live — handy to confirm a Cloudflare deploy picked up the latest push. */
+function BuildInfo() {
+  const built = new Date(__BUILD_TIME__);
+  const when = built.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Bangkok' });
+  return (
+    <a
+      href={`https://github.com/bankbab1/chok-shopify-demo/commit/${__BUILD_SHA__}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={`Build ${__BUILD_SHA__} · ${built.toISOString()}`}
+      className="mt-2 block font-mono text-[10px] text-slate-400 hover:text-indigo-600 dark:text-slate-500 dark:hover:text-indigo-300"
+    >
+      build {__BUILD_SHA__} · {when}
+    </a>
   );
 }

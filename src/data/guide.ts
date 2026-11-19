@@ -148,10 +148,10 @@ const SIDEKICK_HEADER_PROMPT = `Please update the **Header** section of my publi
 **Where:** Online Store → Themes → Customize → Header
 
 **Logo**
-- Position: Center
+- Position: Left
 
 **Menu**
-- Position: Left
+- Position: Center
 - Row: Top
 
 **Search**
@@ -811,8 +811,8 @@ export const SECTIONS: Section[] = [
               tip: 'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home, Product and Collection pages (6 toggles On) — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.',
             },
             rows: [
-              { label: 'Logo position', value: 'Center' },
-              { label: 'Menu position', value: 'Left · Row: Top' },
+              { label: 'Logo position', value: 'Left' },
+              { label: 'Menu position', value: 'Center · Row: Top' },
               { label: 'Search icon', value: 'On · Right · Top' },
               { label: 'Localization', value: 'Country/Region On · Flag Off · Language selector On' },
               { label: 'Home page', value: 'Transparent background On · Inverse logo On' },

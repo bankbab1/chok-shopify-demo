@@ -473,8 +473,8 @@ export const TH: Record<string, string> = {
   'Sidekick prompt – Featured product': 'Prompt สำหรับ Sidekick – Featured product',
   'Paste this into Shopify Sidekick. It sets the “NEW ARRIVAL” heading and features NovaStep Cloud Slide. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งหัวข้อ “NEW ARRIVAL” และแสดงสินค้า NovaStep Cloud Slide ตรวจตัวอย่างแล้วกด Save',
-  'Paste this into Shopify Sidekick. It sets “JOIN US” and the sign-up text in #DFDFDF on a black footer, keeping the email field. Review the preview, then click Save.':
-    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งข้อความ “JOIN US” และข้อความชวนสมัครเป็นสี #DFDFDF บนพื้นหลังสีดำของ Footer โดยยังคงช่องกรอกอีเมลไว้ ตรวจตัวอย่างแล้วกด Save',
+  'Paste this into Shopify Sidekick. It builds Footer (black) → Group → inner Group with the two texts, a 32px Spacer and the Email signup (62%), all stacked vertically. Check the block tree in the editor matches, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะสร้าง Footer (พื้นดำ) → Group → Group ด้านในที่มีข้อความ 2 บรรทัด, Spacer 32px และ Email signup (62%) เรียงแนวตั้งทั้งหมด ตรวจโครงสร้างบล็อกใน Editor ให้ตรงแล้วกด Save',
   'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูป Hero จากลิงก์ และตั้งค่าข้อความทั้ง 3 ส่วนพร้อมสไตล์และสี ตรวจตัวอย่างแล้วกด Save',
   'Sidekick prompt – Featured collection': 'Prompt สำหรับ Sidekick – Featured collection',

@@ -261,25 +261,61 @@ const SIDEKICK_FEATURED_COLLECTION_PROMPT = `Please set up the **Featured collec
 Then show me a summary of what you changed so I can review and click Save.`;
 
 // Footer email sign-up, from the workshop PDF (page 60).
-const SIDEKICK_FOOTER_PROMPT = `Please update the **email sign-up area in the Footer** of my published theme (Horizon).
+const SIDEKICK_FOOTER_PROMPT = `Please rebuild the **email sign-up area at the top of the Footer** in my published theme (Horizon).
 
-**Where:** Online Store → Themes → Customize → Footer (the section with the email sign-up, currently "Join our email list")
+**Where:** Online Store → Themes → Customize → Footer section (above the Utilities row with the copyright, policies and social icons)
 
-**Text, centered, in this order:**
-1. Heading — "JOIN US" — style Heading 2 — color #DFDFDF
-2. Text — "Get exclusive deals and early access to new products." — custom size 16px — color #DFDFDF
-3. Email signup — keep the email field with the arrow button, centered below the text
+**Build exactly this block structure inside the Footer section:**
 
-**Background:** black (#000000) for this footer email sign-up area.
+Footer  (section — black background)
+└─ Group  ← OUTER group
+    ├─ Group  ← INNER group
+    │   ├─ Text — "JOIN US"
+    │   └─ Text — "Get exclusive deals and early access to new products." 
+    ├─ Spacer
+    └─ Email signup
+
+**Footer section:** background black (#000000), using the section's color scheme. The black comes from the section — NOT from the groups.
+
+**OUTER group:**
+- Layout: Direction Vertical · Alignment Center · Position Center · Gap 6px
+- Size: Width Fill · Mobile width Fill · Height Fit
+- Appearance: Background media None · Background color Default · no border · corner radius 0
+
+**INNER group:**
+- Layout: Direction Vertical · Alignment Center · Position Center · Gap 12px
+- Size: Width Fill · Mobile width Fill · Height Fit
+- Appearance: Background media None · Background color Default · no border · corner radius 0
+
+**Text "JOIN US":**
+- Text: "JOIN US", formatted as **H2** with the paragraph-format dropdown in the text editor toolbar (not a text preset)
+- Text color: Palette color #DFDFDF
+- Background: Off · Padding top 0px, bottom 0px
+
+**Text "Get exclusive deals and early access to new products.":**
+- Layout: Width Fill · Max width Normal · Alignment Center
+- Typography: Preset Custom · Font Body · Size 16px · Line height Normal · Letter spacing Normal · Case Default · Wrap Pretty
+- Text color: Palette color #DFDFDF
+- Background: Off
+
+**Spacer:** Unit Pixel · Size 32px · Custom mobile size Off
+
+**Email signup:**
+- Width: Custom 62%
+- Heading text: empty (the "JOIN US" text above is the heading)
+- Input: Border All · Style Default
+- Submit button: style Link (the arrow button)
 
 **Requirements:**
-- Replace the default heading and text with the text above, exactly as written (including capital letters).
-- Keep the email signup form working — do not remove it.
-- Apply the black background to this footer area only. If that needs a color scheme that would also change other sections, tell me instead of changing it.
-- Do not change the footer menus, the header, other sections or theme settings, and do not publish a different theme.
-- If you cannot edit the section directly, tell me exactly which steps I need to do in the theme editor.
+- Both text lines are Text blocks inside the INNER group. "JOIN US" is H2-formatted text inside its Text block; the second line uses the Custom preset at 16px.
+- Stack everything vertically: inner group, then spacer, then email signup — never side by side.
+- Do not set a background color on either group; keep them Default so the black section background shows across the full width.
+- Remove any other default heading or text blocks from this area so it matches the structure above.
+- Keep the email signup form working.
+- Do not change the Utilities row, the footer menus, the header or other sections, and do not publish a different theme.
+- If you cannot build this structure directly, tell me exactly which steps I need to do in the theme editor.
 
-Then show me a summary of what you changed so I can review and click Save.`;
+Then show me the final block structure (as a tree) and what you changed, so I can review and click Save.`;
 
 // Image with Text and Featured Product, from the workshop PDF (pages 57–59).
 const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** section on the Home page of my published theme (Horizon), below the Featured collection.
@@ -1179,7 +1215,7 @@ export const SECTIONS: Section[] = [
             prompt: {
               title: 'Sidekick prompt – Footer',
               text: SIDEKICK_FOOTER_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It sets “JOIN US” and the sign-up text in #DFDFDF on a black footer, keeping the email field. Review the preview, then click Save.',
+              tip: 'Paste this into Shopify Sidekick. It builds Footer (black) → Group → inner Group with the two texts, a 32px Spacer and the Email signup (62%), all stacked vertically. Check the block tree in the editor matches, then click Save.',
             },
             rows: [
               { text: 'JOIN US', style: 'Heading 2', color: '#DFDFDF' },

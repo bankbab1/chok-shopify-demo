@@ -28,7 +28,7 @@ export function BlockView({ block }: { block: Block }) {
     case 'prompt':
       return <PromptCard prompt={block.prompt} />;
     case 'kv':
-      return <KeyValues title={block.title} rows={block.rows} />;
+      return <KeyValues title={block.title} rows={block.rows} prompt={block.prompt} />;
     case 'richtext':
       return <RichText title={block.title} body={block.body} />;
     case 'note':
@@ -385,12 +385,12 @@ function CopyList({
   );
 }
 
-function KeyValues({ title, rows }: { title?: string; rows: KvRow[] }) {
+function KeyValues({ title, rows, prompt }: { title?: string; rows: KvRow[]; prompt?: PromptSpec }) {
   const t = useT();
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
   return (
     <Card>
-      {title && <CardHeader title={t(title)} />}
+      {(title || prompt) && <CardHeader title={t(title ?? '')} action={prompt && <PromptButton prompt={prompt} />} />}
       <dl className="divide-y divide-slate-100 dark:divide-white/5">
         {rows.map((r) => {
           const showLink = !!r.link && (!r.linkHidden || revealed[r.label]);

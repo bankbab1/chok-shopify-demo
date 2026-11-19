@@ -80,7 +80,7 @@ export type Block =
     }
   /** Collapsible copy-ready prompt card (collapsed by default). */
   | { type: 'prompt'; prompt: PromptSpec }
-  | { type: 'kv'; title?: string; rows: KvRow[] }
+  | { type: 'kv'; title?: string; rows: KvRow[]; prompt?: PromptSpec }
   | { type: 'richtext'; title: string; body: string }
   | { type: 'note'; tone?: 'info' | 'warn'; text: string }
   | { type: 'link'; label: string; url: string; purpose?: string; fallbackPath?: string }

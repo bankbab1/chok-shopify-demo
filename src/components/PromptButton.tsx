@@ -5,9 +5,19 @@ import type { PromptSpec } from '../data/types';
 import { CopyButton, Modal } from './ui';
 import { useT } from '../i18n';
 
+const LOCAL_TIP = 'These links point to localhost, which Sidekick cannot reach — open this page on the live site to get working links.';
+
+/** Replace `{{origin}}` with this site's address; on localhost, swap the tip for a warning. */
+function resolve(prompt: PromptSpec): PromptSpec {
+  if (!prompt.text.includes('{{origin}}')) return prompt;
+  const local = /^(localhost|127\.|\[::1\])/.test(window.location.hostname);
+  return { ...prompt, text: prompt.text.split('{{origin}}').join(window.location.origin), tip: local ? LOCAL_TIP : prompt.tip };
+}
+
 /** Button that opens a copy-ready prompt (e.g. for Shopify Sidekick) in a modal. */
-export function PromptButton({ prompt, compact }: { prompt: PromptSpec; compact?: boolean }) {
+export function PromptButton({ prompt: raw, compact }: { prompt: PromptSpec; compact?: boolean }) {
   const t = useT();
+  const prompt = resolve(raw);
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -47,8 +57,9 @@ export function PromptButton({ prompt, compact }: { prompt: PromptSpec; compact?
 }
 
 /** Inline prompt card: header with Copy is always visible; the prompt text expands on demand (collapsed by default). */
-export function PromptCard({ prompt }: { prompt: PromptSpec }) {
+export function PromptCard({ prompt: raw }: { prompt: PromptSpec }) {
   const t = useT();
+  const prompt = resolve(raw);
   const [open, setOpen] = useState(false);
   const lines = prompt.text.split('\n').length;
   return (

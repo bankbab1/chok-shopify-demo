@@ -120,6 +120,25 @@ ${PAGE_IMAGE_METAFIELDS.map((n, i) => `${i + 1}. \`${n}\``).join('\n')}
 After completion, confirm which definitions were successfully created and list each final namespace and key.`;
 
 // `{{selector}}` is replaced with the participant's own button class (see SelectorSpec).
+// `{{origin}}` becomes the live site's address, so Sidekick can fetch the logo files by link.
+const SIDEKICK_LOGO_PROMPT = `Please update the logo in my published theme (Horizon) from the public image links below.
+
+**Where:** Online Store → Themes → Customize → Theme settings → Logo and favicon
+
+1. **Default logo** — fetch this image and use it:
+   {{origin}}/resources/brand-logo/mockup-logo-ns.png
+2. **Inverse logo** (used when the header is transparent) — fetch this image and use it:
+   {{origin}}/resources/brand-logo/mockup-logo-ns-i.png
+3. **Desktop logo height:** 36 px
+4. **Mobile logo height:** 28 px
+
+**Requirements:**
+- Fetch each link and upload the image to Files first if needed, then select it in the theme setting.
+- Change only these logo settings. Do not change colors, fonts, sections or any other theme setting, and do not publish a different theme.
+- If you cannot edit theme settings directly, still upload both images to Files and tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed or prepared so I can review it.`;
+
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
 }
@@ -715,6 +734,12 @@ export const SECTIONS: Section[] = [
         blocks: [
           {
             type: 'kv',
+            title: 'Logo settings',
+            prompt: {
+              title: 'Sidekick prompt – Theme logo',
+              text: SIDEKICK_LOGO_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It fetches both logo files from their links. If it can’t change theme settings, it uploads the logos to Files — then pick them in Theme settings → Logo and favicon. Check the header afterwards.',
+            },
             rows: [
               { label: 'Default logo', value: 'NovaStep logo (dark)' },
               { label: 'Inverse logo', value: 'NovaStep logo (light)' },

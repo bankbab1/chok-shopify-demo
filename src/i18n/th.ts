@@ -464,6 +464,10 @@ export const TH: Record<string, string> = {
   'Rich text': 'Rich text',
   'Store Types': 'ประเภทร้านค้า',
   'Open in Theme Store': 'เปิดใน Theme Store',
+  'Logo settings': 'การตั้งค่าโลโก้',
+  'Sidekick prompt – Theme logo': 'Prompt สำหรับ Sidekick – โลโก้ธีม',
+  'Paste this into Shopify Sidekick. It fetches both logo files from their links. If it can’t change theme settings, it uploads the logos to Files — then pick them in Theme settings → Logo and favicon. Check the header afterwards.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงไฟล์โลโก้ทั้งสองจากลิงก์ หากแก้การตั้งค่าธีมไม่ได้ จะอัปโหลดโลโก้ไว้ใน Files — จากนั้นให้เลือกเองใน Theme settings → Logo and favicon แล้วตรวจส่วน Header อีกครั้ง',
   'Store vs Dev store vs Client transfer store — which one to use.': 'ร้านค้าจริง vs Dev store vs Client transfer store — ควรใช้แบบไหน',
   'Shopify Dev Docs: About stores': 'Shopify Dev Docs: ประเภทร้านค้า (About stores)',
   'Official comparison of dev stores, client transfer stores and collaborations.': 'ตารางเปรียบเทียบอย่างเป็นทางการของ Dev store, Client transfer store และ Collaboration',

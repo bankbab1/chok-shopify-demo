@@ -415,6 +415,10 @@ export const TH: Record<string, string> = {
   'This page': 'หน้านี้',
   'Show on projector (full screen)': 'แสดงบนโปรเจกเตอร์ (เต็มจอ)',
   'Scan to open the workshop guide': 'สแกนเพื่อเปิดคู่มือเวิร์กช็อป',
+  'Copy heading': 'คัดลอกหัวข้อ',
+  'Copy text': 'คัดลอกข้อความ',
+  'Copy label': 'คัดลอกข้อความปุ่ม',
+  'Copy color {c}': 'คัดลอกสี {c}',
   /* ---------------------------------------------------------------- App links */
   'Open in Shopify App Store': 'เปิดใน Shopify App Store',
   'App listing for Wishlist by Square — click “Install” and choose your store.': 'หน้าแอป Wishlist by Square — คลิก “Install” แล้วเลือกร้านของคุณ',

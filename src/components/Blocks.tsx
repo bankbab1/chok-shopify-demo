@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import clsx from 'clsx';
-import { AlertTriangle, Check, ChevronDown, Code2, Download, ExternalLink, Info, ListChecks, Sparkles } from 'lucide-react';
+import { AlertTriangle, Check, ChevronDown, Code2, Copy, Download, ExternalLink, Info, ListChecks, Sparkles } from 'lucide-react';
 import type { Block, Product, PromptSpec, SelectorSpec, SpecRow } from '../data/types';
 import { usePersistedState } from '../hooks/usePersistedState';
-import { Card, CardHeader, CopyButton, ImageGrid, Modal, RichLine } from './ui';
+import { Card, CardHeader, CopyButton, ImageGrid, Modal, RichLine, copyText } from './ui';
 import { useT } from '../i18n';
 
 export function BlockView({ block }: { block: Block }) {
@@ -150,22 +150,47 @@ function Specs({ title, rows }: { title: string; rows: SpecRow[] }) {
       </div>
       <div className="divide-y divide-slate-100 dark:divide-white/5">
         {rows.map((r, i) => (
-          <div key={i} className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 text-xs">
-            <span className="min-w-0 flex-1 basis-48 truncate font-medium text-slate-800 dark:text-slate-100">{r.text}</span>
+          <div key={i} className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3 text-xs">
+            <div className="flex min-w-0 flex-1 basis-56 items-center gap-2">
+              <span className="min-w-0 text-[13px] font-medium leading-snug text-slate-800 dark:text-slate-100">{r.text}</span>
+              <CopyButton text={r.text} compact />
+            </div>
             <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-white/10 dark:text-slate-300">{r.style}</span>
             {r.size && <span className="rounded-full bg-slate-100 px-2 py-0.5 tabular-nums text-slate-600 dark:bg-white/10 dark:text-slate-300">{r.size}</span>}
-            {r.color && (
-              <span className="flex items-center gap-1.5 font-mono text-slate-600 dark:text-slate-300">
-                <span className="h-4 w-4 rounded border border-slate-300 dark:border-white/20" style={{ background: r.color }} />
-                {r.color}
-                <CopyButton text={r.color} compact />
-              </span>
-            )}
-            <CopyButton text={r.text} compact />
+            {r.color && <ColorChip color={r.color} />}
           </div>
         ))}
       </div>
     </Card>
+  );
+}
+
+/** Swatch + hex as one button: click copies the colour code. */
+function ColorChip({ color }: { color: string }) {
+  const t = useT();
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() =>
+        void copyText(color).then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1400);
+        })
+      }
+      title={t('Copy color {c}', { c: color })}
+      aria-label={t('Copy color {c}', { c: color })}
+      className={clsx(
+        'inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border pl-1.5 pr-2.5 font-mono text-xs transition active:scale-95',
+        copied
+          ? 'border-emerald-400 bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-200'
+          : 'border-slate-200 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/10',
+      )}
+    >
+      <span className="h-5 w-5 rounded-full border border-black/10 dark:border-white/20" style={{ background: color }} />
+      {copied ? t('Copied') : color}
+      {copied ? <Check size={12} /> : <Copy size={12} className="text-slate-400" />}
+    </button>
   );
 }
 

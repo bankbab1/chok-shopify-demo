@@ -469,8 +469,25 @@ export const TH: Record<string, string> = {
   'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูป Hero จากลิงก์ และตั้งค่าข้อความทั้ง 3 ส่วนพร้อมสไตล์และสี ตรวจตัวอย่างแล้วกด Save',
   'Sidekick prompt – Featured collection': 'Prompt สำหรับ Sidekick – Featured collection',
-  'Paste this into Shopify Sidekick. It sets the “ALL PRODUCTS” heading and picks the collection with all four NovaStep products. If no such collection exists, Sidekick will ask before creating one. Review the preview, then click Save.':
-    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งหัวข้อ “ALL PRODUCTS” และเลือก Collection ที่มีสินค้า NovaStep ครบทั้ง 4 รายการ หากยังไม่มี Collection ดังกล่าว Sidekick จะถามก่อนสร้าง ตรวจตัวอย่างแล้วกด Save',
+  'Paste this into Shopify Sidekick. It sets the “ALL PRODUCTS” heading and shows “First Launch Collection” (create it first in Products → Create Collection). Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งหัวข้อ “ALL PRODUCTS” และแสดง “First Launch Collection” (สร้างก่อนในขั้นตอน สินค้า → Create Collection) ตรวจตัวอย่างแล้วกด Save',
+  'Create Collection': 'สร้าง Collection',
+  'Group all four products into “First Launch Collection”.': 'รวมสินค้าทั้ง 4 รายการไว้ใน “First Launch Collection”',
+  '“First Launch Collection” shows 4 products': '“First Launch Collection” แสดงสินค้า 4 รายการ',
+  'The collection is available on the Online Store': 'Collection แสดงบนหน้าร้านออนไลน์ (Online Store)',
+  'Go to “Products” → “Collections” and click “Create collection”': 'ไปที่ “Products” → “Collections” แล้วคลิก “Create collection”',
+  'Enter the title “First Launch Collection”': 'กรอกชื่อ “First Launch Collection”',
+  'Choose “Manual” as the collection type': 'เลือกประเภท Collection เป็น “Manual”',
+  'Click “Save”, then under “Products” click “Browse” and add all four NovaStep products': 'คลิก “Save” จากนั้นในส่วน “Products” คลิก “Browse” แล้วเพิ่มสินค้า NovaStep ทั้ง 4 รายการ',
+  'Upload the collection image (optional) and check “Online Store” is ticked under Sales channels': 'อัปโหลดรูป Collection (ไม่บังคับ) และตรวจว่าติ๊ก “Online Store” ในส่วน Sales channels แล้ว',
+  'Collection details': 'รายละเอียด Collection',
+  'Sidekick prompt – Create collection': 'Prompt สำหรับ Sidekick – สร้าง Collection',
+  'Paste this into Shopify Sidekick. It creates the manual collection, adds all four products and fetches the collection image by link. Check the collection in Products → Collections afterwards.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะสร้าง Collection แบบ Manual เพิ่มสินค้าทั้ง 4 รายการ และดึงรูป Collection จากลิงก์ จากนั้นตรวจใน Products → Collections',
+  'Collection type': 'ประเภท Collection',
+  'Collection image': 'รูป Collection',
+  'Sales channel': 'ช่องทางการขาย',
+  'The Featured Collection section on the Home page (Theme step) shows this collection.': 'Section Featured Collection ในหน้า Home (ขั้นตอนธีม) จะแสดง Collection นี้',
   'Typography settings': 'การตั้งค่าตัวอักษร (Typography)',
   'Headings 1–3': 'หัวข้อ Heading 1–3',
   'Headings 4–6': 'หัวข้อ Heading 4–6',

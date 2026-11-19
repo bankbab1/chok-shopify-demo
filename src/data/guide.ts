@@ -248,16 +248,12 @@ const SIDEKICK_FEATURED_COLLECTION_PROMPT = `Please set up the **Featured collec
 
 **Heading:** "ALL PRODUCTS" — style Heading 2 — color #545454
 
-**Collection:** the collection that contains all four NovaStep products:
-- NovaStep AeroRun
-- NovaStep Elite Classic
-- NovaStep Cloud Slide
-- NovaStep Titan Pro
+**Collection:** "First Launch Collection" (it contains all four NovaStep products: AeroRun, Elite Classic, Cloud Slide and Titan Pro)
 
 **Layout:** 3 products per row on desktop, showing all 4 products.
 
 **Requirements:**
-- If no collection contains all four products, tell me and suggest creating one called "All Products" — do not create it without asking.
+- If "First Launch Collection" doesn't exist yet, tell me — it's created in the Products → Create Collection step. Do not create a different collection.
 - Use the heading text exactly as written.
 - Change only this Featured collection section. Do not change the header, the Hero, other sections or theme settings, and do not publish a different theme.
 - If you cannot edit the section directly, tell me exactly which steps I need to do in the theme editor.
@@ -381,6 +377,76 @@ We continuously improve based on feedback from real users.`,
 ● Suitable for work, travel, and daily wear`,
   },
 ];
+
+// Manual collection with all four demo products; Featured Collection on the Home page uses it.
+const SIDEKICK_COLLECTION_PROMPT = `Please create a new collection in Shopify.
+
+**Title:** First Launch Collection
+**Collection type:** Manual (I choose the products)
+**Description:** Our first NovaStep collection — everyday runners, golf classics, comfy slides and safety shoes, all in one place.
+
+**Products to add (all four):**
+1. NovaStep AeroRun
+2. NovaStep Elite Classic
+3. NovaStep Cloud Slide
+4. NovaStep Titan Pro
+
+**Collection image** — fetch this image and use it:
+{{origin}}/resources/products/products-hero-img.jpg
+
+**Sales channel:** available on the Online Store.
+
+**Requirements:**
+- Create it as a manual collection — no automated conditions.
+- Use the title exactly as written. If a collection with this title already exists, add the products to it instead of creating a duplicate.
+- Do not change the products themselves (titles, prices, variants, images or inventory).
+- If you cannot fetch the image or set it, create the collection anyway and tell me which steps need manual action.
+
+Then confirm the collection title, the number of products in it, and whether it's available on the Online Store.`;
+
+const CREATE_COLLECTION_TOPIC: Topic = {
+  id: 'create-collection',
+  title: 'Create Collection',
+  summary: 'Group all four products into “First Launch Collection”.',
+  outcome: [
+    '“First Launch Collection” shows 4 products',
+    'The collection is available on the Online Store',
+  ],
+  blocks: [
+    { type: 'link', label: 'Open Shopify Admin', url: 'https://admin.shopify.com/', fallbackPath: 'Products → Collections' },
+    {
+      type: 'steps',
+      items: [
+        'Go to “Products” → “Collections” and click “Create collection”',
+        'Enter the title “First Launch Collection”',
+        'Choose “Manual” as the collection type',
+        'Click “Save”, then under “Products” click “Browse” and add all four NovaStep products',
+        'Upload the collection image (optional) and check “Online Store” is ticked under Sales channels',
+        'Click “Save”',
+      ],
+    },
+    {
+      type: 'kv',
+      title: 'Collection details',
+      prompt: {
+        title: 'Sidekick prompt – Create collection',
+        text: SIDEKICK_COLLECTION_PROMPT,
+        tip: 'Paste this into Shopify Sidekick. It creates the manual collection, adds all four products and fetches the collection image by link. Check the collection in Products → Collections afterwards.',
+      },
+      rows: [
+        { label: 'Title', value: 'First Launch Collection' },
+        { label: 'Collection type', value: 'Manual' },
+        { label: 'Products', value: 'AeroRun · Elite Classic · Cloud Slide · Titan Pro' },
+        { label: 'Collection image', value: 'products-hero-img.jpg (Resources → Page hero images)' },
+        { label: 'Sales channel', value: 'Online Store' },
+      ],
+    },
+    {
+      type: 'note',
+      text: 'The Featured Collection section on the Home page (Theme step) shows this collection.',
+    },
+  ],
+};
 
 // Sidekick can fetch public image links and add them to a product (confirmed in a live Sidekick chat);
 // the manual steps stay as the fallback.
@@ -774,7 +840,7 @@ export const SECTIONS: Section[] = [
     title: 'Products',
     icon: Package,
     summary: 'Four NovaStep demo products with variants and metafields.',
-    topics: [...productTopics, UPLOAD_IMAGES_TOPIC],
+    topics: [...productTopics, UPLOAD_IMAGES_TOPIC, CREATE_COLLECTION_TOPIC],
   },
   {
     id: 'inventory',
@@ -972,7 +1038,7 @@ export const SECTIONS: Section[] = [
             prompt: {
               title: 'Sidekick prompt – Featured collection',
               text: SIDEKICK_FEATURED_COLLECTION_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It sets the “ALL PRODUCTS” heading and picks the collection with all four NovaStep products. If no such collection exists, Sidekick will ask before creating one. Review the preview, then click Save.',
+              tip: 'Paste this into Shopify Sidekick. It sets the “ALL PRODUCTS” heading and shows “First Launch Collection” (create it first in Products → Create Collection). Review the preview, then click Save.',
             },
             rows: [{ text: 'ALL PRODUCTS', style: 'Heading 2', color: '#545454' }],
           },

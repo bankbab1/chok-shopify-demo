@@ -955,6 +955,20 @@ export const SECTIONS: Section[] = [
     summary: 'Manual adjustment and CSV bulk import.',
     topics: [
       {
+        id: 'inventory-terms',
+        title: 'Inventory Terms',
+        summary: 'What On hand, Available, Committed, Unavailable and Incoming mean.',
+        blocks: [
+          { type: 'inventory-terms' },
+          {
+            type: 'link',
+            label: 'Shopify Help: Inventory states',
+            url: 'https://help.shopify.com/en/manual/products/inventory/fundamentals/inventory-states',
+            purpose: 'Official definitions of each inventory state.',
+          },
+        ],
+      },
+      {
         id: 'manual-adjust',
         title: 'Manual Adjust',
         summary: 'Set stock levels by hand, or let Sidekick do it for every variant.',

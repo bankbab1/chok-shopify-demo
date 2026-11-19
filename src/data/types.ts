@@ -79,7 +79,9 @@ export type Block =
   /** Stock planner for the NovaStep products; generates a Sidekick prompt to set On hand. */
   | { type: 'inventory' }
   /** Per-product photo upload guide (main + variant images) with ZIP downloads. */
-  | { type: 'upload-images' };
+  | { type: 'upload-images' }
+  /** Inventory glossary + interactive On hand / Available calculator. */
+  | { type: 'inventory-terms' };
 
 export interface Topic {
   id: string;

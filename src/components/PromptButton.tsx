@@ -6,7 +6,7 @@ import { CopyButton, Modal } from './ui';
 import { useT } from '../i18n';
 
 /** Button that opens a copy-ready prompt (e.g. for Shopify Sidekick) in a modal. */
-export function PromptButton({ prompt }: { prompt: PromptSpec }) {
+export function PromptButton({ prompt, compact }: { prompt: PromptSpec; compact?: boolean }) {
   const t = useT();
   const [open, setOpen] = useState(false);
   return (
@@ -15,10 +15,11 @@ export function PromptButton({ prompt }: { prompt: PromptSpec }) {
         type="button"
         onClick={() => setOpen(true)}
         title={t('Open the prompt to paste into Shopify Sidekick')}
+        aria-label={compact ? `${t('Sidekick prompt')} — ${t(prompt.title)}` : undefined}
         className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 text-xs font-semibold text-indigo-700 transition hover:border-indigo-400 hover:bg-indigo-100 active:scale-95 dark:border-indigo-400/40 dark:bg-indigo-500/15 dark:text-indigo-200 dark:hover:bg-indigo-500/25"
       >
         <Sparkles size={13} />
-        {t('Sidekick prompt')}
+        {compact ? t('Prompt') : t('Sidekick prompt')}
       </button>
       <Modal
         open={open}

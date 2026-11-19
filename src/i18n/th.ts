@@ -424,6 +424,18 @@ export const TH: Record<string, string> = {
   'Paste this into Shopify Sidekick. Metafield values are filled only if the Product metafield definitions already exist (Metafields step). Upload the product photos yourself from Resources. Always check the product in Admin afterwards.':
     'วาง Prompt นี้ใน Shopify Sidekick ค่า Metafields จะถูกกรอกก็ต่อเมื่อสร้าง Product metafield definitions ไว้แล้ว (ขั้นตอน Metafields) ส่วนรูปสินค้าให้อัปโหลดเองจากหน้าไฟล์ประกอบ และตรวจสอบสินค้าใน Admin ทุกครั้งหลังสร้าง',
   'Stock planner': 'วางแผนสต็อก',
+  'Inventory Terms': 'คำศัพท์สต็อก',
+  'What On hand, Available, Committed, Unavailable and Incoming mean.': 'ความหมายของ On hand, Available, Committed, Unavailable และ Incoming',
+  'Shopify Help: Inventory states': 'Shopify Help: สถานะสต็อก (Inventory states)',
+  'Official definitions of each inventory state.': 'คำนิยามอย่างเป็นทางการของสถานะสต็อกแต่ละแบบ',
+  'Choose the On hand quantity per variant, then run one Sidekick prompt per product.': 'กำหนดจำนวน On hand ต่อตัวเลือกสินค้า แล้วรัน Prompt ของ Sidekick ทีละสินค้า',
+  'Paste this into Shopify Sidekick — one product at a time. It sets (replaces) On hand for every variant of this product at the location you entered. If Sidekick says the inventory form failed to load, try again in a new chat or use the manual bulk editor below.':
+    'วาง Prompt นี้ใน Shopify Sidekick — ทีละสินค้า ระบบจะตั้งค่า (แทนที่) On hand ของทุกตัวเลือกของสินค้านี้ที่ Location ที่ระบุ หาก Sidekick แจ้งว่าฟอร์มแก้ไขสต็อกโหลดไม่ขึ้น ให้ลองใหม่ในแชตใหม่ หรือใช้ Bulk editor ด้วยตนเองตามด้านล่าง',
+  'If Sidekick can’t update inventory: go to Inventory, filter to your location, select the product’s variants → “Edit variants”, set On hand, then Save. If a mismatch warning appears, choose “Save original” to keep your exact number.':
+    'หาก Sidekick อัปเดตสต็อกไม่ได้: ไปที่ Inventory กรองตาม Location ของคุณ เลือกตัวเลือกสินค้าของสินค้านั้น → “Edit variants” ตั้งค่า On hand แล้วกด Save หากมีคำเตือนตัวเลขไม่ตรงกัน ให้เลือก “Save original” เพื่อคงตัวเลขที่ตั้งไว้',
+  'Shopify Help: bulk editing inventory': 'Shopify Help: แก้ไขสต็อกแบบกลุ่ม',
+  Sidekick: 'Sidekick',
+  Prompt: 'Prompt',
   'Choose the On hand quantity per variant, then let Sidekick set it for every variant.': 'กำหนดจำนวน On hand ต่อหนึ่งตัวเลือกสินค้า แล้วให้ Sidekick ตั้งค่าให้ครบทุกตัวเลือก',
   'Paste this into Shopify Sidekick. It sets (replaces) On hand for every variant at the location you entered. Check a few variants in Inventory afterwards — or set them by hand with the steps above.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งค่า (แทนที่) On hand ของทุกตัวเลือกสินค้าที่ Location ที่ระบุ จากนั้นสุ่มตรวจบางรายการในหน้า Inventory — หรือปรับเองตามขั้นตอนด้านบน',

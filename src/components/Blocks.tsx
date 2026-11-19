@@ -5,6 +5,7 @@ import type { Block, Product, PromptSpec, SelectorSpec, SpecRow } from '../data/
 import { usePersistedState } from '../hooks/usePersistedState';
 import { PRODUCTS } from '../data/products';
 import { UploadImagesGuide } from './UploadImagesGuide';
+import { InventoryTerms } from './InventoryTerms';
 import { Card, CardHeader, CopyButton, ImageGrid, RichLine, copyText } from './ui';
 import { PromptButton, PromptCard } from './PromptButton';
 import { useT } from '../i18n';
@@ -39,6 +40,8 @@ export function BlockView({ block }: { block: Block }) {
       return <InventoryPlanner />;
     case 'upload-images':
       return <UploadImagesGuide />;
+    case 'inventory-terms':
+      return <InventoryTerms />;
   }
 }
 
@@ -475,29 +478,31 @@ interface StockPlan {
   qty: Record<string, number>;
 }
 
+type ProductData = (typeof PRODUCTS)[number];
 const DEFAULT_QTY = 10;
-const variantsOf = (p: (typeof PRODUCTS)[number]) => p.colors.length * p.sizes.length;
+const variantsOf = (p: ProductData) => p.colors.length * p.sizes.length;
 
-/** Copy-ready Sidekick request that sets On hand for every variant of every product. */
-export function inventoryPrompt(plan: StockPlan): string {
-  const lines = PRODUCTS.map((p, i) => {
-    const q = plan.qty[p.title] ?? DEFAULT_QTY;
-    return `${i + 1}. ${p.title} — all ${variantsOf(p)} variants (Color: ${p.colors.join(', ')} × Size: ${p.sizes.join(', ')}) → On hand = ${q} each`;
-  });
-  return `Please update inventory in Shopify.
+/**
+ * Copy-ready Sidekick request for ONE product. One product per prompt keeps Sidekick's inventory
+ * editor small (24–32 rows) — an all-products request (116 rows) failed to load in testing.
+ */
+export function inventoryPrompt(p: ProductData, qty: number, location: string): string {
+  return `Please update inventory in Shopify for **${p.title}**.
 
-**Location:** ${plan.location.trim() || 'Shop location'}
-**Action:** SET the **On hand** quantity (replace the current value, do not add to it) for every variant of the products below.
+**Location:** ${location.trim() || 'Shop location'}
+**Action:** SET the **On hand** quantity to **${qty}** (replace the current value, do not add to it) for every variant of this product.
 
-${lines.join('\n')}
+**Variants (${variantsOf(p)}):** every combination of
+- Color: ${p.colors.join(', ')}
+- Size: ${p.sizes.join(', ')}
 
 **Requirements:**
 - Make sure "Track quantity" is turned on for each of these variants.
 - Update the quantity at the location above only.
-- Do not change prices, titles, options or any other product data.
+- Do not change prices, titles, options or any other product data, and do not touch other products.
 - If you cannot update inventory directly, explain which steps require manual action.
 
-After completion, confirm for each product how many variants were updated and the new On hand quantity.`;
+After completion, confirm how many variants were updated and the new On hand quantity.`;
 }
 
 function InventoryPlanner() {
@@ -509,6 +514,8 @@ function InventoryPlanner() {
   const setAll = (v: number) => setPlan((p) => ({ ...p, qty: Object.fromEntries(PRODUCTS.map((x) => [x.title, v])) }));
   const totalVariants = PRODUCTS.reduce((n, p) => n + variantsOf(p), 0);
   const totalUnits = PRODUCTS.reduce((n, p) => n + variantsOf(p) * qtyOf(p.title), 0);
+  const tip =
+    'Paste this into Shopify Sidekick — one product at a time. It sets (replaces) On hand for every variant of this product at the location you entered. If Sidekick says the inventory form failed to load, try again in a new chat or use the manual bulk editor below.';
 
   return (
     <Card>
@@ -518,16 +525,7 @@ function InventoryPlanner() {
             <Boxes size={16} className="text-indigo-500" /> {t('Stock planner')}
           </span>
         }
-        meta={t('Choose the On hand quantity per variant, then let Sidekick set it for every variant.')}
-        action={
-          <PromptButton
-            prompt={{
-              title: 'Sidekick prompt – Set inventory',
-              text: inventoryPrompt(plan),
-              tip: 'Paste this into Shopify Sidekick. It sets (replaces) On hand for every variant at the location you entered. Check a few variants in Inventory afterwards — or set them by hand with the steps above.',
-            }}
-          />
-        }
+        meta={t('Choose the On hand quantity per variant, then run one Sidekick prompt per product.')}
       />
       <div className="space-y-4 px-4 py-4">
         <div className="flex flex-wrap items-end gap-3">
@@ -558,22 +556,28 @@ function InventoryPlanner() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-white/10">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-white/10">
+          <table className="w-full min-w-[520px] text-sm">
             <thead className="bg-slate-50 text-left text-xs text-slate-500 dark:bg-white/5 dark:text-slate-400">
               <tr>
                 <th className="px-3 py-2 font-medium">{t('Product')}</th>
                 <th className="px-3 py-2 text-right font-medium">{t('Variants')}</th>
                 <th className="px-3 py-2 text-right font-medium">{t('On hand / variant')}</th>
-                <th className="hidden px-3 py-2 text-right font-medium sm:table-cell">{t('Total units')}</th>
+                <th className="px-3 py-2 text-right font-medium">{t('Total units')}</th>
+                <th className="px-3 py-2 text-right font-medium">{t('Sidekick')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-white/5">
-              {PRODUCTS.map((p) => (
+              {PRODUCTS.map((p, i) => (
                 <tr key={p.title}>
                   <td className="px-3 py-2">
-                    <div className="font-medium">{p.title}</div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <div className="flex items-center gap-2 font-medium">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-[10px] font-bold text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200">
+                        {i + 1}
+                      </span>
+                      {p.title}
+                    </div>
+                    <div className="pl-7 text-[11px] text-slate-500 dark:text-slate-400">
                       {p.colors.length} {t('colors')} × {p.sizes.length} {t('sizes')}
                     </div>
                   </td>
@@ -589,7 +593,17 @@ function InventoryPlanner() {
                       className="h-9 w-20 rounded-lg border border-slate-200 bg-white px-2 text-right text-sm tabular-nums outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/15 dark:border-white/10 dark:bg-slate-950"
                     />
                   </td>
-                  <td className="hidden px-3 py-2 text-right tabular-nums sm:table-cell">{(variantsOf(p) * qtyOf(p.title)).toLocaleString()}</td>
+                  <td className="px-3 py-2 text-right tabular-nums">{(variantsOf(p) * qtyOf(p.title)).toLocaleString()}</td>
+                  <td className="px-3 py-2 text-right">
+                    <PromptButton
+                      compact
+                      prompt={{
+                        title: `Sidekick prompt – Inventory: ${p.title}`,
+                        text: inventoryPrompt(p, qtyOf(p.title), plan.location),
+                        tip,
+                      }}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -598,10 +612,28 @@ function InventoryPlanner() {
                 <td className="px-3 py-2">{t('Total')}</td>
                 <td className="px-3 py-2 text-right tabular-nums">{totalVariants}</td>
                 <td className="px-3 py-2" />
-                <td className="hidden px-3 py-2 text-right tabular-nums sm:table-cell">{totalUnits.toLocaleString()}</td>
+                <td className="px-3 py-2 text-right tabular-nums">{totalUnits.toLocaleString()}</td>
+                <td className="px-3 py-2" />
               </tr>
             </tfoot>
           </table>
+        </div>
+
+        <div className="flex items-start gap-2 rounded-lg bg-slate-50 px-3 py-2.5 text-xs leading-relaxed text-slate-600 dark:bg-white/5 dark:text-slate-300">
+          <Info size={14} className="mt-0.5 shrink-0" />
+          <span>
+            {t(
+              'If Sidekick can’t update inventory: go to Inventory, filter to your location, select the product’s variants → “Edit variants”, set On hand, then Save. If a mismatch warning appears, choose “Save original” to keep your exact number.',
+            )}{' '}
+            <a
+              href="https://help.shopify.com/en/manual/inventory-and-locations/adjusting-inventory/bulk-editing-inventory"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-indigo-700 hover:underline dark:text-indigo-300"
+            >
+              {t('Shopify Help: bulk editing inventory')}
+            </a>
+          </span>
         </div>
       </div>
     </Card>

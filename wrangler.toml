@@ -1,0 +1,4 @@
+# Cloudflare Pages project config — used by `npm run deploy` (wrangler pages deploy).
+name = "shopify-demo-portal"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"

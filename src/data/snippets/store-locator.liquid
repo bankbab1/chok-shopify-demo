@@ -1,0 +1,282 @@
+<div
+  id="StoreLocator-{{ section.id }}"
+  class="store-locator"
+>
+  <div class="store-locator__list">
+    <div class="store-locator__header">
+      <p class="store-locator__eyebrow">OUR STORES</p>
+      <h2>Find a NovaStep Store</h2>
+      <p>Select a location to view it on the map.</p>
+    </div>
+
+    <div class="store-locator__items">
+      <button
+        type="button"
+        class="store-location-card is-active"
+
+        data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.5357505973057!2d100.53656851052448!3d13.746533686589041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ecfc2f455e1%3A0xc4ad0280d8906604!2scentralwOrld!5e0!3m2!1sen!2sth!4v1785134643177!5m2!1sen!2sth"
+        data-map-title="NovaStep Store at centralwOrld"
+        aria-pressed="true"
+      >
+        <span class="store-location-card__number">01</span>
+
+        <span class="store-location-card__content">
+          <strong>Central World</strong>
+          <span>Bangkok, Thailand</span>
+        </span>
+
+        <span class="store-location-card__arrow" aria-hidden="true">→</span>
+      </button>
+
+      <button
+        type="button"
+        class="store-location-card"
+
+        data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.8716913276194!2d100.50804881052409!3d13.726217086607372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e299cd81f01815%3A0x1660bd86761a92f4!2sICONSIAM!5e0!3m2!1sen!2sth!4v1785135124224!5m2!1sen!2sth"
+        data-map-title="NovaStep Store at ICONSIAM"
+        aria-pressed="false"
+      >
+        <span class="store-location-card__number">02</span>
+
+        <span class="store-location-card__content">
+          <strong>ICONSIAM</strong>
+          <span>Bangkok, Thailand</span>
+        </span>
+
+        <span class="store-location-card__arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="store-locator__map">
+    <iframe
+      class="store-locator__iframe"
+
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.5357505973057!2d100.53656851052448!3d13.746533686589041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ecfc2f455e1%3A0xc4ad0280d8906604!2scentralwOrld!5e0!3m2!1sen!2sth!4v1785134643177!5m2!1sen!2sth"
+      title="NovaStep Store at centralwOrld"
+      loading="eager"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+</div>
+
+{% stylesheet %}
+  .store-locator-map-section {
+    width: 100%;
+  }
+
+  .store-locator {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    width: 100%;
+    min-height: 650px;
+    background: #f4f4f2;
+    overflow: hidden;
+  }
+
+  .store-locator__list {
+    display: flex;
+    flex-direction: column;
+    padding: 56px 42px;
+    background: #f4f4f2;
+  }
+
+  .store-locator__header {
+    margin-bottom: 40px;
+  }
+
+  .store-locator__eyebrow {
+    margin: 0 0 12px;
+    color: #bea77e;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  .store-locator__header h2 {
+    margin: 0 0 12px;
+    color: #171717;
+    font-size: clamp(28px, 3vw, 46px);
+    line-height: 1.05;
+  }
+
+  .store-locator__header p:last-child {
+    margin: 0;
+    color: #666666;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .store-locator__items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .store-location-card {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) 24px;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 22px 20px;
+    border: 1px solid #d8d8d3;
+    border-radius: 0;
+    background: transparent;
+    color: #171717;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .store-location-card:hover,
+  .store-location-card.is-active {
+    border-color: #171717;
+    background: #171717;
+    color: #ffffff;
+  }
+
+  .store-location-card__number {
+    color: #bea77e;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .store-location-card__content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 5px;
+  }
+
+  .store-location-card__content strong {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .store-location-card__content span {
+    color: #777777;
+    font-size: 13px;
+  }
+
+  .store-location-card:hover .store-location-card__content span,
+  .store-location-card.is-active .store-location-card__content span {
+    color: #d7d7d7;
+  }
+
+  .store-location-card__arrow {
+    font-size: 20px;
+    transition: transform 180ms ease;
+  }
+
+  .store-location-card:hover .store-location-card__arrow,
+  .store-location-card.is-active .store-location-card__arrow {
+    transform: translateX(4px);
+  }
+
+  .store-locator__map {
+    position: relative;
+    width: 100%;
+    min-height: 650px;
+    background: #dedede;
+    overflow: hidden;
+  }
+
+  .store-locator__iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 650px;
+    border: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .store-locator {
+      grid-template-columns: 40% 60%;
+    }
+
+    .store-locator__list {
+      padding: 40px 28px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .store-locator {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .store-locator__list {
+      width: 100%;
+      padding: 32px 20px;
+    }
+
+    .store-locator__header {
+      margin-bottom: 24px;
+    }
+
+    .store-locator__map,
+    .store-locator__iframe {
+      width: 100%;
+      min-height: 440px;
+      height: 440px;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (() => {
+    const section = document.getElementById('StoreLocator-{{ section.id }}');
+
+    if (!section || section.dataset.storeLocatorInitialized === 'true') {
+      return;
+    }
+
+    section.dataset.storeLocatorInitialized = 'true';
+
+    const map = section.querySelector('.store-locator__iframe');
+    const locationButtons = section.querySelectorAll('.store-location-card');
+
+    locationButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const newMapSource = button.dataset.mapSrc;
+        const newMapTitle = button.dataset.mapTitle;
+
+        if (!newMapSource || !map) {
+          return;
+        }
+
+        locationButtons.forEach((item) => {
+          item.classList.remove('is-active');
+          item.setAttribute('aria-pressed', 'false');
+        });
+
+        button.classList.add('is-active');
+        button.setAttribute('aria-pressed', 'true');
+
+        map.src = newMapSource;
+        map.title = newMapTitle || 'NovaStep Store Location';
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Store locator map",
+  "tag": "section",
+  "class": "store-locator-map-section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Store locator map"
+    }
+  ]
+}
+{% endschema %}

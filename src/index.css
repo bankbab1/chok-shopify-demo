@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* Design tokens — neutral, brand-agnostic app scheme with a purple accent.
+   Components use Tailwind's "indigo-*" utilities as the semantic *brand* scale; it is remapped
+   here to purple, so re-branding the whole app means changing only this block. */
+@theme {
+  --font-sans: "Segoe UI", "Noto Sans Thai", "Leelawadee UI", system-ui, -apple-system, Roboto, sans-serif;
+
+  --color-indigo-50: #f3effe;
+  --color-indigo-100: #e9e1fd;
+  --color-indigo-200: #d6c6fb;
+  --color-indigo-300: #bba0f8;
+  --color-indigo-400: #9d74f3;
+  --color-indigo-500: #8452ec;
+  --color-indigo-600: #6d38db;
+  --color-indigo-700: #5b2bbb;
+  --color-indigo-800: #4a2496;
+  --color-indigo-900: #3b1f76;
+
+  --color-slate-50: #f6f5fa;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+
+  /* NovaStep demo-store accent (gold from the workshop spec) — only for demo-store content */
+  --color-gold: #bea77e;
+}
+
+/* Manual dark mode, gated on a data-theme attribute. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  overscroll-behavior-y: none;
+}
+
+[data-theme='dark'] {
+  --color-white: #e8eaef;
+  --color-slate-50: #eceef2;
+  --color-slate-100: #e1e4ea;
+  --color-slate-200: #cfd3dc;
+  --color-slate-300: #b4bac6;
+  --color-slate-400: #959cab;
+  --color-slate-500: #838a9b;
+  --color-slate-600: #4d5463;
+  --color-slate-700: #353a45;
+  --color-slate-800: #272b33;
+  --color-slate-900: #1d2026;
+  --color-slate-950: #16181d;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, black 22%, transparent) transparent;
+}
+:where([data-theme='dark'], [data-theme='dark'] *) {
+  scrollbar-color: color-mix(in srgb, white 22%, transparent) transparent;
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

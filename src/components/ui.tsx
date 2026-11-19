@@ -200,7 +200,7 @@ export function ImageGrid({ images }: { images: GuideImage[] }) {
           >
             <div className="flex h-52 items-center justify-center overflow-hidden bg-slate-100 p-2 dark:bg-slate-950">
               <img
-                src={`/guide/${im.id}.webp`}
+                src={im.src ?? `/guide/${im.id}.webp`}
                 alt={caption(im, i)}
                 loading="lazy"
                 className="max-h-full max-w-full rounded object-contain transition duration-300 group-hover:scale-[1.02]"
@@ -231,7 +231,7 @@ export function ImageGrid({ images }: { images: GuideImage[] }) {
             </div>
             <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 pb-6 sm:px-16">
               <img
-                src={`/guide/${current.id}.webp`}
+                src={current.src ?? `/guide/${current.id}.webp`}
                 alt={caption(current, index!)}
                 className="max-h-full max-w-full rounded-lg bg-white object-contain shadow-2xl"
                 onClick={(e) => e.stopPropagation()}

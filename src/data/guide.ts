@@ -252,6 +252,40 @@ export const SECTIONS: Section[] = [
     summary: 'Spin up a new development store from the Shopify Dev Dashboard.',
     topics: [
       {
+        id: 'explore-plans',
+        title: 'Explore Plans',
+        summary: 'Compare Shopify plans before choosing one for a real store.',
+        tag: 'production',
+        blocks: [
+          {
+            type: 'link',
+            label: 'Open Shopify Pricing',
+            url: 'https://www.shopify.com/pricing',
+            purpose: 'Official plans and prices (English).',
+          },
+          {
+            type: 'link',
+            label: 'Open Shopify Pricing (Thai)',
+            url: 'https://www.shopify.com/th/pricing',
+            purpose: 'The same page in Thai.',
+          },
+          {
+            type: 'steps',
+            items: [
+              'Compare the plans: “Basic”, “Grow”, “Advanced” and “Plus”',
+              'Switch between monthly and yearly billing to see the difference',
+              'Check staff accounts, third-party payment fees and reporting for each plan',
+              'Start with “Basic” and upgrade as the business grows',
+            ],
+          },
+          {
+            type: 'note',
+            text: 'This workshop uses a free development store, so no plan purchase is needed today. Prices and terms change — always check the pricing page for the latest.',
+          },
+          { type: 'images', images: [{ id: 'slide-11', src: '/slides/slide-11.webp', caption: 'Shopify Plans (presentation slide)' }] },
+        ],
+      },
+      {
         id: 'new-dev-store',
         title: 'New Dev Store',
         summary: 'Create a development store on the Basic plan.',

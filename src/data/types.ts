@@ -3,6 +3,8 @@ import type { LucideIcon } from 'lucide-react';
 export interface GuideImage {
   /** File name (without extension) under /public/guide. */
   id: string;
+  /** Full image URL, for images outside /public/guide (e.g. a presentation slide). */
+  src?: string;
   caption?: string;
 }
 

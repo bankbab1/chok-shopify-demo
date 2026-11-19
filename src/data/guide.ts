@@ -132,7 +132,7 @@ const SIDEKICK_LOGO_PROMPT = `Please update the logo in my published theme (Hori
 3. **Desktop logo height:** 36 px
 4. **Mobile logo height:** 28 px
 
-**Note:** the inverse logo only appears where the header is transparent. That is switched on in the Header section (Home, Product and Collection pages → Transparent background + Inverse logo), which I will set separately — do not change the Header here.
+**Note:** the inverse logo only appears where the header is transparent. That is switched on in the Header section (Home page → Transparent background + Inverse logo), which I will set separately — do not change the Header here.
 
 **Requirements:**
 - Fetch each link and upload the image to Files first if needed, then select it in the theme setting.
@@ -141,8 +141,8 @@ const SIDEKICK_LOGO_PROMPT = `Please update the logo in my published theme (Hori
 
 Then show me a summary of what you changed or prepared so I can review it.`;
 
-// Values from the Header settings screenshots in the workshop PDF (pages 50–51); transparent header + inverse logo
-// turned on for Home, Product and Collection pages so the inverse logo shows everywhere.
+// Values from the Header settings screenshots in the workshop PDF (pages 50–51): transparent header with the
+// inverse logo and white header text on the Home page only; Product and Collection pages stay solid.
 const SIDEKICK_HEADER_PROMPT = `Please update the **Header** section of my published theme (Horizon).
 
 **Where:** Online Store → Themes → Customize → Header
@@ -170,16 +170,12 @@ const SIDEKICK_HEADER_PROMPT = `Please update the **Header** section of my publi
 - Transparent header text: Palette color #FFFFFF (white)
 
 **Product page**
-- Transparent background: On
-- Inverse logo: On
-- Transparent header text: Palette color #FFFFFF (white)
+- Transparent background: Off
 
 **Collection page**
-- Transparent background: On
-- Inverse logo: On
-- Transparent header text: Palette color #FFFFFF (white)
+- Transparent background: Off
 
-All 6 toggles above (3 × Transparent background, 3 × Inverse logo) must be On, and "Transparent header text" must be the palette color #FFFFFF on all three pages (pick white from the color palette, or enter FFFFFF).
+Only the Home page gets the transparent header: on the Home page, Transparent background and Inverse logo must both be On and "Transparent header text" must be the palette color #FFFFFF (pick white from the color palette, or enter FFFFFF). On the Product and Collection pages, Transparent background must be Off.
 
 **Requirements:**
 - Change only the Header settings listed above. Do not change the logo images, the theme's color schemes, fonts or any other section, and do not publish a different theme.
@@ -845,7 +841,7 @@ export const SECTIONS: Section[] = [
             prompt: {
               title: 'Sidekick prompt – Header',
               text: SIDEKICK_HEADER_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home, Product and Collection pages (6 toggles On) — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.',
+              tip: 'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo and white header text on the Home page only — that’s what makes the inverse logo from the Logo step appear. Product and Collection pages stay solid. Review the preview, then click Save.',
             },
             rows: [
               { label: 'Logo position', value: 'Center' },
@@ -853,8 +849,8 @@ export const SECTIONS: Section[] = [
               { label: 'Search icon', value: 'On · Right · Top' },
               { label: 'Localization', value: 'Country/Region On · Flag Off · Language selector On' },
               { label: 'Home page', value: 'Transparent background On · Inverse logo On · Header text #FFFFFF' },
-              { label: 'Product page', value: 'Transparent background On · Inverse logo On · Header text #FFFFFF' },
-              { label: 'Collection page', value: 'Transparent background On · Inverse logo On · Header text #FFFFFF' },
+              { label: 'Product page', value: 'Transparent background Off' },
+              { label: 'Collection page', value: 'Transparent background Off' },
             ],
           },
           {

@@ -476,8 +476,8 @@ export const TH: Record<string, string> = {
   Fonts: 'ฟอนต์',
   Paragraph: 'ย่อหน้า',
   'Sidekick prompt – Header': 'Prompt สำหรับ Sidekick – Header',
-  'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo on the Home, Product and Collection pages (6 toggles On) — that’s what makes the inverse logo from the Logo step appear. Review the preview, then click Save.':
-    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะเปิด Header แบบโปร่งใสพร้อม Inverse logo ในหน้า Home, Product และ Collection (เปิดครบ 6 สวิตช์) — ซึ่งทำให้ Inverse logo จากขั้นตอน Logo แสดงขึ้นมา ตรวจตัวอย่างแล้วกด Save',
+  'Paste this into Shopify Sidekick. It turns on the transparent header with the inverse logo and white header text on the Home page only — that’s what makes the inverse logo from the Logo step appear. Product and Collection pages stay solid. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะเปิด Header แบบโปร่งใสพร้อม Inverse logo และข้อความสีขาวเฉพาะหน้า Home — ซึ่งทำให้ Inverse logo จากขั้นตอน Logo แสดงขึ้นมา ส่วนหน้า Product และ Collection ยังเป็น Header แบบทึบ ตรวจตัวอย่างแล้วกด Save',
   'Product page': 'หน้า Product',
   'Collection page': 'หน้า Collection',
   'Sidekick prompt – Theme logo': 'Prompt สำหรับ Sidekick – โลโก้ธีม',

@@ -1,4 +1,5 @@
 import {
+  UserPlus,
   Store,
   Settings2,
   Database,
@@ -245,6 +246,47 @@ const productTopics: Topic[] = PRODUCTS.map((p) => ({
 }));
 
 export const SECTIONS: Section[] = [
+  {
+    id: 'register',
+    title: 'Register Shopify',
+    icon: UserPlus,
+    summary: 'Create your Shopify account so you can open the Dev Dashboard.',
+    topics: [
+      {
+        id: 'create-account',
+        title: 'Create Shopify Account',
+        summary: 'Sign up for a free Shopify account — one per participant.',
+        outcome: ['You can sign in to the Shopify Dev Dashboard with your new account'],
+        blocks: [
+          {
+            type: 'link',
+            label: 'Open Shopify Sign up',
+            url: 'https://accounts.shopify.com/signup',
+            purpose: 'Create your Shopify account (free).',
+          },
+          {
+            type: 'steps',
+            items: [
+              'Open the Shopify “Sign up” page',
+              'Enter your email address and create a password — or use a sign-in option shown on the page',
+              'Confirm your email from the message Shopify sends you',
+              'Sign in to the “Shopify Dev Dashboard” — you’ll create the workshop store in the next module',
+            ],
+          },
+          {
+            type: 'note',
+            text: 'Use an email you can open during the session — you may need to confirm it. Already have a Shopify account? Just sign in and skip to the next module.',
+          },
+          {
+            type: 'link',
+            label: 'Open Shopify Dev Dashboard',
+            url: 'https://dev.shopify.com/dashboard/',
+            purpose: 'Where development stores are created and managed.',
+          },
+        ],
+      },
+    ],
+  },
   {
     id: 'create-store',
     title: 'Create Store',

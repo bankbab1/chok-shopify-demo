@@ -459,6 +459,19 @@ export const TH: Record<string, string> = {
   'This workshop uses a free development store, so no plan purchase is needed today. Prices and terms change — always check the pricing page for the latest.':
     'เวิร์กช็อปนี้ใช้ร้านค้าสำหรับพัฒนา (Development store) ฟรี จึงไม่ต้องซื้อแพ็กเกจในวันนี้ ราคาและเงื่อนไขอาจเปลี่ยนแปลง โปรดตรวจสอบหน้าราคาล่าสุดเสมอ',
   'Shopify Plans (presentation slide)': 'แพ็กเกจ Shopify (สไลด์งานนำเสนอ)',
+  'Register Shopify': 'สมัคร Shopify',
+  'Create your Shopify account so you can open the Dev Dashboard.': 'สร้างบัญชี Shopify เพื่อเข้าใช้งาน Dev Dashboard',
+  'Create Shopify Account': 'สร้างบัญชี Shopify',
+  'Sign up for a free Shopify account — one per participant.': 'สมัครบัญชี Shopify ฟรี — หนึ่งบัญชีต่อผู้เข้าร่วมหนึ่งคน',
+  'You can sign in to the Shopify Dev Dashboard with your new account': 'เข้าสู่ระบบ Shopify Dev Dashboard ด้วยบัญชีใหม่ได้',
+  'Open Shopify Sign up': 'เปิดหน้าสมัคร Shopify',
+  'Create your Shopify account (free).': 'สร้างบัญชี Shopify ของคุณ (ฟรี)',
+  'Open the Shopify “Sign up” page': 'เปิดหน้า “Sign up” ของ Shopify',
+  'Enter your email address and create a password — or use a sign-in option shown on the page': 'กรอกอีเมลและตั้งรหัสผ่าน — หรือใช้ตัวเลือกการเข้าสู่ระบบอื่นที่แสดงบนหน้า',
+  'Confirm your email from the message Shopify sends you': 'ยืนยันอีเมลจากข้อความที่ Shopify ส่งให้',
+  'Sign in to the “Shopify Dev Dashboard” — you’ll create the workshop store in the next module': 'เข้าสู่ระบบ “Shopify Dev Dashboard” — จะสร้างร้านค้าเวิร์กช็อปในโมดูลถัดไป',
+  'Use an email you can open during the session — you may need to confirm it. Already have a Shopify account? Just sign in and skip to the next module.':
+    'ใช้อีเมลที่เปิดได้ระหว่างเซสชัน เพราะอาจต้องยืนยันอีเมล หากมีบัญชี Shopify อยู่แล้ว ให้เข้าสู่ระบบแล้วข้ามไปโมดูลถัดไปได้เลย',
   /* ---------------------------------------------------------------- App links */
   'Open in Shopify App Store': 'เปิดใน Shopify App Store',
   'App listing for Wishlist by Square — click “Install” and choose your store.': 'หน้าแอป Wishlist by Square — คลิก “Install” แล้วเลือกร้านของคุณ',

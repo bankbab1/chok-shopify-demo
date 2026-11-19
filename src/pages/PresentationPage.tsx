@@ -15,6 +15,13 @@ import {
   Timer,
 } from 'lucide-react';
 import { SLIDES } from '../data/slides';
+import { SECTIONS } from '../data/guide';
+
+/** App module number ("02") for a hands-on link like "/create-store" — matches the sidebar, not the slide's own numbering. */
+function moduleNo(to: string) {
+  const i = SECTIONS.findIndex((sec) => `/${sec.id}` === to);
+  return i < 0 ? '' : String(i + 1).padStart(2, '0');
+}
 import { useI18n } from '../i18n';
 import { usePersistedState } from '../hooks/usePersistedState';
 
@@ -213,6 +220,9 @@ function Presenter({ n }: { n: number }) {
                       to={l.to}
                       className="group flex items-center gap-2 rounded-lg bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100 dark:bg-indigo-500/15 dark:text-indigo-200 dark:hover:bg-indigo-500/25"
                     >
+                      {moduleNo(l.to) && (
+                        <span className="rounded-md bg-indigo-600 px-1.5 py-0.5 text-[10px] font-bold tabular-nums text-white dark:bg-indigo-500">{moduleNo(l.to)}</span>
+                      )}
                       <span className="flex-1">{t(l.label)}</span>
                       <ArrowRight size={14} className="transition group-hover:translate-x-0.5" />
                     </Link>

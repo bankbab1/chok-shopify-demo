@@ -7,8 +7,8 @@ Brand-neutral UI with a purple accent (one token block in `src/index.css` re-bra
 
 ## Features
 
-- Sidebar modules: Create Store → Store Setup → Metafields → Products → Theme (Home / About Us / Contact & Location) → Apps → Inventory → Payments & Test Order → Order Fulfillment → Delete Store
-- 35 steps, each with numbered instructions (click to tick while presenting), screenshots with a lightbox, copy buttons, and an **Open Shopify** link with a fallback menu path
+- Sidebar modules: Register Shopify → Create Store (Explore Plans / New Dev Store) → Store Setup → Metafields → Products → Theme (Home / About Us / Contact & Location) → Apps → Inventory → Payments & Test Order → Order Fulfillment → Delete Store
+- 36 steps, each with numbered instructions (click to tick while presenting), screenshots with a lightbox, copy buttons, and an **Open Shopify** link with a fallback menu path
 - Copy-ready snippets: the Sidekick prompt, metafield names, rich-text content, Contact Us HTML, Store-locator Liquid, and custom CSS
 - Theme text specs that show each heading's style, colour swatch and size
 - Interactive product cards: clicking a colour swaps the photo; metafield values are in tabs, each with a copy button

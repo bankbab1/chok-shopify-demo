@@ -187,7 +187,6 @@ export const TH: Record<string, string> = {
   'Select Theme': 'เลือกธีม',
   'Use the Horizon theme.': 'ใช้ธีม Horizon',
   'Header section settings.': 'ตั้งค่า Section Header',
-  'Theme Setting – Colors': 'ตั้งค่าธีม – สี',
   'Typography and color schemes.': 'ตัวอักษร (Typography) และชุดสี (Color schemes)',
   'Template & Page': 'เทมเพลตและเพจ',
   'Create the about-us-mod template and the About us page.': 'สร้างเทมเพลต about-us-mod และเพจ About us',
@@ -466,6 +465,12 @@ export const TH: Record<string, string> = {
   'Open in Theme Store': 'เปิดใน Theme Store',
   'Logo settings': 'การตั้งค่าโลโก้',
   'Header settings': 'การตั้งค่า Header',
+  'Sidekick prompt – Hero': 'Prompt สำหรับ Sidekick – Hero',
+  'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูป Hero จากลิงก์ และตั้งค่าข้อความทั้ง 3 ส่วนพร้อมสไตล์และสี ตรวจตัวอย่างแล้วกด Save',
+  'Sidekick prompt – Featured collection': 'Prompt สำหรับ Sidekick – Featured collection',
+  'Paste this into Shopify Sidekick. It sets the “ALL PRODUCTS” heading and picks the collection with all four NovaStep products. If no such collection exists, Sidekick will ask before creating one. Review the preview, then click Save.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะตั้งหัวข้อ “ALL PRODUCTS” และเลือก Collection ที่มีสินค้า NovaStep ครบทั้ง 4 รายการ หากยังไม่มี Collection ดังกล่าว Sidekick จะถามก่อนสร้าง ตรวจตัวอย่างแล้วกด Save',
   'Typography settings': 'การตั้งค่าตัวอักษร (Typography)',
   'Headings 1–3': 'หัวข้อ Heading 1–3',
   'Headings 4–6': 'หัวข้อ Heading 4–6',

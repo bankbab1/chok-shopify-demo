@@ -218,6 +218,52 @@ const SIDEKICK_TYPOGRAPHY_PROMPT = `Please update the **Typography** theme setti
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
+// Hero and Featured Collection, from the workshop PDF (pages 54–56). `{{origin}}` = this site, so the image is fetched by link.
+const SIDEKICK_HERO_PROMPT = `Please set up the **Hero** section on the Home page of my published theme (Horizon).
+
+**Where:** Online Store → Themes → Customize → Home page → Hero
+
+**Background image** — fetch this image and use it:
+{{origin}}/resources/home/home-hero-img.jpg
+
+**Layout:** content aligned to the bottom left ("Bottom align").
+
+**Text, in this order:**
+1. Heading — "EVERY STEP" — style Heading 1 — color #EEEEEE
+2. Heading — "FORWARD" — style Heading 1 — color #BEA77E
+3. Text — "Footwear designed for every parts of your life." — custom size 20px — color #EEEEEE
+
+**Requirements:**
+- Fetch the image link and upload it to Files first if needed, then select it as the Hero background.
+- Use the text exactly as written, including capital letters.
+- Remove any other default text or button blocks inside this Hero section.
+- Change only this Hero section. Do not change the header, other sections or theme settings, and do not publish a different theme.
+- If you cannot edit the section directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
+const SIDEKICK_FEATURED_COLLECTION_PROMPT = `Please set up the **Featured collection** section on the Home page of my published theme (Horizon), right below the Hero.
+
+**Where:** Online Store → Themes → Customize → Home page → Featured collection
+
+**Heading:** "ALL PRODUCTS" — style Heading 2 — color #545454
+
+**Collection:** the collection that contains all four NovaStep products:
+- NovaStep AeroRun
+- NovaStep Elite Classic
+- NovaStep Cloud Slide
+- NovaStep Titan Pro
+
+**Layout:** 3 products per row on desktop, showing all 4 products.
+
+**Requirements:**
+- If no collection contains all four products, tell me and suggest creating one called "All Products" — do not create it without asking.
+- Use the heading text exactly as written.
+- Change only this Featured collection section. Do not change the header, the Hero, other sections or theme settings, and do not publish a different theme.
+- If you cannot edit the section directly, tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
 }
@@ -901,6 +947,11 @@ export const SECTIONS: Section[] = [
           {
             type: 'specs',
             title: 'Hero text',
+            prompt: {
+              title: 'Sidekick prompt – Hero',
+              text: SIDEKICK_HERO_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.',
+            },
             rows: [
               { text: 'EVERY STEP', style: 'Heading 1', color: '#EEEEEE' },
               { text: 'FORWARD', style: 'Heading 1', color: '#BEA77E' },
@@ -915,7 +966,16 @@ export const SECTIONS: Section[] = [
         group: 'Home',
         title: 'Featured Collection',
         blocks: [
-          { type: 'specs', title: 'Heading', rows: [{ text: 'ALL PRODUCTS', style: 'Heading 2', color: '#545454' }] },
+          {
+            type: 'specs',
+            title: 'Heading',
+            prompt: {
+              title: 'Sidekick prompt – Featured collection',
+              text: SIDEKICK_FEATURED_COLLECTION_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It sets the “ALL PRODUCTS” heading and picks the collection with all four NovaStep products. If no such collection exists, Sidekick will ask before creating one. Review the preview, then click Save.',
+            },
+            rows: [{ text: 'ALL PRODUCTS', style: 'Heading 2', color: '#545454' }],
+          },
           { type: 'images', images: [img('p056_0', 'Featured collection')] },
         ],
       },

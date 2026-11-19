@@ -66,7 +66,7 @@ export interface PromptSpec {
 export type Block =
   | { type: 'steps'; title?: string; items: string[] }
   | { type: 'images'; images: GuideImage[] }
-  | { type: 'specs'; title: string; rows: SpecRow[] }
+  | { type: 'specs'; title: string; rows: SpecRow[]; prompt?: PromptSpec }
   | { type: 'code'; title: string; lang: string; code: string; selector?: SelectorSpec }
   | {
       type: 'copylist';

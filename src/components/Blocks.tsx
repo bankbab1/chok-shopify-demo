@@ -18,7 +18,7 @@ export function BlockView({ block }: { block: Block }) {
     case 'images':
       return <ImageGrid images={block.images} />;
     case 'specs':
-      return <Specs title={block.title} rows={block.rows} />;
+      return <Specs title={block.title} rows={block.rows} prompt={block.prompt} />;
     case 'code':
       return <CodeBlock title={block.title} lang={block.lang} code={block.code} selector={block.selector} />;
     case 'copylist':
@@ -148,12 +148,16 @@ function isLight(hex?: string) {
   return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.72;
 }
 
-function Specs({ title, rows }: { title: string; rows: SpecRow[] }) {
+function Specs({ title, rows, prompt }: { title: string; rows: SpecRow[]; prompt?: PromptSpec }) {
   const t = useT();
   const darkPreview = rows.some((r) => isLight(r.color));
   return (
     <Card>
-      <CardHeader title={t(title)} meta={t('Text, style and color as configured in the theme editor')} />
+      <CardHeader
+        title={t(title)}
+        meta={t('Text, style and color as configured in the theme editor')}
+        action={prompt && <PromptButton prompt={prompt} />}
+      />
       <div className={clsx('space-y-3 px-5 py-6', darkPreview ? 'bg-[#2b2b2b]' : 'bg-[#fafaf8] dark:bg-[#f2f2ef]')}>
         {rows.map((r, i) => (
           <div

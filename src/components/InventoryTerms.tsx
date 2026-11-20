@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import { ArrowDownToLine, Ban, Barcode, Box, CircleCheck, ClipboardList, MapPin, SlidersHorizontal, type LucideIcon } from 'lucide-react';
 import { useI18n } from '../i18n';
 
-type L = { en: string; th: string };
+export type L = { en: string; th: string };
 
-interface Term {
+export interface Term {
   key: string;
   /** Column label exactly as Shopify Admin shows it. */
   name: string;
@@ -136,7 +136,7 @@ const OTHERS: Term[] = [
   },
 ];
 
-function TermCard({ term }: { term: Term }) {
+export function TermCard({ term }: { term: Term }) {
   const { lang } = useI18n();
   return (
     <div className="flex flex-col rounded-xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-slate-900">

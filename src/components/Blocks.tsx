@@ -6,6 +6,7 @@ import { usePersistedState } from '../hooks/usePersistedState';
 import { PRODUCTS } from '../data/products';
 import { UploadImagesGuide } from './UploadImagesGuide';
 import { InventoryTerms } from './InventoryTerms';
+import { OrderTerms } from './OrderTerms';
 import { StoreTypes } from './StoreTypes';
 import { ThemeEditorGuide } from './ThemeEditorGuide';
 import { Card, CardHeader, CopyButton, ImageGrid, RichLine, copyText } from './ui';
@@ -52,6 +53,8 @@ export function BlockView({ block }: { block: Block }) {
       return <UploadImagesGuide />;
     case 'inventory-terms':
       return <InventoryTerms />;
+    case 'order-terms':
+      return <OrderTerms />;
     case 'store-types':
       return <StoreTypes />;
     case 'theme-editor-guide':

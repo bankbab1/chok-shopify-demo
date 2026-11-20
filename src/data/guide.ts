@@ -1797,7 +1797,7 @@ export const SECTIONS: Section[] = [
         id: 'test-payment',
         title: 'Activate Test Payment',
         tag: 'workshop',
-        outcome: ['The test payment provider shows as “Activated”'],
+        outcome: ['“Test payment gateway” shows the green “Active” badge'],
         blocks: [
           {
             type: 'note',
@@ -1806,9 +1806,32 @@ export const SECTIONS: Section[] = [
           },
           {
             type: 'steps',
-            items: ['Go to “Settings”', 'Click on “Payments”', 'Choose “Payment providers”', 'Select “For Testing”', 'Click “Activate”', 'Done — “Activated”'],
+            items: [
+              'Go to “Settings” → “Payments”',
+              'The yellow banner says “Development stores can only process test payments” — click “Activate the test payment gateway” (or “Choose a provider” → search “Test payment gateway”)',
+              'On the “Test payment gateway” page, read the test values, then click “Activate”',
+              'Done — the page shows an “Active” badge and the message “Test payment gateway activated”',
+            ],
           },
-          { type: 'images', images: [img('p101_0'), img('p101_1'), img('p102_0', 'Activated')] },
+          {
+            type: 'kv',
+            title: 'Test card values (use at checkout)',
+            rows: [
+              { label: 'Approved transaction', value: '1' },
+              { label: 'Declined transaction', value: '2' },
+              { label: 'Gateway failure', value: '3' },
+              { label: 'Expiry date', value: 'Any future date (e.g. 12/30)' },
+              { label: 'Security code', value: 'Any 3 digits (e.g. 123)' },
+            ],
+          },
+          {
+            type: 'note',
+            text: 'Leave PayPal Inactive and skip “Manual payment methods” — the test gateway is all you need for the test order. Use “Deactivate” on the same page when you are done testing.',
+          },
+          {
+            type: 'images',
+            images: [img('test_pay_payments', 'Settings → Payments'), img('test_pay_gateway', 'Test payment gateway — Activate'), img('test_pay_active', 'Active')],
+          },
         ],
       },
       {
@@ -1824,7 +1847,7 @@ export const SECTIONS: Section[] = [
               'Go to a “Product” page',
               'Click “Buy it now”',
               'Enter “Email” & “Address”, then choose the “Shipping method”',
-              'Enter “1” into “Credit Card number” (Bogus gateway)',
+              'Enter “1” as the card number (test gateway), any future expiry date and any 3-digit security code',
               'Click “Pay now”',
               'Order confirmed',
             ],
@@ -1840,6 +1863,20 @@ export const SECTIONS: Section[] = [
     icon: Truck,
     summary: 'Fulfil, print and deliver the test order.',
     topics: [
+      {
+        id: 'order-terms',
+        title: 'Order Terms',
+        summary: 'What the Payment, Fulfillment and Delivery statuses on an order mean.',
+        blocks: [
+          { type: 'order-terms' },
+          {
+            type: 'link',
+            label: 'Shopify Help: Order status',
+            url: 'https://help.shopify.com/en/manual/fulfillment/managing-orders/order-status',
+            purpose: 'Every payment, fulfillment and order status explained by Shopify.',
+          },
+        ],
+      },
       {
         id: 'fulfill',
         title: 'Fulfil & Deliver',

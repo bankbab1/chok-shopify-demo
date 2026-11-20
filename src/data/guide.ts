@@ -287,51 +287,6 @@ const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** s
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
-// Footer, from the workshop PDF (page 60). Uses the Horizon footer section's own setting names.
-const SIDEKICK_FOOTER_PROMPT = `Please set up the **Footer** section of my published theme (Horizon) as a black "JOIN US" email sign-up band.
-
-**Where:** Online Store → Themes → Customize → Footer (section group, shared by every page) → Footer section
-
-**Footer section settings:**
-- Width (section_width): Page
-- Background color (background_color): #000000
-- Gap: 20px · Padding top 36px · Padding bottom 36px
-
-**Target block structure — build exactly this, in this order:**
-
-Footer  (section)
-└─ Group                      ← OUTER group
-    ├─ Group                  ← INNER group
-    │   ├─ Text — JOIN US
-    │   └─ Text — Get exclusive deals and early access to new products.
-    ├─ Spacer
-    └─ Email signup
-
-**OUTER group** (a Group block directly under the Footer section):
-- Direction Vertical (content_direction: column) · Alignment Center · Position Center · Gap 6px
-- Width Fill · Height Fit · Background color Default (none)
-
-**INNER group** (a Group block INSIDE the outer group, first child):
-- Direction Vertical · Alignment Center · Position Center · Gap 12px
-- Width Fill · Height Fit · Background color Default (none)
-
-**Inside the INNER group:**
-1. Text — "JOIN US" — type preset Heading 2 (h2) — alignment Center — text color #DFDFDF
-2. Text — "Get exclusive deals and early access to new products." — type preset Custom, size 16px — alignment Center — width Fill — text color #DFDFDF
-
-**Inside the OUTER group, after the INNER group (not inside it):**
-3. Spacer — unit Pixel — size 32px
-4. Email signup — width Custom 62% — no heading — submit button style Link
-
-**Requirements:**
-- Use the text exactly as written, including capital letters.
-- The Spacer and the Email signup are children of the OUTER group, next to the INNER group — not inside the INNER group.
-- Remove the default footer blocks this replaces (the default "Join our email list" group and the old email signup), so only this structure remains in the Footer section.
-- Do not change the header, any Home page section, theme settings or theme code files, and do not publish a different theme.
-- If you cannot build part of it, build what you can and tell me exactly which steps I need to do by hand in the theme editor.
-
-Then show me the final block structure of the Footer section so I can compare it with the target above, and I'll review the preview and click Save.`;
-
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
 }
@@ -1202,14 +1157,6 @@ export const SECTIONS: Section[] = [
         ],
         blocks: [
           {
-            type: 'prompt',
-            prompt: {
-              title: 'Sidekick prompt – Footer',
-              text: SIDEKICK_FOOTER_PROMPT,
-              tip: 'Optional — try building the footer with Sidekick. It follows the same structure as the manual steps below. Compare the block structure Sidekick reports with the one below, then click Save.',
-            },
-          },
-          {
             type: 'steps',
             title: 'Build it step by step',
             items: [
@@ -1287,7 +1234,7 @@ export const SECTIONS: Section[] = [
               { label: 'Email signup', value: 'Width Custom 62% · Heading empty · Input border All, Default · Submit button Link' },
             ],
           },
-          { type: 'images', images: [img('p060_0', 'Footer')] },
+          { type: 'images', images: [img('p060_0', 'Footer'), img('footer_structure', 'Footer structure in the theme editor')] },
         ],
       },
       {

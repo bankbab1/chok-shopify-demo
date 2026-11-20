@@ -270,6 +270,8 @@ const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** s
 
 **Layout:** image on the left, text on the right.
 
+**Image aspect ratio:** Square (1:1) — set the image's aspect ratio setting to Square.
+
 **Text on the right, in this order:**
 1. Heading — "BUILDING A BETTER TOMORROW" — style Heading 2 — color #545454
 2. Heading — "ONE STEP AT A TIME" — style Heading 3 — color #BEA77E

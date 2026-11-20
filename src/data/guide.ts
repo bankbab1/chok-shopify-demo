@@ -261,64 +261,30 @@ const SIDEKICK_FEATURED_COLLECTION_PROMPT = `Please set up the **Featured collec
 Then show me a summary of what you changed so I can review and click Save.`;
 
 // Image with Text, from the workshop PDF (pages 57–58).
-const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** section on the Home page of my published theme (Horizon). Work through Parts A, B and C in order, and finish each part before starting the next.
+const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** section on the Home page of my published theme (Horizon), below the Featured collection.
 
-**Where:** Online Store → Themes → Customize → Home page → Image with text (below the Featured collection). If there is no Image with text section yet, add one there.
+**Where:** Online Store → Themes → Customize → Home page → Image with text
 
-**Target block structure of this section:**
+**Image** — fetch this image and use it, on the LEFT side:
+{{origin}}/resources/home/home-alt-img.jpg
 
-Image with text  (section)
-├─ Image                         ← left side
-└─ Group                         ← right side, Direction Vertical
-    ├─ Heading — BUILDING A BETTER TOMORROW
-    ├─ Heading — ONE STEP AT A TIME
-    ├─ Text — At NovaStep, our goal is simple: …
-    ├─ Spacer
-    └─ Button — DISCOVER NOVA GOAL
+**Layout:** image on the left, text on the right.
 
----
+**Text on the right, in this order:**
+1. Heading — "BUILDING A BETTER TOMORROW" — style Heading 2 — color #545454
+2. Heading — "ONE STEP AT A TIME" — style Heading 3 — color #BEA77E
+3. Text — "At NovaStep, our goal is simple: create footwear that empowers people to move forward with confidence." — custom size 16px — color #545454
+4. Button — "DISCOVER NOVA GOAL" — background #BEA77E, border #BEA77E, text color #FFFFFF
 
-**PART A — Image**
-1. Download this public image file (it is a direct .jpg link, not a web page):
-   {{origin}}/resources/home/home-alt-img.jpg
-2. Upload it to Content → Files.
-3. Select that file in the section's **Image** block, with the image on the LEFT and the text on the RIGHT.
-✔ Check: the preview shows the sunrise photo with three shoes on the left.
+**Requirements:**
+- Fetch the image link and upload it to Files first if needed, then select it as this section's image.
+- Use the text exactly as written, including capital letters. Each of the two headings is its own Heading block.
+- If the button needs a link, use the About us page if it exists; otherwise leave the link empty.
+- Remove any other default text or button blocks inside this section.
+- Change only this Image with text section. Do not change the header, the Hero, other sections or theme settings, and do not publish a different theme.
+- If you cannot edit the section directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
 
-**PART B — Text (inside the Group on the right)**
-Create these blocks in this exact order, with exactly this text (keep the capital letters):
-1. Heading block — text: BUILDING A BETTER TOMORROW — style Heading 2 — color #545454
-2. Heading block — text: ONE STEP AT A TIME — style Heading 3 — color #BEA77E
-3. Text block — text: At NovaStep, our goal is simple: create footwear that empowers people to move forward with confidence. — custom size 16px — color #545454
-4. Spacer block — leave the default size
-5. Button block — label: DISCOVER NOVA GOAL — background #BEA77E — border #BEA77E — text white (#FFFFFF) — link: the About us page if it exists, otherwise leave it empty
-Then delete any other default heading, text or button blocks left in this section.
-✔ Check: the right side shows the two headings, the paragraph and the gold button, and nothing else.
-
-**PART C — Button style (Custom CSS)**
-Paste this CSS exactly into THIS section's **Custom CSS** field (at the bottom of the Image with text section settings):
-
-.button {
-  border-radius: 0;
-}
-.button:hover {
-  color: #ffffff !important;
-}
-
-Section Custom CSS only applies to this section, so ".button" changes only the DISCOVER NOVA GOAL button.
-✔ Check: the button has square corners, and its text stays white on hover.
-
----
-
-**Rules:**
-- Change only this Image with text section. Do not change the header, the Hero, other sections, global button settings in Theme settings, or theme code files, and do not publish a different theme.
-- If a step fails, try it once more. If it still fails, continue with the other parts and tell me exactly which step failed and what I should do by hand in the theme editor.
-
-**Before I save, report this checklist (✅ done / ❌ not done):**
-- Part A: image file uploaded to Files · image selected in the section
-- Part B: heading 1 · heading 2 · paragraph · button (label, colors, link) · extra default blocks removed
-- Part C: Custom CSS pasted
-Then I'll review the preview and click Save.`;
+Then show me a summary of what you changed so I can review and click Save.`;
 
 const IMAGE_WITH_TEXT_CSS = `{{selector}} {
   border-radius: 0;
@@ -1130,7 +1096,7 @@ export const SECTIONS: Section[] = [
             prompt: {
               title: 'Sidekick prompt – Image with text',
               text: SIDEKICK_IMAGE_WITH_TEXT_PROMPT,
-              tip: 'Paste this into a new Sidekick chat. It works in 3 parts — A image, B text blocks, C button CSS — and reports a ✅/❌ checklist. If one part fails, ask Sidekick to redo just that part, or use the CSS helper below for Part C. Review the preview, then click Save.',
+              tip: 'Paste this into a new Sidekick chat. It fetches the image by link (like the Hero) and sets the headings, text and gold button. For square button corners, paste the CSS yourself with the CSS helper below. Review the preview, then click Save.',
             },
             rows: [
               { text: 'BUILDING A BETTER TOMORROW', style: 'Heading 2', color: '#545454' },

@@ -500,6 +500,9 @@ export const TH: Record<string, string> = {
   'Text blocks': 'บล็อก Text',
   'Spacer & Email signup': 'Spacer และ Email signup',
   'Sidekick prompt – Image with text': 'Prompt สำหรับ Sidekick – Image with text',
+  'Sidekick prompt – Footer': 'Prompt สำหรับ Sidekick – Footer',
+  'Optional — try building the footer with Sidekick. It follows the same structure as the manual steps below. Compare the block structure Sidekick reports with the one below, then click Save.':
+    'ทางเลือก — ลองให้ Sidekick สร้าง Footer โดยใช้โครงสร้างเดียวกับขั้นตอนแบบทำเองด้านล่าง เทียบโครงสร้างบล็อกที่ Sidekick รายงานกับโครงสร้างด้านล่าง แล้วกด Save',
   'Paste this into a new Sidekick chat. It fetches the image by link (like the Hero) and sets the headings, text and gold button. For square button corners, paste the CSS yourself with the CSS helper below. Review the preview, then click Save.':
     'วาง Prompt นี้ในแชต Sidekick ใหม่ ระบบจะดึงรูปจากลิงก์ (แบบเดียวกับ Hero) และตั้งหัวข้อ ข้อความ และปุ่มสีทอง หากต้องการปุ่มมุมเหลี่ยม ให้วาง CSS เองด้วยตัวช่วย CSS ด้านล่าง ตรวจตัวอย่างแล้วกด Save',
   'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':

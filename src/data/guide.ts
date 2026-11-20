@@ -509,6 +509,28 @@ const SIDEKICK_CONTACT_HERO_PROMPT = `Please set up the **Hero** section on the 
 
 Then show me a summary of what you changed so I can review and click Save.`;
 
+/** Hero at the top of the Store Location page template — same flow as the Contact Us Hero. */
+const SIDEKICK_STORE_LOCATION_HERO_PROMPT = `Please set up the **Hero** section on the **Store Location** page template of my published theme (Horizon).
+
+**Where:** Online Store → Themes → Customize → Pages → the template used by the Store Location page → **Hero: Bottom aligned** (I already added this section at the top of the template and saved it — edit that existing Hero, do not add a new one)
+
+**Background image** — fetch this image and use it (Media 1 → Image):
+{{origin}}/resources/storelocation/store-location-hero-img.jpg
+
+**Layout:** content aligned to the bottom left ("Bottom align").
+
+**Text, in this order:**
+1. Text block — "STORE LOCATION" — preset Heading 1 — width Fill — alignment Left — text color #EEEEEE
+
+**Requirements:**
+- Fetch the image link and upload it to Files first if needed, then select it as the Hero background (Media 1). Leave Media 2 empty.
+- Replace the default preset text: delete the "Introducing", "New arrivals" and paragraph blocks (and any button), so the Hero has only the one "STORE LOCATION" Text block.
+- Use the text exactly as written, including capital letters.
+- Change only this Hero section. Do not change the Custom Liquid store locator, the page Custom CSS, the header, other templates or theme settings, and do not publish a different theme.
+- If you cannot edit the section directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
 /** Option 2: Sidekick creates only the Store Location page; the Contact page is made by hand. */
 const SIDEKICK_STORE_LOCATION_PAGE_PROMPT = `Please create one **page** in my Shopify store.
 
@@ -1583,7 +1605,20 @@ export const SECTIONS: Section[] = [
         summary: 'Hero + Custom Liquid store locator with Google Maps.',
         blocks: [
           { type: 'steps', items: ['Open the Store Location page (made in Create Pages)', 'Add section: Hero – Bottom align', 'Add Page / Block: Custom Liquid and paste the code below', 'Add the page Custom CSS'] },
-          { type: 'specs', title: 'Hero – Bottom align', rows: [{ text: 'STORE LOCATION', style: 'Heading 1', color: '#EEEEEE' }] },
+          {
+            type: 'note',
+            text: 'Hero: first add it yourself — “Add section” → “Hero: Bottom aligned” at the top of the template and click Save. Then use the Sidekick prompt below, or set it by hand: Media 1 = store-location-hero-img.jpg (Resources), delete the default “Introducing” / “New arrivals” / paragraph blocks and keep one Text block “STORE LOCATION” — Heading 1 · Fill · Left · #EEEEEE.',
+          },
+          {
+            type: 'specs',
+            title: 'Hero – Bottom align',
+            prompt: {
+              title: 'Sidekick prompt – Store Location Hero',
+              text: SIDEKICK_STORE_LOCATION_HERO_PROMPT,
+              tip: 'First add the Hero yourself: click “Add section” → “Hero: Bottom aligned” at the top of the template and click Save. Then paste this into Sidekick — it sets the image and replaces the default text with “STORE LOCATION”. Review the preview, then click Save.',
+            },
+            rows: [{ text: 'STORE LOCATION', style: 'Heading 1', color: '#EEEEEE' }],
+          },
           { type: 'code', title: 'Custom Liquid – Store locator', lang: 'liquid', code: storeLocatorLiquid },
           { type: 'code', title: 'Page – Custom CSS', lang: 'css', code: STORE_LOCATION_PAGE_CSS },
           {

@@ -1635,6 +1635,104 @@ export const SECTIONS: Section[] = [
           },
         ],
       },
+      {
+        id: 'product-page',
+        group: 'Page Sections',
+        title: 'Product Page',
+        summary: 'Set up the product photo gallery in the Default product template — by hand in the theme editor.',
+        outcome: ['Product pages show a carousel with arrows and thumbnails below the photo, and dots on mobile'],
+        blocks: [
+          {
+            type: 'steps',
+            items: [
+              'In the theme editor, open the product template: top bar → Products → “Default product” (preview a product, e.g. NovaStep Titan Pro)',
+              'Under Template → “Product information”, select the “Product media” block',
+              'Set Type to “Carousel”, then fill in the Carousel, Thumbnails and Media settings below',
+              'Check the preview: arrows on the photo, thumbnails under it, the whole shoe visible — then click “Save”',
+            ],
+          },
+          {
+            type: 'kv',
+            title: 'Product media — Carousel',
+            rows: [
+              { label: 'Type', value: 'Carousel' },
+              { label: 'Icons', value: 'Chevrons' },
+              { label: 'Desktop pagination', value: 'Thumbnails' },
+              { label: 'Mobile pagination', value: 'Dots' },
+            ],
+          },
+          {
+            type: 'kv',
+            title: 'Thumbnails',
+            rows: [
+              { label: 'Desktop position', value: 'Bottom' },
+              { label: 'Desktop width', value: '44px' },
+              { label: 'Corner radius', value: '0px' },
+            ],
+          },
+          {
+            type: 'kv',
+            title: 'Media',
+            rows: [
+              { label: 'Aspect ratio', value: 'Auto' },
+              { label: 'Constrain to screen height', value: 'On' },
+              { label: 'Media fit', value: 'Contain' },
+              { label: 'Corner radius', value: '0px' },
+            ],
+          },
+          { type: 'images', images: [img('product_media', 'Default product → Product media')] },
+        ],
+      },
+      {
+        id: 'store-preview',
+        group: 'Review',
+        title: 'Store Preview',
+        summary: 'Everything is built — now open the store and check it the way a customer sees it.',
+        outcome: ['You have clicked through every page on desktop and mobile, and fixed anything that looked wrong'],
+        blocks: [
+          { type: 'link', label: 'Open Shopify Admin', url: 'https://admin.shopify.com/', fallbackPath: 'Online Store → Preferences → Password protection' },
+          {
+            type: 'steps',
+            title: 'Open the store',
+            items: [
+              'In Admin, go to Online Store and click the eye icon “View your store” (or “View” in the theme editor)',
+              'The store is still password protected — copy the storefront password from Online Store → Preferences → Password protection',
+              'Enter the password on the store page to see the live storefront',
+            ],
+          },
+          {
+            type: 'note',
+            text: 'Share the store with the password, not your Admin login. Password protection stays on until you pick a paid plan and remove it — that is fine for this demo.',
+          },
+          {
+            type: 'steps',
+            title: 'Click through — tick each one as you check it',
+            items: [
+              'Header: transparent with the inverse logo on Home, solid on other pages · menu HOME · PRODUCTS · ABOUT US · STORE LOCATION · CONTACT',
+              'Home: Hero “EVERY STEP FORWARD” · Featured collection “ALL PRODUCTS” · Image with text · NEW ARRIVAL featured product',
+              'Footer: black “JOIN US” band with the email sign-up on every page',
+              'Products: open a product — photos change with Color, Size options, price and the metafield tabs show',
+              'About us: Hero, the image-with-text stories and the metafield copy',
+              'Store Location: Hero and the store locator map',
+              'Contact: Hero and the contact cards from the page content',
+            ],
+          },
+          {
+            type: 'steps',
+            title: 'Check on mobile',
+            items: [
+              'In the theme editor, switch the preview to mobile (phone icon in the top bar)',
+              'Or open your store link on your phone and enter the storefront password',
+              'Check the menu opens, images fit and text is readable',
+            ],
+          },
+          {
+            type: 'note',
+            tone: 'warn',
+            text: 'Something looks wrong? Go back to that step in the sidebar (Theme → Home, Pages & Menu, Page Sections), fix it in the theme editor and click Save, then refresh the store.',
+          },
+        ],
+      },
     ],
   },
   {

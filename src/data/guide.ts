@@ -955,6 +955,20 @@ export const SECTIONS: Section[] = [
         ],
       },
       {
+        id: 'theme-editor-basics',
+        title: 'How the Theme Editor Works',
+        summary: 'Templates, sections and blocks — the building-block idea behind customizing a theme.',
+        blocks: [
+          { type: 'theme-editor-guide' },
+          {
+            type: 'link',
+            label: 'Shopify Help: Sections and blocks',
+            url: 'https://help.shopify.com/en/manual/online-store/themes/theme-structure/sections-and-blocks',
+            purpose: 'Official explanation of templates, sections and blocks.',
+          },
+        ],
+      },
+      {
         id: 'logo',
         group: 'Home',
         title: 'Logo',

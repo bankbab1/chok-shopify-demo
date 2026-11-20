@@ -7,6 +7,7 @@ import { PRODUCTS } from '../data/products';
 import { UploadImagesGuide } from './UploadImagesGuide';
 import { InventoryTerms } from './InventoryTerms';
 import { StoreTypes } from './StoreTypes';
+import { ThemeEditorGuide } from './ThemeEditorGuide';
 import { Card, CardHeader, CopyButton, ImageGrid, RichLine, copyText } from './ui';
 import { PromptButton, PromptCard } from './PromptButton';
 import { useT } from '../i18n';
@@ -45,6 +46,8 @@ export function BlockView({ block }: { block: Block }) {
       return <InventoryTerms />;
     case 'store-types':
       return <StoreTypes />;
+    case 'theme-editor-guide':
+      return <ThemeEditorGuide />;
   }
 }
 

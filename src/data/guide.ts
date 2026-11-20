@@ -1736,58 +1736,6 @@ export const SECTIONS: Section[] = [
     ],
   },
   {
-    id: 'apps',
-    title: 'Apps',
-    icon: Blocks,
-    summary: 'Install Wishlist by Square and Shopify Inbox.',
-    topics: [
-      {
-        id: 'wishlist',
-        title: 'Wishlist by Square',
-        summary: 'Let shoppers save products and buy them later.',
-        blocks: [
-          {
-            type: 'link',
-            label: 'Open in Shopify App Store',
-            url: 'https://apps.shopify.com/wishlist-by-square',
-            purpose: 'App listing for Wishlist by Square — click “Install” and choose your store.',
-            fallbackPath: 'Admin → Apps → Shopify App Store → search “Wishlist by Square”',
-          },
-          {
-            type: 'steps',
-            items: [
-              'Click on “Apps” (+ Add)',
-              'Click on “Shopify App Store”',
-              'Search for “Wishlist by Square” and click “Install”',
-              'Confirm “Install”',
-              'Try “App Embed”',
-            ],
-          },
-          {
-            type: 'images',
-            images: [img('p089_0'), img('p089_1'), img('p090_0'), img('p090_1'), img('p090_2'), img('p091_0', 'App embed')],
-          },
-        ],
-      },
-      {
-        id: 'shopify-inbox',
-        title: 'Shopify Inbox',
-        summary: 'Chat with customers from your online store.',
-        blocks: [
-          {
-            type: 'link',
-            label: 'Open in Shopify App Store',
-            url: 'https://apps.shopify.com/inbox',
-            purpose: 'App listing for Shopify Inbox — click “Install” and choose your store.',
-            fallbackPath: 'Admin → Apps → Shopify App Store → search “Shopify Inbox”',
-          },
-          { type: 'steps', items: ['Search for “Shopify Inbox” and click “Install”', 'Add “Shopify Inbox” to the theme'] },
-          { type: 'images', images: [img('p092_0'), img('p092_1'), img('p093_0', 'Inbox in theme')] },
-        ],
-      },
-    ],
-  },
-  {
     id: 'payments',
     title: 'Payments & Test Order',
     icon: CreditCard,
@@ -1899,6 +1847,72 @@ export const SECTIONS: Section[] = [
             type: 'images',
             images: [img('p106_0'), img('p106_1'), img('p107_0'), img('p107_1'), img('p108_0'), img('p108_1'), img('p108_2'), img('p108_3'), img('p109_0', 'Mark as delivered')],
           },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'apps',
+    title: 'Apps',
+    icon: Blocks,
+    summary: 'Install Wishlist by Square and Shopify Inbox.',
+    topics: [
+      {
+        id: 'what-are-apps',
+        title: 'What Are Shopify Apps?',
+        summary: 'Like apps on your phone — add features to your store without code.',
+        blocks: [
+          { type: 'apps-explained' },
+          {
+            type: 'link',
+            label: 'Browse the Shopify App Store',
+            url: 'https://apps.shopify.com/',
+            purpose: 'Search by what you need, compare reviews and plans, then install.',
+          },
+        ],
+      },
+      {
+        id: 'wishlist',
+        title: 'Wishlist by Square',
+        summary: 'Let shoppers save products and buy them later.',
+        blocks: [
+          {
+            type: 'link',
+            label: 'Open in Shopify App Store',
+            url: 'https://apps.shopify.com/wishlist-by-square',
+            purpose: 'App listing for Wishlist by Square — click “Install” and choose your store.',
+            fallbackPath: 'Admin → Apps → Shopify App Store → search “Wishlist by Square”',
+          },
+          {
+            type: 'steps',
+            items: [
+              'Click on “Apps” (+ Add)',
+              'Click on “Shopify App Store”',
+              'Search for “Wishlist by Square” and click “Install”',
+              'Confirm “Install”',
+              'Try “App Embed”',
+            ],
+          },
+          {
+            type: 'images',
+            images: [img('p089_0'), img('p089_1'), img('p090_0'), img('p090_1'), img('p090_2'), img('p091_0', 'App embed')],
+          },
+        ],
+      },
+      {
+        id: 'shopify-inbox',
+        title: 'Shopify Inbox',
+        summary: 'Chat with customers from your online store.',
+        blocks: [
+          {
+            type: 'link',
+            label: 'Open in Shopify App Store',
+            url: 'https://apps.shopify.com/inbox',
+            purpose: 'App listing for Shopify Inbox — click “Install” and choose your store.',
+            fallbackPath: 'Admin → Apps → Shopify App Store → search “Shopify Inbox”',
+          },
+          { type: 'steps', items: ['Search for “Shopify Inbox” and click “Install”', 'Add “Shopify Inbox” to the theme'] },
+          { type: 'images', images: [img('p092_0'), img('p092_1'), img('p093_0', 'Inbox in theme')] },
         ],
       },
     ],

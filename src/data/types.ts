@@ -95,6 +95,7 @@ export type Block =
   /** Inventory glossary + interactive On hand / Available calculator. */
   | { type: 'inventory-terms' }
   | { type: 'order-terms' }
+  | { type: 'apps-explained' }
   /** Store vs Dev store vs Client transfer store comparison. */
   | { type: 'store-types' }
   /** Concept guide: how the theme editor works (templates, sections, blocks, settings). */

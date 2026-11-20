@@ -1559,6 +1559,10 @@ export const SECTIONS: Section[] = [
             ],
           },
           {
+            type: 'note',
+            text: 'Hero: first add it yourself — “Add section” → “Hero: Bottom aligned”, move it above the Custom section and click Save. Then use the Sidekick prompt below, or set it by hand: Media 1 = contact-us-hero-img.jpg (Resources), delete the default “Introducing” / “New arrivals” / paragraph blocks and keep one Text block “CONTACT US” — Heading 1 · Fill · Left · #EEEEEE.',
+          },
+          {
             type: 'specs',
             title: 'Hero – Bottom align (top of the contact template)',
             prompt: {

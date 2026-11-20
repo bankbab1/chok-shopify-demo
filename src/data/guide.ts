@@ -265,12 +265,11 @@ const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** s
 
 **Where:** Online Store → Themes → Customize → Home page → Image with text
 
-**Image** — fetch this image and use it, on the LEFT side:
-{{origin}}/resources/home/home-alt-img.jpg
+**Image block (left side)** — in this section's **Image** block:
+- **Image:** select this image for me (fetch it from the link and use it): {{origin}}/resources/home/home-alt-img.jpg
+- **Aspect ratio:** Square
 
 **Layout:** image on the left, text on the right.
-
-**Image aspect ratio:** Square (1:1) — set the image's aspect ratio setting to Square.
 
 **Text on the right, in this order:**
 1. Heading — "BUILDING A BETTER TOMORROW" — style Heading 2 — color #545454
@@ -279,7 +278,7 @@ const SIDEKICK_IMAGE_WITH_TEXT_PROMPT = `Please set up the **Image with text** s
 4. Button — "DISCOVER NOVA GOAL" — background #BEA77E, border #BEA77E, text color #FFFFFF
 
 **Requirements:**
-- Fetch the image link and upload it to Files first if needed, then select it as this section's image.
+- The Image block must show this photo, not the placeholder. Upload the image to Files first if needed, then select it in the Image block's Image setting.
 - Use the text exactly as written, including capital letters. Each of the two headings is its own Heading block.
 - If the button needs a link, use the About us page if it exists; otherwise leave the link empty.
 - Remove any other default text or button blocks inside this section.

@@ -1133,9 +1133,11 @@ export const SECTIONS: Section[] = [
           {
             type: 'steps',
             items: [
-              'On the Home page, click “Add section” → “Featured product” (below Image with text)',
-              'In the section settings, choose the product “NovaStep Cloud Slide”',
-              'Set the heading “NEW ARRIVAL” — Heading 2, color #545454',
+              'On the Home page, click “Add section” → “Custom section” (below Image with text)',
+              'Inside the Custom section, click “Add block” → “Text” and type “NEW ARRIVAL” — Heading 2, color #545454',
+              'Select the Custom section and set Size → Height to “Auto”',
+              'Click “Add section” → “Featured product” (below the Custom section)',
+              'In the Featured product settings, choose the product “NovaStep Cloud Slide”',
               'Check the images, price, Color and Size options and buy button show, then click “Save”',
             ],
           },

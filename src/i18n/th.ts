@@ -524,7 +524,8 @@ export const TH: Record<string, string> = {
   'Contact template — Custom section + Text (Content)': 'เทมเพลต Contact — Custom section + Text (Content)',
   'Hero – Bottom align (top of the contact template)': 'Hero – Bottom align (ด้านบนสุดของเทมเพลต contact)',
   'Sidekick prompt – Contact Us Hero': 'Prompt สำหรับ Sidekick – Hero หน้า Contact Us',
-  'Paste this into Shopify Sidekick. It fetches the hero image by link and adds the “CONTACT US” Hero above the page content. Review the preview, then click Save.': 'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูป Hero จากลิงก์ และเพิ่ม Hero “CONTACT US” ไว้เหนือเนื้อหาเพจ ตรวจตัวอย่างแล้วกด Save',
+  'First add the Hero yourself: in the contact template click “Add section” → “Hero: Bottom aligned”, move it above the Custom section and click Save. Then paste this into Sidekick — it sets the image and replaces the default text with “CONTACT US”. Review the preview, then click Save.':
+    'ให้เพิ่ม Hero เองก่อน: ในเทมเพลต contact คลิก “Add section” → “Hero: Bottom aligned” ย้ายไปไว้เหนือ Custom section แล้วกด Save จากนั้นวาง Prompt นี้ใน Sidekick — ระบบจะใส่รูปและแทนข้อความเริ่มต้นด้วย “CONTACT US” ตรวจตัวอย่างแล้วกด Save',
   'Sidekick prompt – Hero': 'Prompt สำหรับ Sidekick – Hero',
   'On the Home page, click “Add section” → “Custom section” (below Image with text)': 'ในหน้า Home คลิก “Add section” → “Custom section” (ใต้ Image with text)',
   'Inside the Custom section, click “Add block” → “Text” and type “NEW ARRIVAL” — Heading 2, color #545454': 'ใน Custom section คลิก “Add block” → “Text” แล้วพิมพ์ “NEW ARRIVAL” — Heading 2 สี #545454',

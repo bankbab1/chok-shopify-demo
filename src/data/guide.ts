@@ -490,9 +490,9 @@ After completion, list the pages with their title, handle and visibility.`;
 /** Hero at the top of the contact page template, same style as the Home page Hero. */
 const SIDEKICK_CONTACT_HERO_PROMPT = `Please set up the **Hero** section on the **contact** page template of my published theme (Horizon).
 
-**Where:** Online Store → Themes → Customize → Pages → contact → Hero (add a Hero section at the top of the template, above the Custom section, if there isn't one yet)
+**Where:** Online Store → Themes → Customize → Pages → contact → **Hero: Bottom aligned** (I already added this section at the top of the template, above the Custom section, and saved it — edit that existing Hero, do not add a new one)
 
-**Background image** — fetch this image and use it:
+**Background image** — fetch this image and use it (Media 1 → Image):
 {{origin}}/resources/contactus/contact-us-hero-img.jpg
 
 **Layout:** content aligned to the bottom left ("Bottom align").
@@ -501,9 +501,9 @@ const SIDEKICK_CONTACT_HERO_PROMPT = `Please set up the **Hero** section on the 
 1. Text block — "CONTACT US" — preset Heading 1 — width Fill — alignment Left — text color #EEEEEE
 
 **Requirements:**
-- Fetch the image link and upload it to Files first if needed, then select it as the Hero background.
+- Fetch the image link and upload it to Files first if needed, then select it as the Hero background (Media 1). Leave Media 2 empty.
+- Replace the default preset text: delete the "Introducing", "New arrivals" and paragraph blocks (and any button), so the Hero has only the one "CONTACT US" Text block.
 - Use the text exactly as written, including capital letters.
-- Remove any other default text or button blocks inside this Hero section.
 - Change only this Hero section. Do not change the Custom section with the page content, the header, other templates or theme settings, and do not publish a different theme.
 - If you cannot edit the section directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
 
@@ -1564,7 +1564,7 @@ export const SECTIONS: Section[] = [
             prompt: {
               title: 'Sidekick prompt – Contact Us Hero',
               text: SIDEKICK_CONTACT_HERO_PROMPT,
-              tip: 'Paste this into Shopify Sidekick. It fetches the hero image by link and adds the “CONTACT US” Hero above the page content. Review the preview, then click Save.',
+              tip: 'First add the Hero yourself: in the contact template click “Add section” → “Hero: Bottom aligned”, move it above the Custom section and click Save. Then paste this into Sidekick — it sets the image and replaces the default text with “CONTACT US”. Review the preview, then click Save.',
             },
             rows: [{ text: 'CONTACT US', style: 'Heading 1', color: '#EEEEEE' }],
           },

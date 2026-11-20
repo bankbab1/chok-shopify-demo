@@ -81,7 +81,8 @@ export type Block =
   /** Collapsible copy-ready prompt card (collapsed by default). */
   | { type: 'prompt'; prompt: PromptSpec }
   | { type: 'kv'; title?: string; rows: KvRow[]; prompt?: PromptSpec }
-  | { type: 'richtext'; title: string; body: string }
+  /** `name` = the exact value to type into a Title/Name field, copied on its own. */
+  | { type: 'richtext'; title: string; body: string; name?: string }
   | { type: 'note'; tone?: 'info' | 'warn'; text: string }
   | { type: 'link'; label: string; url: string; purpose?: string; fallbackPath?: string }
   | { type: 'product'; product: Product }

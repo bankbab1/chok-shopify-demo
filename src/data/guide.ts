@@ -1248,7 +1248,7 @@ export const SECTIONS: Section[] = [
             items: ['Create Template: About Us', 'Create Page: About Us', 'Map the page to the template'],
           },
           { type: 'kv', title: 'Template', rows: [{ label: 'Name', value: 'about-us-mod' }, { label: 'Based on', value: 'Default page' }] },
-          { type: 'richtext', title: 'Page content (Title: About us)', body: ABOUT_US_PAGE_CONTENT },
+          { type: 'richtext', title: 'Page content', name: 'About us', body: ABOUT_US_PAGE_CONTENT },
           {
             type: 'images',
             images: [img('p062_0', 'Create template'), img('p062_1', 'about-us-mod'), img('p063_0', 'About us page'), img('p063_1', 'Map to template')],

@@ -31,7 +31,7 @@ export function BlockView({ block }: { block: Block }) {
     case 'kv':
       return <KeyValues title={block.title} rows={block.rows} prompt={block.prompt} />;
     case 'richtext':
-      return <RichText title={block.title} body={block.body} />;
+      return <RichText title={block.title} body={block.body} name={block.name} />;
     case 'note':
       return <Note tone={block.tone} text={block.text} />;
     case 'link':
@@ -470,7 +470,7 @@ function FormattedBody({ body }: { body: string }) {
   );
 }
 
-function RichText({ title, body }: { title: string; body: string }) {
+function RichText({ title, body, name }: { title: string; body: string; name?: string }) {
   const t = useT();
   return (
     <Card>
@@ -478,11 +478,18 @@ function RichText({ title, body }: { title: string; body: string }) {
         title={<code className="font-mono text-[13px]">{t(title)}</code>}
         action={
           <div className="flex gap-2">
-            <CopyButton text={title} label="Name" />
+            <CopyButton text={name ?? title} label={name ? 'Page title' : 'Name'} />
             <CopyButton text={body} label="Content" />
           </div>
         }
       />
+      {name && (
+        <div className="flex items-center gap-3 border-b border-slate-100 px-4 py-2.5 dark:border-white/5">
+          <span className="shrink-0 text-xs text-slate-500 dark:text-slate-400">{t('Page title')}</span>
+          <span className="text-sm font-semibold">{name}</span>
+          <CopyButton text={name} compact />
+        </div>
+      )}
       <div className="px-4 py-4">
         <FormattedBody body={body} />
       </div>

@@ -405,27 +405,53 @@ We continuously improve based on feedback from real users.`,
   },
 ];
 
-/** Fills the 8 About us page text metafields in one go (like the product prompts). */
-const SIDEKICK_ABOUT_CONTENT_PROMPT = `Please fill the **page metafields** of my **About us** page in Shopify with the content below.
+/**
+ * Converts card copy to a Shopify rich text metafield value (JSON), with the same formatting the cards show
+ * (FormattedBody): "● " lines become a bulleted list, and a short title line with one line under it becomes a
+ * bold paragraph followed by its description paragraph.
+ */
+type RtNode = { type: string; [k: string]: unknown };
+const rtText = (value: string, bold?: boolean): RtNode => (bold ? { type: 'text', value, bold: true } : { type: 'text', value });
+const rtPara = (...children: RtNode[]): RtNode => ({ type: 'paragraph', children });
+function richTextJson(body: string): string {
+  const children: RtNode[] = [];
+  for (const p of body.split(/\n\n+/)) {
+    const lines = p.split('\n');
+    if (lines.every((l) => /^[●•] /.test(l))) {
+      children.push({
+        type: 'list',
+        listType: 'unordered',
+        children: lines.map((l) => ({ type: 'list-item', children: [rtText(l.slice(2))] })),
+      });
+    } else if (lines.length === 2 && lines[0].length < 40) {
+      children.push(rtPara(rtText(lines[0], true)), rtPara(rtText(lines[1])));
+    } else {
+      for (const l of lines) children.push(rtPara(rtText(l)));
+    }
+  }
+  return JSON.stringify({ type: 'root', children });
+}
 
-**Where:** Online Store → Pages → About us → Metafields (at the bottom of the page editor)
+/** Fills the 8 About us page text metafields in one go (like the product prompts), as exact rich text JSON. */
+const SIDEKICK_ABOUT_CONTENT_PROMPT = `Please fill the **page metafields** of my **About us** page in Shopify.
 
-**Metafield definitions:** Pages · namespace \`custom\` · type Rich text. They already exist with exactly these names — match each one by its name.
+**Where:** Online Store → Pages → About us → Metafields
+
+**Metafield definitions:** Pages · namespace \`custom\` · type **Rich text**. They already exist with exactly these names — match each one by its name.
+
+Each value below is the exact **rich text metafield value (JSON)** to save. It already contains the formatting: \`"bold": true\` = bold text, \`"list"\` = bulleted list (one list item per row), each \`"paragraph"\` = its own line.
 
 ${ABOUT_US_RICHTEXT.map(
-  (r, i) => `---
-
-**${i + 1}. ${r.title}**
-
-${r.body}`,
+  (r, i) => `**${i + 1}. ${r.title}**
+\`\`\`json
+${richTextJson(r.body)}
+\`\`\``,
 ).join('\n\n')}
 
----
-
 **Requirements:**
+- Save each JSON value exactly as given into the metafield with the same name — same words, capital letters and punctuation. Do not rewrite, shorten or merge them.
+- Keep the formatting: bold stays bold, list items stay separate bulleted rows. Do not type "**", "•" or "●" characters into the text.
 - Fill only the page called "About us" (the one using the about-us-mod template).
-- Use all text exactly as provided — same words, capital letters and punctuation. Keep each blank line as a new paragraph.
-- Each block above goes into the metafield with the same name. Do not merge, shorten or rewrite them.
 - Fill the metafields only if their definitions already exist under Settings → Metafields and metaobjects → Pages. Do not create new metafield definitions or metaobjects.
 - Do not change the page title, the page content, the template, the image metafields or any other page.
 - If you cannot complete any part, tell me which metafields need manual action.

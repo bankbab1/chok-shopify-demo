@@ -361,6 +361,89 @@ const DIY_PROS: L[] = [
   { en: 'Often lighter than an app — no extra scripts loaded.', th: 'มักเบากว่าแอป — ไม่ต้องโหลด script เสริม' },
 ];
 
+/* Example: what it really takes to build a wishlist yourself vs installing a wishlist app. */
+const WISHLIST_DIY: L[] = [
+  { en: 'Design the heart button and a “My wishlist” page in the theme (Liquid + CSS)', th: 'ออกแบบปุ่มหัวใจและหน้า “My wishlist” ในธีม (Liquid + CSS)' },
+  { en: 'Write JavaScript to add/remove items and keep the heart in sync on every page', th: 'เขียน JavaScript เพิ่ม/ลบสินค้า และให้ปุ่มหัวใจตรงกันทุกหน้า' },
+  { en: 'Save guest lists in the browser (lost on another device or when cookies are cleared)', th: 'เก็บรายการของคนที่ไม่ล็อกอินไว้ในเบราว์เซอร์ (หายเมื่อเปลี่ยนเครื่องหรือล้างคุกกี้)' },
+  {
+    en: 'Save lists for logged-in customers — Liquid can’t write data, so you need a server / custom app using the Admin API',
+    th: 'เก็บรายการของลูกค้าที่ล็อกอิน — Liquid เขียนข้อมูลไม่ได้ ต้องมีเซิร์ฟเวอร์ / Custom app ที่ใช้ Admin API',
+  },
+  { en: 'Merge the guest list into the account when the customer logs in', th: 'รวมรายการตอนยังไม่ล็อกอินเข้ากับบัญชีเมื่อลูกค้าล็อกอิน' },
+  { en: 'Handle sold-out, deleted and changed products and variants', th: 'จัดการสินค้าที่หมด ถูกลบ หรือเปลี่ยนตัวเลือก' },
+  { en: 'Optional: “back in stock” and price-drop emails — more server work and an email service', th: 'ถ้าต้องการ: อีเมลแจ้งของกลับมา/ลดราคา — ต้องทำฝั่งเซิร์ฟเวอร์และระบบส่งอีเมลเพิ่ม' },
+  { en: 'Test on desktop and mobile, then re-check after every theme update', th: 'ทดสอบทั้งเดสก์ท็อปและมือถือ แล้วเช็กใหม่ทุกครั้งที่ธีมอัปเดต' },
+];
+
+const WISHLIST_APP: L[] = [
+  { en: 'Install a wishlist app (e.g. Wishlist by Square) from the Shopify App Store', th: 'ติดตั้งแอป Wishlist (เช่น Wishlist by Square) จาก Shopify App Store' },
+  { en: 'Approve the permissions', th: 'กดยอมรับสิทธิ์ที่ขอ' },
+  { en: 'Turn on the app embed / place the app block in the theme editor — done', th: 'เปิด App embed / วาง App block ใน Theme editor — เสร็จ' },
+];
+
+function StepList({ items, tone }: { items: L[]; tone: 'rose' | 'emerald' }) {
+  const { lang } = useI18n();
+  return (
+    <ol className={clsx('mt-2 space-y-1.5 text-xs leading-relaxed', tone === 'rose' ? 'text-rose-950/90 dark:text-rose-50/90' : 'text-emerald-950/90 dark:text-emerald-50/90')}>
+      {items.map((x, i) => (
+        <li key={x.en} className="flex gap-2">
+          <span
+            className={clsx(
+              'flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold',
+              tone === 'rose' ? 'bg-rose-200 text-rose-800 dark:bg-rose-500/30 dark:text-rose-100' : 'bg-emerald-200 text-emerald-800 dark:bg-emerald-500/30 dark:text-emerald-100',
+            )}
+          >
+            {i + 1}
+          </span>
+          {x[lang]}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function WishlistExample() {
+  const { lang } = useI18n();
+  const th = lang === 'th';
+  return (
+    <div className="mt-3 rounded-lg border border-slate-200 p-3 dark:border-white/10">
+      <div className="flex items-center gap-2 text-sm font-semibold">
+        <Heart size={15} className="text-rose-500" />
+        {th ? 'ตัวอย่าง: ถ้าจะทำ Wishlist เอง vs ใช้แอป' : 'Example: building a wishlist yourself vs using an app'}
+      </div>
+      <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div className="rounded-lg border border-rose-200 bg-rose-50/50 p-3 dark:border-rose-400/30 dark:bg-rose-500/10">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 text-sm font-semibold text-rose-900 dark:text-rose-100">
+              <Code2 size={14} /> {th ? 'ทำเอง (Develop)' : 'Build it yourself'}
+            </div>
+            <span className="rounded-full bg-rose-600 px-2 py-0.5 text-[11px] font-semibold text-white">{th ? `${WISHLIST_DIY.length} ขั้นตอน` : `${WISHLIST_DIY.length} steps`}</span>
+          </div>
+          <StepList items={WISHLIST_DIY} tone="rose" />
+          <p className="mt-2 rounded-md bg-white/70 px-2 py-1.5 text-xs font-semibold text-rose-800 dark:bg-white/5 dark:text-rose-200">
+            {th ? 'ใช้นักพัฒนาหลายวันถึงหลายสัปดาห์ บวกค่าเซิร์ฟเวอร์และการดูแลต่อเนื่อง' : 'A developer for days to weeks, plus server hosting and ongoing maintenance.'}
+          </p>
+        </div>
+        <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-3 dark:border-emerald-400/30 dark:bg-emerald-500/10">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 text-sm font-semibold text-emerald-900 dark:text-emerald-100">
+              <Puzzle size={14} /> {th ? 'ใช้แอป' : 'Use an app'}
+            </div>
+            <span className="rounded-full bg-emerald-600 px-2 py-0.5 text-[11px] font-semibold text-white">{th ? `${WISHLIST_APP.length} ขั้นตอน` : `${WISHLIST_APP.length} steps`}</span>
+          </div>
+          <StepList items={WISHLIST_APP} tone="emerald" />
+          <p className="mt-2 rounded-md bg-white/70 px-2 py-1.5 text-xs font-semibold text-emerald-800 dark:bg-white/5 dark:text-emerald-200">
+            {th
+              ? 'ประมาณ 10 นาที มีทั้งแพ็กเกจฟรี และแพ็กเกจเสียเงินที่เพิ่มฟีเจอร์ เช่น อีเมลเตือนและรายงาน'
+              : 'About 10 minutes. There are free plans, and paid plans that add extras like reminder emails and reports.'}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function AppOrDiy() {
   const { lang } = useI18n();
   const th = lang === 'th';
@@ -419,6 +502,8 @@ function AppOrDiy() {
           </ul>
         </div>
       </div>
+
+      <WishlistExample />
 
       {/* Rule of thumb */}
       <div className="mt-3 grid gap-2 sm:grid-cols-3">

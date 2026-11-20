@@ -487,6 +487,28 @@ ${contactHtml.trim()}
 
 After completion, list the pages with their title, handle and visibility.`;
 
+/** Hero at the top of the contact page template, same style as the Home page Hero. */
+const SIDEKICK_CONTACT_HERO_PROMPT = `Please set up the **Hero** section on the **contact** page template of my published theme (Horizon).
+
+**Where:** Online Store → Themes → Customize → Pages → contact → Hero (add a Hero section at the top of the template, above the Custom section, if there isn't one yet)
+
+**Background image** — fetch this image and use it:
+{{origin}}/resources/contactus/contact-us-hero-img.jpg
+
+**Layout:** content aligned to the bottom left ("Bottom align").
+
+**Text, in this order:**
+1. Text block — "CONTACT US" — preset Heading 1 — width Fill — alignment Left — text color #EEEEEE
+
+**Requirements:**
+- Fetch the image link and upload it to Files first if needed, then select it as the Hero background.
+- Use the text exactly as written, including capital letters.
+- Remove any other default text or button blocks inside this Hero section.
+- Change only this Hero section. Do not change the Custom section with the page content, the header, other templates or theme settings, and do not publish a different theme.
+- If you cannot edit the section directly, upload the image to Files and tell me exactly which steps I need to do in the theme editor.
+
+Then show me a summary of what you changed so I can review and click Save.`;
+
 /** Option 2: Sidekick creates only the Store Location page; the Contact page is made by hand. */
 const SIDEKICK_STORE_LOCATION_PAGE_PROMPT = `Please create one **page** in my Shopify store.
 
@@ -1523,8 +1545,31 @@ export const SECTIONS: Section[] = [
         summary: 'Template + page with custom HTML content.',
         blocks: [
           { type: 'steps', items: ['Create Template: Contact Us', 'Open the Contact page (made in Create Pages) and check its HTML content below', 'Map the page to the template'] },
+          {
+            type: 'steps',
+            title: 'Build the contact template in the theme editor',
+            items: [
+              'In the theme editor, open the “contact” template (top bar → Pages → contact)',
+              'Under Template → “Page”, remove every block (and any other section) until only an empty “Page” section is left',
+              'Click “Add section” → “Custom section”',
+              'Inside the Custom section, click “Add block” → “Text”',
+              'Select the Text block: Layout → Width “Fill” · Alignment “Center”',
+              'In the Text field, click the dynamic source icon (stack) → choose Page → “Content”, so the page’s HTML shows here',
+              'Check the preview shows the Contact page content, then click “Save”',
+            ],
+          },
+          {
+            type: 'specs',
+            title: 'Hero – Bottom align (top of the contact template)',
+            prompt: {
+              title: 'Sidekick prompt – Contact Us Hero',
+              text: SIDEKICK_CONTACT_HERO_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It fetches the hero image by link and adds the “CONTACT US” Hero above the page content. Review the preview, then click Save.',
+            },
+            rows: [{ text: 'CONTACT US', style: 'Heading 1', color: '#EEEEEE' }],
+          },
           { type: 'code', title: 'Page content (HTML)', lang: 'html', code: contactHtml },
-          { type: 'images', images: [img('p074_0', 'Contact template'), img('p075_0', 'Contact page'), img('p077_0', 'Map to template')] },
+          { type: 'images', images: [img('p074_0', 'Contact template'), img('p075_0', 'Contact page'), img('p077_0', 'Map to template'), img('contact_template_editor', 'Contact template — Custom section + Text (Content)')] },
         ],
       },
       {

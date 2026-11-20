@@ -405,6 +405,33 @@ We continuously improve based on feedback from real users.`,
   },
 ];
 
+/** Fills the 8 About us page text metafields in one go (like the product prompts). */
+const SIDEKICK_ABOUT_CONTENT_PROMPT = `Please fill the **page metafields** of my **About us** page in Shopify with the content below.
+
+**Where:** Online Store → Pages → About us → Metafields (at the bottom of the page editor)
+
+**Metafield definitions:** Pages · namespace \`custom\` · type Rich text. They already exist with exactly these names — match each one by its name.
+
+${ABOUT_US_RICHTEXT.map(
+  (r, i) => `---
+
+**${i + 1}. ${r.title}**
+
+${r.body}`,
+).join('\n\n')}
+
+---
+
+**Requirements:**
+- Fill only the page called "About us" (the one using the about-us-mod template).
+- Use all text exactly as provided — same words, capital letters and punctuation. Keep each blank line as a new paragraph.
+- Each block above goes into the metafield with the same name. Do not merge, shorten or rewrite them.
+- Fill the metafields only if their definitions already exist under Settings → Metafields and metaobjects → Pages. Do not create new metafield definitions or metaobjects.
+- Do not change the page title, the page content, the template, the image metafields or any other page.
+- If you cannot complete any part, tell me which metafields need manual action.
+
+After completion, list the 8 metafields with ✅ filled / ❌ not filled so I can check the About us page in Admin.`;
+
 // Manual collection with all four demo products; Featured Collection on the Home page uses it.
 const SIDEKICK_COLLECTION_PROMPT = `Please create a new collection in Shopify.
 
@@ -1261,6 +1288,18 @@ export const SECTIONS: Section[] = [
         title: 'Metafield Content',
         summary: 'Fill the page metafields with the copy below.',
         blocks: [
+          {
+            type: 'prompt',
+            banner: {
+              title: 'Fill these metafields with Sidekick',
+              subtitle: 'All 8 About us text metafields in one prompt.',
+            },
+            prompt: {
+              title: 'Sidekick prompt – About us metafields',
+              text: SIDEKICK_ABOUT_CONTENT_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It fills the values only if the 8 Page metafield definitions already exist (Metafields step) and the About us page has been created. Always check the page in Admin afterwards.',
+            },
+          },
           ...ABOUT_US_RICHTEXT.map((r) => ({ type: 'richtext' as const, title: r.title, body: r.body })),
           { type: 'images', images: [img('p064_0', 'Page metafields filled')] },
         ],

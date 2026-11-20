@@ -79,7 +79,8 @@ export type Block =
       types?: string[];
     }
   /** Collapsible copy-ready prompt card (collapsed by default). */
-  | { type: 'prompt'; prompt: PromptSpec }
+  /** With `banner`, shown as the slim "… with Sidekick" bar used on product pages. */
+  | { type: 'prompt'; prompt: PromptSpec; banner?: { title: string; subtitle: string } }
   | { type: 'kv'; title?: string; rows: KvRow[]; prompt?: PromptSpec }
   /** `name` = the exact value to type into a Title/Name field, copied on its own. */
   | { type: 'richtext'; title: string; body: string; name?: string }

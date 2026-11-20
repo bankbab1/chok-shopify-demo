@@ -27,7 +27,11 @@ export function BlockView({ block }: { block: Block }) {
         <CopyList title={block.title} meta={block.meta} items={block.items} prompt={block.prompt} promptHidden={block.promptHidden} types={block.types} />
       );
     case 'prompt':
-      return <PromptCard prompt={block.prompt} />;
+      return block.banner ? (
+        <PromptBanner title={block.banner.title} subtitle={block.banner.subtitle} prompt={block.prompt} />
+      ) : (
+        <PromptCard prompt={block.prompt} />
+      );
     case 'kv':
       return <KeyValues title={block.title} rows={block.rows} prompt={block.prompt} />;
     case 'richtext':
@@ -470,6 +474,23 @@ function FormattedBody({ body }: { body: string }) {
   );
 }
 
+/** Slim "… with Sidekick" bar with a prompt button (product pages, About us metafields). */
+function PromptBanner({ title, subtitle, prompt }: { title: string; subtitle: string; prompt: PromptSpec }) {
+  const t = useT();
+  return (
+    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-indigo-200 bg-indigo-50/60 px-4 py-3 dark:border-indigo-400/30 dark:bg-indigo-500/10">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200">
+        <Sparkles size={16} />
+      </span>
+      <div className="min-w-0 flex-1 basis-60">
+        <div className="text-sm font-semibold text-indigo-900 dark:text-indigo-100">{t(title)}</div>
+        <div className="text-xs text-indigo-800/80 dark:text-indigo-200/80">{t(subtitle)}</div>
+      </div>
+      <PromptButton prompt={prompt} />
+    </div>
+  );
+}
+
 function RichText({ title, body, name }: { title: string; body: string; name?: string }) {
   const t = useT();
   return (
@@ -774,24 +795,15 @@ function ProductCard({ product: p }: { product: Product }) {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-indigo-200 bg-indigo-50/60 px-4 py-3 dark:border-indigo-400/30 dark:bg-indigo-500/10">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200">
-          <Sparkles size={16} />
-        </span>
-        <div className="min-w-0 flex-1 basis-60">
-          <div className="text-sm font-semibold text-indigo-900 dark:text-indigo-100">{t('Create this product with Sidekick')}</div>
-          <div className="text-xs text-indigo-800/80 dark:text-indigo-200/80">
-            {t('Title, description, price, {v} variants and all product metafields in one prompt.', { v: variantCount })}
-          </div>
-        </div>
-        <PromptButton
-          prompt={{
-            title: `Sidekick prompt – ${p.title}`,
-            text: productPrompt(p),
-            tip: 'Paste this into Shopify Sidekick. Metafield values are filled only if the Product metafield definitions already exist (Metafields step). Upload the product photos yourself from Resources. Always check the product in Admin afterwards.',
-          }}
-        />
-      </div>
+      <PromptBanner
+        title="Create this product with Sidekick"
+        subtitle={t('Title, description, price, {v} variants and all product metafields in one prompt.', { v: variantCount })}
+        prompt={{
+          title: `Sidekick prompt – ${p.title}`,
+          text: productPrompt(p),
+          tip: 'Paste this into Shopify Sidekick. Metafield values are filled only if the Product metafield definitions already exist (Metafields step). Upload the product photos yourself from Resources. Always check the product in Admin afterwards.',
+        }}
+      />
 
       <Card className="overflow-hidden">
         <div className="grid gap-0 md:grid-cols-[1fr_1.1fr]">

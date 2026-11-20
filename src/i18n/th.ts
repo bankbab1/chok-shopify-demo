@@ -470,6 +470,11 @@ export const TH: Record<string, string> = {
   'Logo settings': 'การตั้งค่าโลโก้',
   'Header settings': 'การตั้งค่า Header',
   'Footer structure in the theme editor': 'โครงสร้าง Footer ใน Theme editor',
+  'Fill these metafields with Sidekick': 'กรอก Metafield เหล่านี้ด้วย Sidekick',
+  'All 8 About us text metafields in one prompt.': 'Metafield ข้อความทั้ง 8 รายการของหน้า About us ใน Prompt เดียว',
+  'Sidekick prompt – About us metafields': 'Prompt สำหรับ Sidekick – Metafield หน้า About us',
+  'Paste this into Shopify Sidekick. It fills the values only if the 8 Page metafield definitions already exist (Metafields step) and the About us page has been created. Always check the page in Admin afterwards.':
+    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะกรอกค่าได้ก็ต่อเมื่อมี Page metafield definition ทั้ง 8 รายการแล้ว (ขั้นตอน Metafields) และสร้างหน้า About us แล้ว ตรวจสอบหน้าใน Admin ทุกครั้งหลังทำเสร็จ',
   'Sidekick prompt – Hero': 'Prompt สำหรับ Sidekick – Hero',
   'On the Home page, click “Add section” → “Custom section” (below Image with text)': 'ในหน้า Home คลิก “Add section” → “Custom section” (ใต้ Image with text)',
   'Inside the Custom section, click “Add block” → “Text” and type “NEW ARRIVAL” — Heading 2, color #545454': 'ใน Custom section คลิก “Add block” → “Text” แล้วพิมพ์ “NEW ARRIVAL” — Heading 2 สี #545454',

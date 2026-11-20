@@ -6,6 +6,7 @@ import { Check, Copy, Maximize2, QrCode, Share2, X } from 'lucide-react';
 import { Modal } from './ui';
 import { AppLogo } from './AppLogo';
 import { useT } from '../i18n';
+import { publicOrigin } from '../lib/publicOrigin';
 
 /** Inline SVG QR code (error correction H so the logo in the middle doesn't break scanning). */
 function QrSvg({ value, className }: { value: string; className?: string }) {
@@ -40,8 +41,9 @@ export function ShareSiteButton() {
   const [copied, setCopied] = useState(false);
   const [projector, setProjector] = useState(false);
 
-  const home = `${window.location.origin}/`;
-  const url = thisPage ? `${window.location.origin}${location.pathname}` : home;
+  // Always share the public address, even when the page is opened on a dev server.
+  const home = `${publicOrigin()}/`;
+  const url = thisPage ? `${publicOrigin()}${location.pathname}` : home;
   const display = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
   const canShare = typeof navigator !== 'undefined' && !!navigator.share;
 

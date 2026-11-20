@@ -4,14 +4,12 @@ import { ChevronDown, Info, Sparkles } from 'lucide-react';
 import type { PromptSpec } from '../data/types';
 import { CopyButton, Modal } from './ui';
 import { useT } from '../i18n';
+import { publicOrigin } from '../lib/publicOrigin';
 
-const LOCAL_TIP = 'These links point to localhost, which Sidekick cannot reach — open this page on the live site to get working links.';
-
-/** Replace `{{origin}}` with this site's address; on localhost, swap the tip for a warning. */
+/** Replace `{{origin}}` with the public site address (never localhost — Sidekick must be able to fetch the links). */
 function resolve(prompt: PromptSpec): PromptSpec {
   if (!prompt.text.includes('{{origin}}')) return prompt;
-  const local = /^(localhost|127\.|\[::1\])/.test(window.location.hostname);
-  return { ...prompt, text: prompt.text.split('{{origin}}').join(window.location.origin), tip: local ? LOCAL_TIP : prompt.tip };
+  return { ...prompt, text: prompt.text.split('{{origin}}').join(publicOrigin()) };
 }
 
 /** Button that opens a copy-ready prompt (e.g. for Shopify Sidekick) in a modal. */

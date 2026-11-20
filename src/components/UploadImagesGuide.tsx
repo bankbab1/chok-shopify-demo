@@ -8,15 +8,14 @@ import { PromptButton } from './PromptButton';
 import type { Resource, ResourceSet } from '../data/resources';
 import { usePersistedState } from '../hooks/usePersistedState';
 import { useT } from '../i18n';
+import { publicOrigin } from '../lib/publicOrigin';
 import { ImagePreviewModal } from './ImagePreview';
 
 const fileName = (url: string) => url.split('/').pop()!;
 
 /** Public image URL on this site (Sidekick fetches it, so it must be reachable from the internet). */
-const publicUrl = (r: Resource) => `${window.location.origin}${r.file}`;
-const isLocal = () => /^(localhost|127\.|\[::1\])/.test(window.location.hostname);
+const publicUrl = (r: Resource) => `${publicOrigin()}${r.file}`;
 
-const LOCAL_TIP = 'These links point to localhost, which Sidekick cannot reach — open this page on the live site to get working links.';
 
 /**
  * Numbered image list for one product. In Shopify the FIRST media item is the featured image (★),
@@ -113,9 +112,7 @@ function BulkImagesPrompt({ sets }: { sets: ResourceSet[] }) {
             prompt={{
               title: `Sidekick prompt – Images: ${chosen.length} products`,
               text: bulkImagesPrompt(chosen),
-              tip: isLocal()
-                ? LOCAL_TIP
-                : 'Paste this into Shopify Sidekick. It fetches each image link and prepares the photos product by product for your review — click Save when it looks right. Check each product’s color variants afterwards.',
+              tip: 'Paste this into Shopify Sidekick. It fetches each image link and prepares the photos product by product for your review — click Save when it looks right. Check each product’s color variants afterwards.',
             }}
           />
         ) : (
@@ -217,9 +214,7 @@ export function UploadImagesGuide() {
                   prompt={{
                     title: `Sidekick prompt – Images: ${set.title}`,
                     text: imagesPrompt(set),
-                    tip: isLocal()
-                      ? LOCAL_TIP
-                      : 'Paste this into Shopify Sidekick. It fetches each image link and prepares the photos for your review — click Save when it looks right. Check that each color variant shows the right photo.',
+                    tip: 'Paste this into Shopify Sidekick. It fetches each image link and prepares the photos for your review — click Save when it looks right. Check that each color variant shows the right photo.',
                   }}
                 />
               )}

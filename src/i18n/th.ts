@@ -498,8 +498,8 @@ export const TH: Record<string, string> = {
   'Text blocks': 'บล็อก Text',
   'Spacer & Email signup': 'Spacer และ Email signup',
   'Sidekick prompt – Image with text': 'Prompt สำหรับ Sidekick – Image with text',
-  'Paste this into Shopify Sidekick. It fetches the image by link, sets the headings, text and gold button, and pastes the square-corner + white-hover CSS into this section’s Custom CSS. If Sidekick can’t add Custom CSS, use the CSS helper below. Review the preview, then click Save.':
-    'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูปจากลิงก์ ตั้งหัวข้อ ข้อความ และปุ่มสีทอง พร้อมวาง CSS ให้ปุ่มเป็นมุมเหลี่ยมและตัวอักษรสีขาวเมื่อชี้ ลงใน Custom CSS ของ Section นี้ หาก Sidekick เพิ่ม Custom CSS ไม่ได้ ให้ใช้ตัวช่วย CSS ด้านล่าง ตรวจตัวอย่างแล้วกด Save',
+  'Paste this into a new Sidekick chat. It works in 3 parts — A image, B text blocks, C button CSS — and reports a ✅/❌ checklist. If one part fails, ask Sidekick to redo just that part, or use the CSS helper below for Part C. Review the preview, then click Save.':
+    'วาง Prompt นี้ในแชต Sidekick ใหม่ ระบบจะทำเป็น 3 ส่วน — A รูป, B บล็อกข้อความ, C CSS ของปุ่ม — และรายงานเช็กลิสต์ ✅/❌ หากส่วนใดไม่สำเร็จ ให้สั่ง Sidekick ทำเฉพาะส่วนนั้นใหม่ หรือใช้ตัวช่วย CSS ด้านล่างสำหรับส่วน C ตรวจตัวอย่างแล้วกด Save',
   'Paste this into Shopify Sidekick. It fetches the hero image by link and sets the three text blocks with their styles and colors. Review the preview, then click Save.':
     'วาง Prompt นี้ใน Shopify Sidekick ระบบจะดึงรูป Hero จากลิงก์ และตั้งค่าข้อความทั้ง 3 ส่วนพร้อมสไตล์และสี ตรวจตัวอย่างแล้วกด Save',
   'Sidekick prompt – Featured collection': 'Prompt สำหรับ Sidekick – Featured collection',

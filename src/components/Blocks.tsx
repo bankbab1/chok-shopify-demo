@@ -27,13 +27,17 @@ export function BlockView({ block }: { block: Block }) {
         <CopyList title={block.title} meta={block.meta} items={block.items} prompt={block.prompt} promptHidden={block.promptHidden} types={block.types} />
       );
     case 'prompt':
-      return block.banner ? (
+      return block.hidden ? (
+        <HiddenPrompt>
+          {block.banner ? <PromptBanner title={block.banner.title} subtitle={block.banner.subtitle} prompt={block.prompt} /> : <PromptCard prompt={block.prompt} />}
+        </HiddenPrompt>
+      ) : block.banner ? (
         <PromptBanner title={block.banner.title} subtitle={block.banner.subtitle} prompt={block.prompt} />
       ) : (
         <PromptCard prompt={block.prompt} />
       );
     case 'kv':
-      return <KeyValues title={block.title} rows={block.rows} prompt={block.prompt} />;
+      return <KeyValues title={block.title} rows={block.rows} prompt={block.prompt} copyLabel={block.copyLabel} />;
     case 'richtext':
       return <RichText title={block.title} body={block.body} name={block.name} />;
     case 'note':
@@ -396,7 +400,7 @@ function CopyList({
   );
 }
 
-function KeyValues({ title, rows, prompt }: { title?: string; rows: KvRow[]; prompt?: PromptSpec }) {
+function KeyValues({ title, rows, prompt, copyLabel }: { title?: string; rows: KvRow[]; prompt?: PromptSpec; copyLabel?: boolean }) {
   const t = useT();
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
   return (
@@ -407,7 +411,14 @@ function KeyValues({ title, rows, prompt }: { title?: string; rows: KvRow[]; pro
           const showLink = !!r.link && (!r.linkHidden || revealed[r.label]);
           return (
             <div key={r.label} className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 text-sm">
-              <dt className="w-36 shrink-0 text-xs text-slate-500 dark:text-slate-400">{t(r.label)}</dt>
+              <dt
+                className={clsx(
+                  'w-36 shrink-0',
+                  copyLabel ? 'text-sm font-semibold text-slate-900 dark:text-white' : 'text-xs text-slate-500 dark:text-slate-400',
+                )}
+              >
+                {copyLabel ? r.label : t(r.label)}
+              </dt>
               <dd className="flex min-w-0 flex-1 items-center gap-2 font-medium">
                 {t(r.value)}
                 {r.link && r.linkHidden && (
@@ -433,7 +444,7 @@ function KeyValues({ title, rows, prompt }: { title?: string; rows: KvRow[]; pro
                   {t(r.link!.label)} <ExternalLink size={12} />
                 </a>
               )}
-              <CopyButton text={r.value} compact />
+              <CopyButton text={copyLabel ? r.label : r.value} compact />
             </div>
           );
         })}
@@ -470,6 +481,28 @@ function FormattedBody({ body }: { body: string }) {
           </p>
         );
       })}
+    </div>
+  );
+}
+
+/** A prompt tucked behind the small yellow dot: click to expand, click again to collapse. */
+function HiddenPrompt({ children }: { children: React.ReactNode }) {
+  const t = useT();
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="space-y-2">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label={t('Show shortcut')}
+        aria-expanded={open}
+        title={t(open ? 'Hide shortcut' : 'Show shortcut')}
+        className={clsx(
+          'block h-2.5 w-2.5 rounded-full transition hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2',
+          open ? 'bg-amber-500' : 'bg-amber-300 hover:bg-amber-400',
+        )}
+      />
+      {open && <div className="motion-safe:animate-[fadeIn_.2s_ease-out]">{children}</div>}
     </div>
   );
 }

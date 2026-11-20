@@ -458,6 +458,54 @@ ${richTextJson(r.body)}
 
 After completion, list the 8 metafields with ✅ filled / ❌ not filled so I can check the About us page in Admin.`;
 
+/** Creates the two remaining pages before the Main menu links to them. */
+const SIDEKICK_CREATE_PAGES_PROMPT = `Please create these 2 **pages** in my Shopify store.
+
+**Where:** Online Store → Pages → Add page
+
+**1. Store Location**
+- Title: Store Location
+- Content: leave empty (the store locator is added later with theme sections)
+- Visibility: Visible
+
+**2. Contact**
+- Title: Contact
+- Content: paste this HTML exactly into the page content (HTML / code view, not as plain text):
+
+\`\`\`html
+${contactHtml.trim()}
+\`\`\`
+
+- Visibility: Visible
+
+**Requirements:**
+- Use the titles exactly as written (the handles become \`store-location\` and \`contact\`).
+- If a page with the same title already exists, update it instead of creating a duplicate.
+- Keep the default page template for now — I'll assign the theme templates later.
+- Do not change the About us page or any other page, and do not change the theme or the navigation menus.
+- If you cannot complete any part, tell me which steps need manual action.
+
+After completion, list the pages with their title, handle and visibility.`;
+
+/** Option 2: Sidekick creates only the Store Location page; the Contact page is made by hand. */
+const SIDEKICK_STORE_LOCATION_PAGE_PROMPT = `Please create one **page** in my Shopify store.
+
+**Where:** Online Store → Pages → Add page
+
+**Store Location**
+- Title: Store Location
+- Content: leave empty (the store locator is added later with theme sections)
+- Visibility: Visible
+
+**Requirements:**
+- Use the title exactly as written (the handle becomes \`store-location\`).
+- If a page called "Store Location" already exists, keep it and tell me instead of creating a duplicate.
+- Keep the default page template for now — I'll assign the theme template later.
+- Do not create or change any other page (I'll create the Contact page myself), and do not change the theme or the navigation menus.
+- If you cannot create it, tell me which steps need manual action.
+
+After completion, show me the page title, handle and visibility.`;
+
 // Manual collection with all four demo products; Featured Collection on the Home page uses it.
 const SIDEKICK_COLLECTION_PROMPT = `Please create a new collection in Shopify.
 
@@ -1331,9 +1379,86 @@ export const SECTIONS: Section[] = [
         ],
       },
       {
+        id: 'create-pages',
+        group: 'Pages & Menu',
+        title: 'Create Pages',
+        summary: 'Create the Store Location and Contact pages, so the menu can link to them.',
+        outcome: ['Online Store → Pages lists About us, Store Location and Contact, all Visible'],
+        blocks: [
+          {
+            type: 'prompt',
+            hidden: true,
+            banner: { title: 'Create these pages with Sidekick', subtitle: 'Store Location and Contact (with its HTML content) in one prompt.' },
+            prompt: {
+              title: 'Sidekick prompt – Create pages',
+              text: SIDEKICK_CREATE_PAGES_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. Templates are assigned later in Page Sections. Check Online Store → Pages afterwards.',
+            },
+          },
+          {
+            type: 'note',
+            text: 'Do it in two parts: let Sidekick create the Store Location page, then make the Contact page yourself by copying the HTML.',
+          },
+          {
+            type: 'prompt',
+            banner: { title: 'Store Location page only — with Sidekick', subtitle: 'Creates just the empty Store Location page.' },
+            prompt: {
+              title: 'Sidekick prompt – Store Location page',
+              text: SIDEKICK_STORE_LOCATION_PAGE_PROMPT,
+              tip: 'Paste this into Shopify Sidekick. It creates only the Store Location page — make the Contact page by hand below. Check Online Store → Pages afterwards.',
+            },
+          },
+          {
+            type: 'steps',
+            title: 'Store Location page — by hand',
+            items: ['Go to Online Store → Pages → “Add page”', 'Title “Store Location” — leave the content empty — Visible — “Save”'],
+          },
+          {
+            type: 'steps',
+            title: 'Contact page — by hand (copy the HTML)',
+            items: [
+              'Go to Online Store → Pages → “Add page”',
+              'Title “Contact” — open the HTML view (</>) of Content and paste the HTML below — Visible — “Save”',
+            ],
+          },
+          { type: 'code', title: 'Contact – page content (HTML)', lang: 'html', code: contactHtml },
+        ],
+      },
+      {
+        id: 'main-menu',
+        group: 'Pages & Menu',
+        title: 'Main Menu',
+        summary: 'Link the header menu to the pages by hand: HOME · PRODUCTS · ABOUT US · STORE LOCATION · CONTACT.',
+        outcome: ['The header shows HOME, PRODUCTS, ABOUT US, STORE LOCATION and CONTACT, and each opens the right page'],
+        blocks: [
+          {
+            type: 'steps',
+            items: [
+              'Go to Content → Menus → “Main menu”',
+              'Delete the default menu items',
+              'Click “Add menu item” and add the 5 items below, in this order — type the Label in capitals and pick the Link from the list',
+              'Drag the items into the order shown, then click “Save”',
+            ],
+          },
+          {
+            type: 'kv',
+            title: 'Main menu items (Content → Menus → Main menu)',
+            copyLabel: true,
+            rows: [
+              { label: 'HOME', value: 'Home page' },
+              { label: 'PRODUCTS', value: 'All products' },
+              { label: 'ABOUT US', value: 'Page: About us' },
+              { label: 'STORE LOCATION', value: 'Page: Store Location' },
+              { label: 'CONTACT', value: 'Page: Contact' },
+            ],
+          },
+          { type: 'images', images: [img('main_menu', 'Main menu items')] },
+        ],
+      },
+      {
         id: 'about-sections',
-        group: 'About Us',
-        title: 'Sections',
+        group: 'Page Sections',
+        title: 'About Us Sections',
         summary: 'Hero, Image with Text ×3, Icon with Text & Pull Quote.',
         blocks: [
           { type: 'specs', title: '1. Hero – Bottom aligned', rows: [{ text: 'ABOUT US', style: 'Heading 1', color: '#EEEEEE' }] },
@@ -1393,22 +1518,22 @@ export const SECTIONS: Section[] = [
       },
       {
         id: 'contact-us',
-        group: 'Contact & Location',
+        group: 'Page Sections',
         title: 'Contact Us',
         summary: 'Template + page with custom HTML content.',
         blocks: [
-          { type: 'steps', items: ['Create Template: Contact Us', 'Create Page: Contact (Title: Contact)', 'Paste the HTML below into Content (HTML view)', 'Map the page to the template'] },
+          { type: 'steps', items: ['Create Template: Contact Us', 'Open the Contact page (made in Create Pages) and check its HTML content below', 'Map the page to the template'] },
           { type: 'code', title: 'Page content (HTML)', lang: 'html', code: contactHtml },
           { type: 'images', images: [img('p074_0', 'Contact template'), img('p075_0', 'Contact page'), img('p077_0', 'Map to template')] },
         ],
       },
       {
         id: 'store-location',
-        group: 'Contact & Location',
+        group: 'Page Sections',
         title: 'Store Location',
         summary: 'Hero + Custom Liquid store locator with Google Maps.',
         blocks: [
-          { type: 'steps', items: ['Create Page: Store Location', 'Add section: Hero – Bottom align', 'Add Page / Block: Custom Liquid and paste the code below', 'Add the page Custom CSS'] },
+          { type: 'steps', items: ['Open the Store Location page (made in Create Pages)', 'Add section: Hero – Bottom align', 'Add Page / Block: Custom Liquid and paste the code below', 'Add the page Custom CSS'] },
           { type: 'specs', title: 'Hero – Bottom align', rows: [{ text: 'STORE LOCATION', style: 'Heading 1', color: '#EEEEEE' }] },
           { type: 'code', title: 'Custom Liquid – Store locator', lang: 'liquid', code: storeLocatorLiquid },
           { type: 'code', title: 'Page – Custom CSS', lang: 'css', code: STORE_LOCATION_PAGE_CSS },

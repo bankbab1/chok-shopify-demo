@@ -898,6 +898,27 @@ export const SECTIONS: Section[] = [
     summary: 'Custom data definitions for products and pages.',
     topics: [
       {
+        id: 'metafield-types',
+        title: 'Metafield Types',
+        summary: 'What each type in the “Type” dropdown means, with examples.',
+        blocks: [
+          {
+            type: 'note',
+            text: 'When you add a definition, the Type field decides what kind of value the metafield can hold. Pick the type that matches the data — it controls the editor you get and where the value can be shown.',
+          },
+          { type: 'metafield-types' },
+          {
+            type: 'images',
+            images: [
+              img('mf_type_text', 'Type dropdown — Recommended and Text'),
+              img('mf_type_reference', 'Type dropdown — Media and Reference'),
+              img('mf_type_number', 'Type dropdown — Number, Link, Date and time'),
+              img('mf_type_list', 'One value or List of values'),
+            ],
+          },
+        ],
+      },
+      {
         id: 'product-metafields',
         title: 'Product Metafields',
         summary: 'Settings → Metafields and metaobjects → Products.',

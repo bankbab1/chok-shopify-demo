@@ -98,6 +98,8 @@ export type Block =
   | { type: 'inventory-terms' }
   | { type: 'order-terms' }
   | { type: 'apps-explained' }
+  /** Explainer for every metafield definition type in the Type dropdown. */
+  | { type: 'metafield-types' }
   /** Store vs Dev store vs Client transfer store comparison. */
   | { type: 'store-types' }
   /** Concept guide: how the theme editor works (templates, sections, blocks, settings). */

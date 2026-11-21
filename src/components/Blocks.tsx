@@ -9,6 +9,7 @@ import { InventoryTerms } from './InventoryTerms';
 import { OrderTerms } from './OrderTerms';
 import { AppsExplained } from './AppsExplained';
 import { StoreTypes } from './StoreTypes';
+import { MetafieldTypes } from './MetafieldTypes';
 import { ThemeEditorGuide } from './ThemeEditorGuide';
 import { Card, CardHeader, CopyButton, ImageGrid, RichLine, copyText } from './ui';
 import { PromptButton, PromptCard } from './PromptButton';
@@ -58,6 +59,8 @@ export function BlockView({ block }: { block: Block }) {
       return <OrderTerms />;
     case 'apps-explained':
       return <AppsExplained />;
+    case 'metafield-types':
+      return <MetafieldTypes />;
     case 'store-types':
       return <StoreTypes />;
     case 'theme-editor-guide':

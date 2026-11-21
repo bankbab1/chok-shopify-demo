@@ -3,6 +3,8 @@ import { EXAMPLE_STORES } from '../data/examples';
 import { CopyButton } from '../components/ui';
 import { useT } from '../i18n';
 
+const DEMO_ID = 'chok-demo';
+
 const COMPARE: { aspect: string; theme: string; headless: string }[] = [
   { aspect: 'Frontend', theme: 'Shopify theme (Liquid), e.g. Horizon', headless: 'Custom React app (Hydrogen)' },
   { aspect: 'Who builds it', theme: 'Theme editor — no code needed', headless: 'Developers' },
@@ -12,15 +14,15 @@ const COMPARE: { aspect: string; theme: string; headless: string }[] = [
   { aspect: 'Best for', theme: 'Most stores — fast to launch', headless: 'Brands needing a unique, custom experience' },
 ];
 
-export default function ExamplesPage() {
+export default function ExamplesPage({ demo = false }: { demo?: boolean }) {
   const t = useT();
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-8 sm:py-8">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{t('Example Stores')}</h1>
-      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{t('Real Shopify stores to show during the session. Links open in a new tab.')}</p>
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{t(demo ? 'Demo Example' : 'Example Stores')}</h1>
+      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{t(demo ? 'A finished demo store to look at and compare with yours. Links open in a new tab.' : 'Real Shopify stores to show during the session. Links open in a new tab.')}</p>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2">
-        {EXAMPLE_STORES.map((s) => (
+        {EXAMPLE_STORES.filter((s) => (s.id === DEMO_ID) === demo).map((s) => (
           <article key={s.id} className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900">
             <div className="flex items-start gap-3 border-b border-slate-100 p-5 dark:border-white/10">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-300">
@@ -77,7 +79,7 @@ export default function ExamplesPage() {
         ))}
       </div>
 
-      <section className="mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900">
+      {!demo && <section className="mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900">
         <div className="border-b border-slate-100 px-5 py-4 dark:border-white/10">
           <h2 className="font-semibold">{t('Theme (Liquid) vs Headless (Hydrogen)')}</h2>
           <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{t('This workshop builds NovaStep with a theme. Cher Skincare is headless.')}</p>
@@ -102,7 +104,7 @@ export default function ExamplesPage() {
             </tbody>
           </table>
         </div>
-      </section>
+      </section>}
     </div>
   );
 }

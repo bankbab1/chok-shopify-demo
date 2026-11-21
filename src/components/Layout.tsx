@@ -7,6 +7,7 @@ import {
   CircleCheck,
   CircleHelp,
   FolderDown,
+  Globe,
   House,
   Menu,
   Moon,
@@ -43,8 +44,9 @@ const EXTRA_LINKS = [
   { to: '/resources', label: 'Resources', icon: FolderDown },
   { to: '/help', label: 'Help & FAQ', icon: CircleHelp },
 ];
-const PAGE_TITLES: Record<string, string> = { resources: 'Resources', help: 'Help & FAQ', present: 'Presentation', examples: 'Example Stores' };
+const PAGE_TITLES: Record<string, string> = { resources: 'Resources', help: 'Help & FAQ', present: 'Presentation', examples: 'Example Stores', demo: 'Demo Example' };
 const EXAMPLES_LINK = { to: '/examples', label: 'Example Stores', icon: Store };
+const DEMO_LINK = { to: '/demo', label: 'Demo Example', icon: Globe };
 const PRESENT_LINK = { to: '/present', label: 'Presentation', icon: Presentation };
 
 export default function Layout() {
@@ -321,6 +323,11 @@ function ExpandedNav() {
           <span className="truncate">{t(EXAMPLES_LINK.label)}</span>
         </NavLink>
 
+        <NavLink to={DEMO_LINK.to} className={({ isActive }) => clsx(ROW, 'mt-0.5 h-9', FOCUS, isActive ? ROW_ACTIVE : ROW_IDLE)}>
+          <DEMO_LINK.icon size={17} className="shrink-0" />
+          <span className="truncate">{t(DEMO_LINK.label)}</span>
+        </NavLink>
+
         <div className="mb-1 mt-4 px-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">{t('Modules')}</div>
 
         <div className="space-y-0.5">
@@ -461,6 +468,14 @@ function CollapsedNav() {
           <>
             <Indicator on={isActive} />
             <EXAMPLES_LINK.icon size={18} />
+          </>
+        )}
+      </NavLink>
+      <NavLink to={DEMO_LINK.to} title={t(DEMO_LINK.label)} data-tip-side="right" className={({ isActive }) => tile(isActive)}>
+        {({ isActive }) => (
+          <>
+            <Indicator on={isActive} />
+            <DEMO_LINK.icon size={18} />
           </>
         )}
       </NavLink>

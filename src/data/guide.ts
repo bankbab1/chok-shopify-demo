@@ -1900,6 +1900,38 @@ export const SECTIONS: Section[] = [
         ],
       },
       {
+        id: 'wishlist-icon-color',
+        title: 'Wishlist Icon Color',
+        summary: 'Make the wishlist heart white on a transparent header by adding CSS to base.css.',
+        blocks: [
+          {
+            type: 'steps',
+            items: [
+              'Right-click the header in the theme editor and click “Edit code”',
+              'In the left pane, open “assets” and find “base.css”',
+              'Scroll to the very bottom of base.css and paste the code below',
+              'Click “Save” and check the wishlist heart in the preview',
+            ],
+          },
+          {
+            type: 'code',
+            title: 'Paste at the bottom of base.css',
+            lang: 'css',
+            code: `#header-component[transparent]:not([data-sticky-state="active"])
+:not(:has(.menu-list__link:is(:hover, [aria-expanded="true"])))
+{{selector}} {
+  filter: brightness(0) invert(1) !important;
+}`,
+            selector: {
+              example: '.Vtl-WishlistHeader__HeartIconWrapper',
+              defaultValue: 'Vtl-WishlistHeader__HeartIconWrapper',
+              hint: 'The wishlist heart class is already filled in. If your wishlist app uses a different class, right-click the heart in the preview → Inspect, then paste its class here (pasting the whole class="…" also works).',
+            },
+          },
+          { type: 'images', images: [img('wishlist_base_css', 'base.css under “assets” — pasted at the bottom')] },
+        ],
+      },
+      {
         id: 'shopify-inbox',
         title: 'Shopify Inbox',
         summary: 'Chat with customers from your online store.',

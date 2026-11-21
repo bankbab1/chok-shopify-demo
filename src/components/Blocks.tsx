@@ -254,7 +254,7 @@ export function toSelector(raw: string, prefer?: string): string {
 
 function CodeBlock({ title, lang, code: template, selector }: { title: string; lang: string; code: string; selector?: SelectorSpec }) {
   const t = useT();
-  const [raw, setRaw] = usePersistedState(`sdp-selector:${title}`, '');
+  const [raw, setRaw] = usePersistedState(`sdp-selector:${title}`, selector?.defaultValue ?? '');
   const parsed = selector ? toSelector(raw, selector.prefer) : '';
   const usingExample = !!selector && !parsed;
   const code = selector ? template.split('{{selector}}').join(parsed || selector.example) : template;

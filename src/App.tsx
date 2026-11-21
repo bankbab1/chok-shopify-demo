@@ -16,6 +16,7 @@ export default function App() {
         <Route path="resources" element={<ResourcesPage />} />
         <Route path="help" element={<HelpPage />} />
         <Route path="examples" element={<ExamplesPage />} />
+        <Route path="demo" element={<ExamplesPage demo />} />
         <Route path="present" element={<PresentationPage />} />
         <Route path="present/:slide" element={<PresentationPage />} />
         <Route path=":sectionId" element={<SectionPage />} />

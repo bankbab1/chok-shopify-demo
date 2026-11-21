@@ -43,6 +43,8 @@ export interface SelectorSpec {
   example: string;
   /** Prefer the class that starts with this when a whole class list / HTML tag is pasted. */
   prefer?: string;
+  /** Pre-fill the input with this value (instead of only showing the example as a placeholder). */
+  defaultValue?: string;
   /** Short how-to-find-it hint. */
   hint?: string;
 }

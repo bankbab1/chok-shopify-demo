@@ -46,4 +46,18 @@ export const EXAMPLE_STORES: ExampleStore[] = [
     ],
     password: 'rtogay',
   },
+  {
+    id: 'chok-demo',
+    name: 'Chok Demo Store',
+    url: 'https://chok-test-demo.myshopify.com/',
+    category: 'Demo',
+    tags: ['Demo store', 'Password protected'],
+    description: 'A finished demo store built with a Shopify theme. Copy the password, open the store, and paste it to enter.',
+    points: [
+      'Built with the theme editor — no code needed',
+      'Compare it with the store you build in this workshop',
+      'Protected by Shopify’s storefront password page',
+    ],
+    password: 'aoskah',
+  },
 ];
